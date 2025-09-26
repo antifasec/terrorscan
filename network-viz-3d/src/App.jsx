@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import NetworkGraph3D from './components/NetworkGraph3D'
-import ControlPanel from './components/ControlPanel'
-import FileUploader from './components/FileUploader'
 import { parseNetworkData } from './utils/dataParser'
 import { LAYOUT_ALGORITHMS } from './utils/layoutAlgorithms'
 import './App.css'
@@ -23,6 +21,9 @@ function App() {
   const [equilibriumStatus, setEquilibriumStatus] = useState({ isAtEquilibrium: false, algorithm: null })
   const [perturbationCycle, setPerturbationCycle] = useState(0)
   const [selectedNode, setSelectedNode] = useState(null)
+  const [isDragOver, setIsDragOver] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [flyToNodeFn, setFlyToNodeFn] = useState(null)
 
   // Rendering controls (Gephi-style)
   const [renderingSettings, setRenderingSettings] = useState({
@@ -57,9 +58,9 @@ function App() {
     cullingDistance: 5000, // Much higher default
 
     // Visual effects
-    showCoordinateAxes: true,
+    showCoordinateAxes: false,
     showBackground: true,
-    fogEnabled: true,
+    fogEnabled: false,
     glowEffect: false
   })
 
@@ -123,6 +124,34 @@ function App() {
     setSelectedNode(node)
   }
 
+  // File drag and drop handlers
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    setIsDragOver(true)
+  }
+
+  const handleDragLeave = (e) => {
+    e.preventDefault()
+    setIsDragOver(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setIsDragOver(false)
+
+    const files = Array.from(e.dataTransfer.files)
+    if (files.length > 0) {
+      handleFileUpload(files[0])
+    }
+  }
+
+  const handleFileInput = (e) => {
+    const files = Array.from(e.target.files)
+    if (files.length > 0) {
+      handleFileUpload(files[0])
+    }
+  }
+
   // Auto-load the crawl network data on component mount
   useEffect(() => {
     const loadCrawlNetwork = async () => {
@@ -146,127 +175,360 @@ function App() {
   }, [networkData])
 
   return (
-    <div className="app">
-      <div className="app-header">
-        <h1>3D Network Explorer</h1>
-        <FileUploader onFileUpload={handleFileUpload} />
+    <div
+      className={`app ${isDragOver ? 'drag-over' : ''}`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      <Canvas
+        camera={{
+          position: [600, 600, 600],
+          fov: 60,
+          near: 1,
+          far: 10000
+        }}
+        style={{ width: '100vw', height: '100vh', background: '#0a0a0a' }}
+        gl={{
+          antialias: true,
+          alpha: false,
+          depth: true,
+          stencil: false,
+          powerPreference: "high-performance"
+        }}
+      >
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[100, 100, 100]} intensity={0.6} />
+        {networkData && (
+          <NetworkGraph3D
+            data={networkData}
+            selectedAlgorithm={selectedAlgorithm}
+            algorithmSettings={algorithmSettings}
+            isSimulationRunning={isSimulationRunning}
+            onRestart={handleRestart}
+            onEquilibriumChange={handleEquilibriumChange}
+            onPerturbationUpdate={handlePerturbationUpdate}
+            renderingSettings={renderingSettings}
+            selectedNode={selectedNode}
+            onNodeSelect={handleNodeSelect}
+            onFlyToNode={setFlyToNodeFn}
+          />
+        )}
+      </Canvas>
+
+      {/* Floating Controls */}
+      <div className="floating-controls">
+        <button
+          className="control-button"
+          onClick={() => setShowSettings(!showSettings)}
+          title="Settings"
+        >
+          ⚙️
+        </button>
+        <button
+          className="control-button"
+          onClick={handleFitToView}
+          title="Fit to View"
+        >
+          🎯
+        </button>
+        <button
+          className="control-button"
+          onClick={handleSimulationToggle}
+          title={isSimulationRunning ? 'Pause Simulation' : 'Resume Simulation'}
+        >
+          {isSimulationRunning ? '⏸️' : '▶️'}
+        </button>
+        <button
+          className="control-button"
+          onClick={handleRestart}
+          title="Restart Simulation"
+        >
+          🔄
+        </button>
+        {selectedNode && (
+          <button
+            className="control-button"
+            onClick={() => setSelectedNode(null)}
+            title="Deselect Node"
+          >
+            ❌
+          </button>
+        )}
       </div>
 
-      <div className="app-main">
-        <div className="canvas-container">
-          <Canvas
-            camera={{
-              position: [600, 600, 600],
-              fov: 60,
-              near: 1,
-              far: 10000
-            }}
-            style={{ background: '#0a0a0a' }}
-            gl={{
-              antialias: true,
-              alpha: false,
-              depth: true,
-              stencil: false,
-              powerPreference: "high-performance"
-            }}
-          >
-            <ambientLight intensity={0.4} />
-            <directionalLight position={[100, 100, 100]} intensity={0.6} />
-            {networkData && (
-              <NetworkGraph3D
-                data={networkData}
-                selectedAlgorithm={selectedAlgorithm}
-                algorithmSettings={algorithmSettings}
-                isSimulationRunning={isSimulationRunning}
-                onRestart={handleRestart}
-                onEquilibriumChange={handleEquilibriumChange}
-                onPerturbationUpdate={handlePerturbationUpdate}
-                renderingSettings={renderingSettings}
-                selectedNode={selectedNode}
-                onNodeSelect={handleNodeSelect}
-              />
-            )}
-          </Canvas>
+      {/* Settings Panel */}
+      {showSettings && (
+        <div className="settings-panel">
+          <div className="settings-header">
+            <h3>Settings</h3>
+            <button
+              className="close-button"
+              onClick={() => setShowSettings(false)}
+            >
+              ×
+            </button>
+          </div>
+          <div className="settings-content">
+            {/* Layout Algorithm */}
+            <div className="setting-group">
+              <label className="setting-label">Layout Algorithm</label>
+              <select
+                className="setting-select"
+                value={selectedAlgorithm}
+                onChange={(e) => handleAlgorithmChange(e.target.value)}
+              >
+                {Object.entries(LAYOUT_ALGORITHMS).map(([key, algorithm]) => (
+                  <option key={key} value={key}>
+                    {algorithm.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {!networkData && (
-            <div className="placeholder">
-              <div className="placeholder-content">
-                <h2>Upload a network file to begin</h2>
-                <p>Supported formats: JSON, CSV</p>
+            {/* Algorithm Settings */}
+            {LAYOUT_ALGORITHMS[selectedAlgorithm] && (
+              <div className="setting-group">
+                <label className="setting-label">Algorithm Parameters</label>
+                {Object.entries(LAYOUT_ALGORITHMS[selectedAlgorithm].settings).map(([key, config]) => (
+                  <div key={key} className="setting-item">
+                    <label className="setting-sublabel">{config.label || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</label>
+                    <input
+                      type="range"
+                      className="setting-slider"
+                      min={config.min}
+                      max={config.max}
+                      step={config.step}
+                      value={algorithmSettings[key] || config.default}
+                      onChange={(e) => handleAlgorithmSettingsChange({
+                        [key]: parseFloat(e.target.value)
+                      })}
+                    />
+                    <span className="setting-value">{algorithmSettings[key] || config.default}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Rendering Settings */}
+            <div className="setting-group">
+              <label className="setting-label">Visual Settings</label>
+
+              <div className="setting-item">
+                <label className="setting-sublabel">Node Size</label>
+                <input
+                  type="range"
+                  className="setting-slider"
+                  min="2"
+                  max="20"
+                  step="1"
+                  value={renderingSettings.nodeSize}
+                  onChange={(e) => handleRenderingSettingsChange({
+                    nodeSize: parseInt(e.target.value)
+                  })}
+                />
+                <span className="setting-value">{renderingSettings.nodeSize}</span>
+              </div>
+
+              <div className="setting-item">
+                <label className="setting-sublabel">Node Opacity</label>
+                <input
+                  type="range"
+                  className="setting-slider"
+                  min="0.1"
+                  max="1"
+                  step="0.1"
+                  value={renderingSettings.nodeOpacity}
+                  onChange={(e) => handleRenderingSettingsChange({
+                    nodeOpacity: parseFloat(e.target.value)
+                  })}
+                />
+                <span className="setting-value">{renderingSettings.nodeOpacity}</span>
+              </div>
+
+              <div className="setting-item">
+                <label className="setting-sublabel">Edge Thickness</label>
+                <input
+                  type="range"
+                  className="setting-slider"
+                  min="0.5"
+                  max="10"
+                  step="0.5"
+                  value={renderingSettings.edgeThickness}
+                  onChange={(e) => handleRenderingSettingsChange({
+                    edgeThickness: parseFloat(e.target.value)
+                  })}
+                />
+                <span className="setting-value">{renderingSettings.edgeThickness}</span>
+              </div>
+
+              <div className="setting-item">
+                <label className="setting-sublabel">Edge Opacity</label>
+                <input
+                  type="range"
+                  className="setting-slider"
+                  min="0.1"
+                  max="1"
+                  step="0.1"
+                  value={renderingSettings.edgeOpacity}
+                  onChange={(e) => handleRenderingSettingsChange({
+                    edgeOpacity: parseFloat(e.target.value)
+                  })}
+                />
+                <span className="setting-value">{renderingSettings.edgeOpacity}</span>
               </div>
             </div>
-          )}
-        </div>
 
-        {selectedNode && (
-          <div className="details-panel">
-            <div className="details-panel-content">
-              <button
-                className="close-button"
-                onClick={() => setSelectedNode(null)}
-                aria-label="Close details panel"
-              >
-                ×
-              </button>
-              <h3>Node Details</h3>
-              <div className="details-grid">
-                <div className="detail-item">
-                  <strong>ID:</strong> {selectedNode.id}
-                </div>
-                {selectedNode.label && (
-                  <div className="detail-item">
-                    <strong>Label:</strong> {selectedNode.label}
-                  </div>
-                )}
-                {selectedNode.name && (
-                  <div className="detail-item">
-                    <strong>Name:</strong> {selectedNode.name}
-                  </div>
-                )}
-                {selectedNode.type && (
-                  <div className="detail-item">
-                    <strong>Type:</strong> {selectedNode.type}
-                  </div>
-                )}
-                {selectedNode.accessibility && (
-                  <div className="detail-item">
-                    <strong>Accessibility:</strong> {selectedNode.accessibility}
-                  </div>
-                )}
-                {selectedNode.accessible !== undefined && (
-                  <div className="detail-item">
-                    <strong>Accessible:</strong> {selectedNode.accessible ? 'Yes' : 'No'}
-                  </div>
-                )}
-                <div className="detail-item">
-                  <strong>Position:</strong>
-                  <div className="position-coords">
-                    X: {selectedNode.x?.toFixed(2) || 0},
-                    Y: {selectedNode.y?.toFixed(2) || 0},
-                    Z: {selectedNode.z?.toFixed(2) || 0}
-                  </div>
-                </div>
+            {/* Display Options */}
+            <div className="setting-group">
+              <label className="setting-label">Display Options</label>
+
+              <div className="setting-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={renderingSettings.edgeVisibility}
+                    onChange={(e) => handleRenderingSettingsChange({
+                      edgeVisibility: e.target.checked
+                    })}
+                  />
+                  Show Edges
+                </label>
               </div>
+
+              <div className="setting-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={renderingSettings.showCoordinateAxes}
+                    onChange={(e) => handleRenderingSettingsChange({
+                      showCoordinateAxes: e.target.checked
+                    })}
+                  />
+                  Show Coordinate Axes
+                </label>
+              </div>
+
+              <div className="setting-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={renderingSettings.fogEnabled}
+                    onChange={(e) => handleRenderingSettingsChange({
+                      fogEnabled: e.target.checked
+                    })}
+                  />
+                  Enable Fog
+                </label>
+              </div>
+
+              <div className="setting-item">
+                <label className="setting-sublabel">Label Display</label>
+                <select
+                  className="setting-select"
+                  value={renderingSettings.showLabels}
+                  onChange={(e) => handleRenderingSettingsChange({
+                    showLabels: e.target.value
+                  })}
+                >
+                  <option value="never">Never</option>
+                  <option value="hover">On Hover</option>
+                  <option value="always">Always</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* Node Details Overlay */}
+      {selectedNode && (
+        <div className="node-details-overlay">
+          <div className="node-details-header">
+            <h3>{selectedNode.label || selectedNode.name || selectedNode.id}</h3>
+            <button
+              className="close-button"
+              onClick={() => setSelectedNode(null)}
+            >
+              ×
+            </button>
+          </div>
+          <div className="node-details-content">
+            <div><strong>ID:</strong> {selectedNode.id}</div>
+            {selectedNode.type && <div><strong>Type:</strong> {selectedNode.type}</div>}
+            {selectedNode.accessibility && <div><strong>Status:</strong> {selectedNode.accessibility}</div>}
+            <div><strong>Connections:</strong> {/* Calculate connections */}</div>
+
+            <button
+              className="fly-to-node-button"
+              onClick={() => flyToNodeFn && flyToNodeFn(selectedNode)}
+              disabled={!flyToNodeFn}
+            >
+              🚀 Fly Into Node
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Network Statistics Card */}
+      {networkData && (
+        <div className="stats-card">
+          <div className="stats-content">
+            <div className="stat-row">
+              <span className="stat-label">Nodes</span>
+              <span className="stat-value">{networkData.nodes.length}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Links</span>
+              <span className="stat-value">{networkData.links.length}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Algorithm</span>
+              <span className="stat-value">{LAYOUT_ALGORITHMS[selectedAlgorithm].name}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Status</span>
+              <span className={`stat-value ${isSimulationRunning ? 'running' : 'paused'}`}>
+                {isSimulationRunning ? 'Running' : 'Paused'}
+              </span>
+            </div>
+            {equilibriumStatus.isAtEquilibrium && (
+              <div className="stat-row">
+                <span className="stat-label">State</span>
+                <span className="stat-value equilibrium">Equilibrium</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!networkData && (
+        <div className="loading-overlay">
+          <div className="loading-content">
+            <h2>3D Network Explorer</h2>
+            <p>Drop a network file here or click to browse</p>
+            <div className="file-input-wrapper">
+              <input
+                type="file"
+                id="file-input"
+                accept=".json,.csv"
+                onChange={handleFileInput}
+                style={{ display: 'none' }}
+              />
+              <button
+                className="browse-button"
+                onClick={() => document.getElementById('file-input').click()}
+              >
+                📁 Browse Files
+              </button>
+            </div>
+            <div className="supported-formats">
+              <small>Supported formats: JSON, CSV</small>
             </div>
           </div>
-        )}
-
-        <ControlPanel
-          selectedAlgorithm={selectedAlgorithm}
-          algorithmSettings={algorithmSettings}
-          onAlgorithmChange={handleAlgorithmChange}
-          onAlgorithmSettingsChange={handleAlgorithmSettingsChange}
-          onSimulationToggle={handleSimulationToggle}
-          onRestart={handleRestart}
-          onFitToView={handleFitToView}
-          isSimulationRunning={isSimulationRunning}
-          networkData={networkData}
-          equilibriumStatus={equilibriumStatus}
-          perturbationCycle={perturbationCycle}
-          renderingSettings={renderingSettings}
-          onRenderingSettingsChange={handleRenderingSettingsChange}
-        />
-      </div>
+        </div>
+      )}
     </div>
   )
 }

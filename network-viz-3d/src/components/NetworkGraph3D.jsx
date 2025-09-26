@@ -4,7 +4,7 @@ import { OrbitControls, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { LAYOUT_ALGORITHMS } from '../utils/layoutAlgorithms';
 
-const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulationRunning, onRestart, onEquilibriumChange, onPerturbationUpdate, renderingSettings, selectedNode, onNodeSelect }) => {
+const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulationRunning, onEquilibriumChange, renderingSettings, selectedNode, onNodeSelect, onFlyToNode }) => {
 
   // Default rendering settings if not provided
   const defaultRenderingSettings = {
@@ -44,22 +44,50 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
   const [isLockedToNode, setIsLockedToNode] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isFlying, setIsFlying] = useState(false);
   const lockedNodePositionRef = useRef(new THREE.Vector3());
   const cameraRotationRef = useRef(new THREE.Euler());
   const [isAtEquilibrium, setIsAtEquilibrium] = useState(false);
   const [perturbationCycle, setPerturbationCycle] = useState(0);
-  const [baseSettings, setBaseSettings] = useState(null);
   const { camera, gl } = useThree();
 
-  // Color palette for different groups and node types
-  const colorPalette = [
-    '#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57',  // 0-3: Main groups
-    '#ee5a52', '#5f27cd', '#00d2d3', '#ff9ff3',  // 4-7: Additional groups
-    '#a55eea', '#26de81', '#fd79a8', '#fdcb6e'   // 8-11: Extended palette
-  ];
+  // Calculate dynamic node size based on user count or degree
+  const getNodeSize = (node) => {
+    const baseSize = settings.nodeSize || 8;
+
+    // Check for user count properties (common in channel/server data)
+    const userCount = node.user_count || node.users || node.members || node.member_count || node.size;
+
+    if (userCount && typeof userCount === 'number') {
+      // Scale based on user count (logarithmic scaling for better visual distribution)
+      const minSize = baseSize * 0.5;
+      const maxSize = baseSize * 3;
+      const scaleFactor = Math.log10(Math.max(userCount, 1)) / Math.log10(1000); // Scale to max at 1000 users
+      return Math.max(minSize, Math.min(maxSize, baseSize + (scaleFactor * (maxSize - baseSize))));
+    }
+
+    // Fallback to degree-based sizing if no user count
+    const degree = linksRef.current.filter(link =>
+      (typeof link.source === 'object' ? link.source.id : link.source) === node.id ||
+      (typeof link.target === 'object' ? link.target.id : link.target) === node.id
+    ).length;
+
+    if (degree > 0) {
+      const maxDegree = Math.max(...nodesRef.current.map(n =>
+        linksRef.current.filter(link =>
+          (typeof link.source === 'object' ? link.source.id : link.source) === n.id ||
+          (typeof link.target === 'object' ? link.target.id : link.target) === n.id
+        ).length
+      ));
+      const degreeScale = maxDegree > 0 ? degree / maxDegree : 0;
+      return baseSize + (degreeScale * baseSize * 0.5); // Scale up to 1.5x base size
+    }
+
+    return baseSize;
+  };
 
   // Dynamic node color based on rendering settings
-  const getNodeColor = (node, nodeIndex = 0) => {
+  const getNodeColor = (node) => {
     if (settings.nodeColorMode === 'uniform') {
       return settings.nodeUniformColor;
     }
@@ -221,6 +249,27 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
       }
     }
 
+    // Shift universe so selected node appears at center if not in first-person mode and not flying
+    if (selectedNode && !isLockedToNode && !isFlying) {
+      const currentSelectedNode = nodesRef.current.find(n => n.id === selectedNode.id);
+      if (currentSelectedNode) {
+        // Calculate how much to shift the universe
+        const offsetX = currentSelectedNode.x || 0;
+        const offsetY = currentSelectedNode.y || 0;
+        const offsetZ = currentSelectedNode.z || 0;
+
+        // Only apply offset if the selected node has moved significantly
+        if (Math.abs(offsetX) > 0.1 || Math.abs(offsetY) > 0.1 || Math.abs(offsetZ) > 0.1) {
+          // Shift all nodes so the selected node appears at origin
+          nodesRef.current.forEach(node => {
+            node.x = (node.x || 0) - offsetX;
+            node.y = (node.y || 0) - offsetY;
+            node.z = (node.z || 0) - offsetZ;
+          });
+        }
+      }
+    }
+
     // Update node positions
     groupRef.current.children.forEach((child, index) => {
       if (child.userData && child.userData.type === 'node') {
@@ -279,27 +328,27 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
   });
 
   const handleNodeClick = (node, event) => {
-    if (!isDragging) {
-      console.log('Node clicked:', node.id, node.label || node.name, new Date().toLocaleTimeString());
+    console.log('🎯 handleNodeClick called:', node.id, node.label || node.name, new Date().toLocaleTimeString());
+    console.log('isLockedToNode:', isLockedToNode);
+
+    // Single click behavior depends on current mode
+    if (isLockedToNode) {
+      console.log('⭐ In first-person mode - flying to star');
+      // In first-person mode: fly to the clicked star
+      flyToStar(node);
+    } else {
+      console.log('🎯 Normal mode - selecting and centering node');
+      // Normal mode: select node, center it, show connections
       onNodeSelect(node);
-
-      // Check if it's a double-click for locking to node position
-      if (event && event.detail === 2) {
-        positionCameraOnNodeSurface(node);
-        setIsLockedToNode(true);
-      } else {
-        focusCameraOnNode(node);
-        setIsLockedToNode(false);
-      }
-
+      centerNodeAtOrigin(node);
       highlightConnectedNodes(node);
+      setIsLockedToNode(false);
     }
   };
 
   const handleNodeHover = (node, isHovering) => {
-    if (!isDragging) {
-      setHoveredNode(isHovering ? node : null);
-    }
+    if (isDragging) return
+    setHoveredNode(isHovering ? node : null);
   };
 
   // Helper function to constrain nodes to reasonable bounds
@@ -407,15 +456,63 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
       (typeof link.target === 'object' ? link.target.id : link.target) === node.id
     );
 
-    // Base distance, increased for nodes with more connections
-    const baseDistance = 300;
-    const connectionBonus = Math.min(nodeConnections.length * 20, 200);
+    // Base distance, increased for nodes with more connections - farther for edge view
+    const baseDistance = 500; // Increased for better edge visibility
+    const connectionBonus = Math.min(nodeConnections.length * 30, 300);
     const targetDistance = baseDistance + connectionBonus;
 
     // Calculate camera position around the node
     const nodePosition = new THREE.Vector3(node.x || 0, node.y || 0, node.z || 0);
     const direction = camera.position.clone().sub(nodePosition).normalize();
     const newCameraPosition = nodePosition.clone().add(direction.multiplyScalar(targetDistance));
+
+    // Push other nodes farther away from the focused node
+    const pushDistance = 300; // Increased push distance for better edge visibility
+    const connectedNodeIds = new Set();
+
+    // Get connected node IDs
+    nodeConnections.forEach(link => {
+      const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+      const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+      if (sourceId !== node.id) connectedNodeIds.add(sourceId);
+      if (targetId !== node.id) connectedNodeIds.add(targetId);
+    });
+
+    // Store original positions for restoration
+    const originalPositions = nodesRef.current.map(n => ({
+      id: n.id,
+      x: n.x,
+      y: n.y,
+      z: n.z
+    }));
+
+    // Push non-connected nodes away
+    nodesRef.current.forEach(otherNode => {
+      if (otherNode.id === node.id) return; // Skip the focused node
+
+      const isConnected = connectedNodeIds.has(otherNode.id);
+      if (!isConnected) {
+        // Calculate direction from focused node to this node
+        const otherPosition = new THREE.Vector3(otherNode.x || 0, otherNode.y || 0, otherNode.z || 0);
+        const pushDirection = otherPosition.clone().sub(nodePosition);
+
+        // If nodes are too close, use a random direction
+        if (pushDirection.length() < 10) {
+          pushDirection.set(
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 2
+          );
+        }
+
+        pushDirection.normalize().multiplyScalar(pushDistance);
+
+        // Apply the push
+        otherNode.x += pushDirection.x;
+        otherNode.y += pushDirection.y;
+        otherNode.z += pushDirection.z;
+      }
+    });
 
     // Smoothly move camera to new position
     const startPosition = camera.position.clone();
@@ -444,7 +541,7 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
     };
 
     animateCamera();
-    console.log('Camera focused on node:', node.id, 'at distance:', targetDistance);
+    console.log('Camera focused on node:', node.id, 'at distance:', targetDistance, '- pushed', nodesRef.current.length - connectedNodeIds.size - 1, 'nodes away');
   };
 
   // Function to position camera at node position (double-click) - become the node
@@ -516,6 +613,134 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
     console.log('Camera positioned at node:', node.id, 'becoming the node, looking at', connectedNodes.length, 'connected nodes');
   };
 
+  // Function to set up universe centering on a node
+  const centerNodeAtOrigin = (targetNode) => {
+    console.log('Setting up universe centering on node:', targetNode.id);
+    // No need to do anything here - the centering happens in the animation loop
+  };
+
+  // Function to fly into a node for first-person view
+  const flyIntoNode = (node) => {
+    if (!camera || !controlsRef.current) return;
+
+    console.log('🚀 Starting flight to node:', node.id);
+
+    // Set flying state to prevent universe centering interference
+    setIsFlying(true);
+
+    // Get current positions
+    const startPosition = camera.position.clone();
+    const startTarget = controlsRef.current.target.clone();
+    const targetPosition = new THREE.Vector3(0, 0, 0); // Node is at origin
+
+    console.log('📍 Start position:', startPosition);
+    console.log('🎯 Target position:', targetPosition);
+    console.log('📏 Flight distance:', startPosition.distanceTo(targetPosition));
+
+    // Disable OrbitControls during flight
+    controlsRef.current.enabled = false;
+
+    // Check if we're already very close to the target
+    const flightDistance = startPosition.distanceTo(targetPosition);
+    if (flightDistance < 100) {
+      console.log('⚡ Already close to target, extending camera back for dramatic flight');
+      // Move camera further back along current direction for a more dramatic flight
+      const direction = startPosition.clone().sub(targetPosition).normalize();
+      if (direction.length() === 0) {
+        // If no direction, use a default one
+        direction.set(1, 1, 1).normalize();
+      }
+      startPosition.copy(targetPosition.clone().add(direction.multiplyScalar(1000)));
+      camera.position.copy(startPosition);
+      controlsRef.current.update();
+      console.log('📍 New start position:', startPosition);
+    }
+
+    const duration = 3000; // 3 second flight for very visible animation
+    const startTime = Date.now();
+
+    const animateCamera = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth easing function with slow start and end
+      const easeInOutQuart = (t) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+      const easedProgress = easeInOutQuart(progress);
+
+      // Log progress every 500ms
+      if (Math.floor(elapsed / 500) !== Math.floor((elapsed - 16) / 500)) {
+        console.log(`✈️ Flight progress: ${Math.round(progress * 100)}%`);
+      }
+
+      // Interpolate camera position to center
+      const currentPos = startPosition.clone().lerp(targetPosition, easedProgress);
+      camera.position.copy(currentPos);
+
+      // Look ahead in the direction we were originally facing
+      const lookDirection = startTarget.clone().sub(startPosition).normalize();
+      const lookTarget = targetPosition.clone().add(lookDirection.multiplyScalar(100));
+      const currentTarget = startTarget.clone().lerp(lookTarget, easedProgress);
+      controlsRef.current.target.copy(currentTarget);
+      controlsRef.current.update();
+
+      if (progress < 1) {
+        requestAnimationFrame(animateCamera);
+      } else {
+        console.log('🎉 Flight completed!');
+        setIsFlying(false); // Re-enable universe centering
+        // Controls will be handled by the locking mechanism
+      }
+    };
+
+    requestAnimationFrame(animateCamera);
+  };
+
+  // Function to fly to another node while in first-person mode (star teleportation)
+  const flyToStar = (targetNode) => {
+    if (!camera || !controlsRef.current) return;
+
+    // Get the target node's current position in the mesh
+    const targetPosition = new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0);
+
+    // Smooth flight to the target star's position
+    const startPosition = camera.position.clone();
+    const startTarget = controlsRef.current.target.clone();
+    const duration = 1000; // 1 second flight between stars
+    const startTime = Date.now();
+
+    const animateCamera = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth easing function
+      const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      const easedProgress = easeInOutCubic(progress);
+
+      // Get current target node position (it may have moved during flight)
+      const currentTargetPosition = new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0);
+
+      // Interpolate camera position to target star's current position
+      camera.position.lerpVectors(startPosition, currentTargetPosition, easedProgress);
+
+      // Maintain look direction relative to new position
+      const lookDirection = startTarget.clone().sub(startPosition).normalize();
+      const newTarget = currentTargetPosition.clone().add(lookDirection.multiplyScalar(100));
+      controlsRef.current.target.lerpVectors(startTarget, newTarget, easedProgress);
+      controlsRef.current.update();
+
+      if (progress < 1) {
+        requestAnimationFrame(animateCamera);
+      }
+    };
+
+    // Update selected node and highlight connections
+    onNodeSelect(targetNode);
+    highlightConnectedNodes(targetNode);
+
+    animateCamera();
+    console.log('Flying to star:', targetNode.id, 'at position:', targetPosition);
+  };
+
   // Function to highlight nodes connected to the selected node
   const highlightConnectedNodes = (node) => {
     const connectedNodeIds = new Set();
@@ -551,28 +776,73 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
     window.fitCameraToNodes = fitCameraToNodes;
   }, []);
 
-  // Set up OrbitControls event listeners
+  // Expose flyIntoNode function to parent component
   React.useEffect(() => {
-    if (!controlsRef.current) return;
+    if (onFlyToNode) {
+      onFlyToNode(() => (node) => {
+        setIsLockedToNode(true);
+        flyIntoNode(node);
+      });
+    }
+  }, [onFlyToNode]);
 
-    const controls = controlsRef.current;
+  // Set up mouse-based drag detection instead of OrbitControls events
+  React.useEffect(() => {
+    if (!gl.domElement) return;
 
-    const handleControlStart = () => {
-      setIsDragging(true);
+    const canvas = gl.domElement;
+    let mouseDownTime = 0;
+    let mouseDownPosition = { x: 0, y: 0 };
+    let dragTimeout = null;
+
+    const handleMouseDown = (event) => {
+      mouseDownTime = Date.now();
+      mouseDownPosition = { x: event.clientX, y: event.clientY };
+
+      // Set dragging to true after 100ms or if mouse moves significantly
+      dragTimeout = setTimeout(() => {
+        setIsDragging(true);
+      }, 100);
     };
 
-    const handleControlEnd = () => {
-      setTimeout(() => setIsDragging(false), 100); // Small delay to prevent conflict
+    const handleMouseMove = (event) => {
+      if (mouseDownTime > 0) {
+        const deltaX = Math.abs(event.clientX - mouseDownPosition.x);
+        const deltaY = Math.abs(event.clientY - mouseDownPosition.y);
+
+        // If mouse moved more than 5 pixels, it's a drag
+        if (deltaX > 5 || deltaY > 5) {
+          if (dragTimeout) {
+            clearTimeout(dragTimeout);
+            dragTimeout = null;
+          }
+          setIsDragging(true);
+        }
+      }
     };
 
-    controls.addEventListener('start', handleControlStart);
-    controls.addEventListener('end', handleControlEnd);
+    const handleMouseUp = () => {
+      if (dragTimeout) {
+        clearTimeout(dragTimeout);
+        dragTimeout = null;
+      }
+      mouseDownTime = 0;
+      setIsDragging(false);
+    };
+
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mouseleave', handleMouseUp); // Handle mouse leaving canvas
 
     return () => {
-      controls.removeEventListener('start', handleControlStart);
-      controls.removeEventListener('end', handleControlEnd);
+      if (dragTimeout) clearTimeout(dragTimeout);
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mouseleave', handleMouseUp);
     };
-  }, [controlsRef.current]);
+  }, [gl.domElement]);
 
   if (!data || !data.nodes || !data.links) {
     return null;
@@ -697,13 +967,9 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
       {/* Add background gradient sphere */}
       {settings.showBackground && <BackgroundSphere />}
 
-      {/* Add origin marker for debugging */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[5, 8, 8]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.5} />
-      </mesh>
 
       {/* Background mesh for click detection */}
+      {/*
       <mesh
         onClick={handleBackgroundClick}
         visible={false}
@@ -712,16 +978,17 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
         <boxGeometry args={[10000, 10000, 10000]} />
         <meshBasicMaterial transparent opacity={0} />
       </mesh>
+      */}
 
       <group ref={groupRef}>
         {/* Render nodes */}
-        {nodesRef.current.map((node, index) => {
+        {React.useMemo(() => nodesRef.current.map((node, index) => {
           const isSelected = selectedNode && selectedNode.id === node.id;
           const isConnected = highlightedNodes.has(node.id);
           const isDimmed = selectedNode && !isConnected;
 
-          // Hide the selected node when we've "become" it
-          if (isSelected) return null;
+          // Hide the selected node only when in first-person mode (locked to node)
+          if (isSelected && isLockedToNode) return null;
 
           return (
             <Node
@@ -729,9 +996,10 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
               node={node}
               index={index}
               color={getNodeColor(node, index)}
+              size={getNodeSize(node)}
               onClick={handleNodeClick}
               onHover={handleNodeHover}
-              isHovered={hoveredNode && hoveredNode.id === node.id}
+              isHovered={hoveredNode?.id === node.id}
               isSelected={false} // Never show as selected since we hide selected nodes
               isConnected={isConnected}
               isDimmed={isDimmed}
@@ -739,7 +1007,7 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
               renderingSettings={settings}
             />
           );
-        })}
+        }), [selectedNode, highlightedNodes, hoveredNode, isDragging, settings, isLockedToNode])}
 
         {/* Render links */}
         {settings.edgeVisibility && linksRef.current.map((link, index) => {
@@ -763,29 +1031,14 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
 
         {/* Render labels */}
         {settings.showLabels === 'always' && nodesRef.current.map((node, index) => (
-          <Billboard
-            key={`label-${node.id}`}
-            position={[node.x, node.y + settings.labelDistance, node.z]}
-            follow={true}
-            lockX={false}
-            lockY={false}
-            lockZ={false}
-            renderOrder={10000}
-          >
-            <Text
-              color={settings.labelColor}
-              fontSize={settings.labelSize}
-              anchorX="center"
-              anchorY="middle"
-              maxWidth={200}
-              outlineWidth={settings.labelBackground ? 2 : 0}
-              outlineColor="#000000"
-              material-depthTest={false}
-              material-renderOrder={9999}
-            >
-              {node.label || node.name || node.id}
-            </Text>
-          </Billboard>
+          <DistanceScaledLabel
+            key={`always-label-${node.id}`}
+            node={node}
+            isSelected={selectedNode && selectedNode.id === node.id}
+            labelColor={settings.labelColor}
+            settings={settings}
+            camera={camera}
+          />
         ))}
 
         {/* Render labels for hovered nodes */}
@@ -800,21 +1053,22 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
           />
         )}
 
-        {/* Render labels for connected nodes only (hide selected node label) */}
+        {/* Render labels for connected nodes and selected node */}
         {selectedNode && nodesRef.current.map((node) => {
           const shouldShowLabel = highlightedNodes.has(node.id);
           const isTheSelectedNode = selectedNode.id === node.id;
 
-          // Don't show label for the selected node since we've "become" it
-          if (!shouldShowLabel || isTheSelectedNode) return null;
+          // Show label for connected nodes and the selected node (unless in first-person mode)
+          if (!shouldShowLabel) return null;
+          if (isTheSelectedNode && isLockedToNode) return null; // Hide only in first-person mode
 
-          const labelColor = '#4ecdc4';
+          const labelColor = isTheSelectedNode ? '#ffff00' : '#4ecdc4'; // Yellow for selected, cyan for connected
 
           return (
             <DistanceScaledLabel
               key={`connected-label-${node.id}`}
               node={node}
-              isSelected={false}
+              isSelected={isTheSelectedNode}
               labelColor={labelColor}
               settings={settings}
               camera={camera}
@@ -826,8 +1080,8 @@ const NetworkGraph3D = ({ data, selectedAlgorithm, algorithmSettings, isSimulati
   );
 };
 
-// Node component
-const Node = ({ node, index, color, onClick, onHover, isHovered, isSelected, isConnected, isDimmed, isDragging, renderingSettings }) => {
+// Node component (with proper memo comparison)
+const Node = React.memo(({ node, index, color, size, onClick, onHover, isHovered, isSelected, isConnected, isDimmed, isDragging, renderingSettings }) => {
   const meshRef = useRef();
   const { camera } = useThree();
 
@@ -867,9 +1121,13 @@ const Node = ({ node, index, color, onClick, onHover, isHovered, isSelected, isC
 
   const handleClick = (e) => {
     e.stopPropagation();
+    console.log('Node click detected:', node.id, 'isDragging:', isDragging, 'delta:', e.delta);
     // Only handle click if it wasn't a drag operation and not currently dragging
     if (!isDragging && e.delta <= 2) {
+      console.log('Calling onClick for node:', node.id);
       onClick(node, e.nativeEvent);
+    } else {
+      console.log('Click blocked - isDragging:', isDragging, 'delta:', e.delta);
     }
   };
 
@@ -909,7 +1167,7 @@ const Node = ({ node, index, color, onClick, onHover, isHovered, isSelected, isC
       userData={{ type: 'node', index, node }}
       scale={isSelected ? distanceScale * 2.0 : (isHovered ? distanceScale * 1.5 : distanceScale)}
     >
-      <sphereGeometry args={[renderingSettings?.nodeSize || 8, 16, 16]} />
+      <sphereGeometry args={[size || renderingSettings?.nodeSize || 8, 16, 16]} />
       <meshLambertMaterial
         color={color}
         transparent={true}
@@ -927,7 +1185,7 @@ const Node = ({ node, index, color, onClick, onHover, isHovered, isSelected, isC
       {/* Add node borders/glow effect */}
       {(renderingSettings?.nodeBorders || renderingSettings?.glowEffect || isSelected || isConnected) && (
         <mesh scale={isSelected ? 1.3 : (isConnected ? 1.2 : 1.1)}>
-          <sphereGeometry args={[renderingSettings?.nodeSize || 8, 16, 16]} />
+          <sphereGeometry args={[size || renderingSettings?.nodeSize || 8, 16, 16]} />
           <meshBasicMaterial
             color={isSelected ? '#ffff00' : (isConnected ? '#4ecdc4' : (renderingSettings?.glowEffect ? color : '#ffffff'))}
             transparent={true}
@@ -945,43 +1203,74 @@ const Node = ({ node, index, color, onClick, onHover, isHovered, isSelected, isC
       )}
     </mesh>
   );
-};
+}, (prevProps, nextProps) => {
+  // Custom comparison function - only re-render if visual props change
+  return (
+    prevProps.node.id === nextProps.node.id &&
+    prevProps.isHovered === nextProps.isHovered &&
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.isConnected === nextProps.isConnected &&
+    prevProps.isDimmed === nextProps.isDimmed &&
+    prevProps.isDragging === nextProps.isDragging &&
+    prevProps.color === nextProps.color &&
+    prevProps.size === nextProps.size
+    // Don't compare onClick/onHover functions as they may change references
+  );
+});
 
-// Link component
+// Simple cylinder connecting two nodes with correct geometry usage
 const Link = ({ link, index, nodes, isHighlighted, isDimmed, renderingSettings }) => {
   const lineRef = useRef();
   const { camera } = useThree();
-  const [linkOpacity, setLinkOpacity] = useState(0.6);
 
+  // Get source and target nodes
   const sourceNode = typeof link.source === 'object' ? link.source :
-                    nodes.find(n => n.id === link.source);
+                     nodes.find(n => n.id === link.source);
   const targetNode = typeof link.target === 'object' ? link.target :
-                    nodes.find(n => n.id === link.target);
+                     nodes.find(n => n.id === link.target);
 
+  // Don't render if nodes aren't found
   if (!sourceNode || !targetNode) return null;
 
+  // Calculate distance-based opacity for performance
+  const [distanceOpacity, setDistanceOpacity] = useState(1);
+  const [shouldRender, setShouldRender] = useState(true);
+
+  useFrame(() => {
+    if (lineRef.current && camera && renderingSettings) {
+      // Calculate midpoint of the link for distance calculation
+      const midX = (sourceNode.x + targetNode.x) / 2;
+      const midY = (sourceNode.y + targetNode.y) / 2;
+      const midZ = (sourceNode.z + targetNode.z) / 2;
+      const midpoint = new THREE.Vector3(midX, midY, midZ);
+
+      const distance = camera.position.distanceTo(midpoint);
+
+      // Distance culling - hide very distant links
+      if (renderingSettings.distanceCulling && distance > renderingSettings.cullingDistance) {
+        setShouldRender(false);
+        return;
+      } else {
+        setShouldRender(true);
+      }
+
+      // Level of Detail - adjust opacity based on distance
+      if (renderingSettings.levelOfDetail) {
+        const opacity = Math.max(0.1, Math.min(1, 3000 / Math.max(distance, 50)));
+        setDistanceOpacity(opacity);
+      } else {
+        setDistanceOpacity(1);
+      }
+    }
+  });
+
+  if (!shouldRender) return null;
+
+  // Create line geometry between the two points
   const positions = new Float32Array([
     sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0,
     targetNode.x || 0, targetNode.y || 0, targetNode.z || 0
   ]);
-
-  // Calculate midpoint for distance-based opacity
-  const midpoint = new THREE.Vector3(
-    (sourceNode.x + targetNode.x) / 2,
-    (sourceNode.y + targetNode.y) / 2,
-    (sourceNode.z + targetNode.z) / 2
-  );
-
-  useFrame(() => {
-    if (camera && renderingSettings?.levelOfDetail) {
-      const distance = camera.position.distanceTo(midpoint);
-      // More conservative link opacity scaling
-      const distanceOpacity = Math.max(0.4, Math.min(1, 3000 / Math.max(distance, 100)));
-      setLinkOpacity(distanceOpacity * (renderingSettings?.edgeOpacity || 0.6));
-    } else {
-      setLinkOpacity(renderingSettings?.edgeOpacity || 0.6);
-    }
-  });
 
   return (
     <line ref={lineRef} userData={{ type: 'link', index }}>
@@ -994,12 +1283,13 @@ const Link = ({ link, index, nodes, isHighlighted, isDimmed, renderingSettings }
         />
       </bufferGeometry>
       <lineBasicMaterial
-        color={isHighlighted ? '#4ecdc4' : (renderingSettings?.edgeUniformColor || '#888888')}
+        color={renderingSettings.edgeUniformColor || '#888888'}
         transparent={true}
-        opacity={isDimmed ? linkOpacity * 0.2 : (isHighlighted ? linkOpacity * 1.5 : linkOpacity)}
-        linewidth={(renderingSettings?.edgeThickness || 1) * (link.value || 1) * (isHighlighted ? 2 : 1)}
-        depthTest={true}
-        depthWrite={false}
+        opacity={
+          isDimmed ? 0.1 :
+          isHighlighted ? Math.min(1, distanceOpacity * 0.8) :
+          Math.max(0.1, distanceOpacity * (renderingSettings.edgeOpacity || 0.6))
+        }
       />
     </line>
   );
@@ -1080,10 +1370,13 @@ const DistanceScaledLabel = ({ node, isSelected, labelColor, settings, camera })
     const distance = camera.position.distanceTo(nodePosition);
 
     // Calculate scale to maintain consistent screen size
-    // Base scale at distance 500, adjust proportionally
+    // Use camera's projection to get true screen-space scaling
     const baseDistance = 500;
     const targetScreenSize = isSelected ? 1.3 : 1.0;
-    const calculatedScale = Math.max(0.3, Math.min(3.0, (distance / baseDistance) * targetScreenSize));
+
+    // More consistent scaling based on camera distance
+    const scaleRatio = distance / baseDistance;
+    const calculatedScale = Math.max(0.5, Math.min(5.0, scaleRatio * targetScreenSize));
 
     setScale(calculatedScale);
   });

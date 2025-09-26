@@ -46,11 +46,11 @@ function forceZ(z) {
 // 3D Force-Directed Layout (Baseline)
 export function create3DForceDirectedLayout(nodes, links, settings) {
   const {
-    repulsiveStrength = 800,
-    attractiveStrength = 0.1,
-    linkDistance = 150,
+    repulsiveStrength = 20,
+    attractiveStrength = 0.01,
+    linkDistance = 0.01,
     dampingFactor = 0.9,
-    centeringStrength = 0.02,
+    centeringStrength = 0.001,
     maxVelocity = 10
   } = settings;
 
@@ -494,9 +494,9 @@ export function createD3ForceLayout(nodes, links, settings) {
 // 3D Enhanced D3 Force Layout
 export function create3DD3ForceLayout(nodes, links, settings) {
   const {
-    chargeStrength = -500,
-    linkDistance = 150,
-    centerStrength = 0.15,
+    chargeStrength = 0,
+    linkDistance = 0,
+    centerStrength = 0,
     collisionRadius = 20,
     zStrength = 0.1,
     alphaDecay = 0.02,
@@ -1193,11 +1193,11 @@ export const LAYOUT_ALGORITHMS = {
     description: 'Improved 3D force-directed layout with node repulsion in all dimensions',
     create: create3DForceDirectedLayout,
     settings: {
-      repulsiveStrength: { min: 200, max: 2000, default: 800, step: 50 },
-      attractiveStrength: { min: 0.01, max: 0.5, default: 0.1, step: 0.01 },
-      linkDistance: { min: 50, max: 400, default: 150, step: 10 },
-      dampingFactor: { min: 0.8, max: 0.99, default: 0.9, step: 0.01 },
-      centeringStrength: { min: 0.001, max: 0.1, default: 0.02, step: 0.001 },
+      repulsiveStrength: { min: 200, max: 2000, default: 800, step: 50, label: 'Repulsion Force' },
+      attractiveStrength: { min: 0.01, max: 0.5, default: 0.1, step: 0.01, label: 'Attraction Force' },
+      linkDistance: { min: 50, max: 400, default: 150, step: 10, label: 'Link Distance' },
+      dampingFactor: { min: 0.8, max: 0.99, default: 0.9, step: 0.01, label: 'Damping' },
+      centeringStrength: { min: 0.001, max: 0.1, default: 0.02, step: 0.001, label: 'Centering Force' },
       maxVelocity: { min: 1, max: 50, default: 10, step: 1 }
     }
   },
