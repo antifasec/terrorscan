@@ -77,8 +77,19 @@ class TerrorScan:
             self.logger.error(f"Error during emergency save: {e}")
 
     async def connect(self):
-        await self.client.start(phone=self.phone)
-        self.logger.info(f"Connected to Telegram as {self.phone}")
+        # Check if we have a session string from environment variable
+        session_string = os.getenv("TELEGRAM_SESSION_STRING")
+
+        if session_string:
+            # Use session string for non-interactive authentication (e.g., in CI/CD)
+            from telethon.sessions import StringSession
+            self.client = TelegramClient(StringSession(session_string), self.api_id, self.api_hash)
+            await self.client.start()
+            self.logger.info(f"Connected to Telegram using session string")
+        else:
+            # Use phone-based authentication (interactive)
+            await self.client.start(phone=self.phone)
+            self.logger.info(f"Connected to Telegram as {self.phone}")
 
     async def scan_channel(
         self, channel_username: str, max_messages: int = 1000, current_depth: int = 0
@@ -761,6 +772,37 @@ def analyze(data_dir: str):
         click.echo(f"\n🎯 Most Central Channels:")
         for channel, score in top_channels:
             click.echo(f"  • @{channel}: {score:.4f}")
+
+
+@cli.command()
+def generate_session():
+    """Generate a Telegram session string for non-interactive authentication"""
+
+    api_id = os.getenv("TELEGRAM_API_ID")
+    api_hash = os.getenv("TELEGRAM_API_HASH")
+    phone = os.getenv("TELEGRAM_PHONE")
+
+    if not all([api_id, api_hash, phone]):
+        click.echo(
+            "Error: Missing Telegram credentials. Set TELEGRAM_API_ID, TELEGRAM_API_HASH, and TELEGRAM_PHONE in .env file"
+        )
+        return
+
+    async def create_session():
+        from telethon.sessions import StringSession
+
+        client = TelegramClient(StringSession(), api_id, api_hash)
+        await client.start(phone=phone)
+
+        session_string = client.session.save()
+        click.echo(f"\n🔑 Session string generated successfully!")
+        click.echo(f"Add this to your GitHub Actions secrets as TELEGRAM_SESSION_STRING:")
+        click.echo(f"\n{session_string}")
+        click.echo(f"\n⚠️ Keep this session string secure - it provides access to your Telegram account!")
+
+        await client.disconnect()
+
+    asyncio.run(create_session())
 
 
 if __name__ == "__main__":

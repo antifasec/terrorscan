@@ -40,6 +40,7 @@ jobs:
         echo "TELEGRAM_API_ID=${{ secrets.TELEGRAM_API_ID }}" >> .env
         echo "TELEGRAM_API_HASH=${{ secrets.TELEGRAM_API_HASH }}" >> .env
         echo "TELEGRAM_PHONE=${{ secrets.TELEGRAM_PHONE }}" >> .env
+        echo "TELEGRAM_SESSION_STRING=${{ secrets.TELEGRAM_SESSION_STRING }}" >> .env
 
     - name: Run terrorscan deep-scan
       run: |
