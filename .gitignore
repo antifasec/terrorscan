@@ -6,5 +6,5 @@ crawl_state.json
 *.session
 
 /.env
-/output
+/results
 /__pycache__

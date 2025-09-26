@@ -19,6 +19,7 @@ concurrency:
 jobs:
   scan-and-deploy:
     runs-on: ubuntu-latest
+    environment: ColtonGranger
 
     steps:
     - name: Checkout repository
