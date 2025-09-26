@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "nickjfuentes",
+      "label": "Nicholas J. Fuentes",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 9,
+      "depth": 0,
+      "title": "Nicholas J. Fuentes",
+      "participants_count": null,
+      "message_count": 9
+    },
+    {
+      "id": "realnickjfuentes",
+      "label": "realnickjfuentes",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "CharlieKirk",
+      "label": "Charlie Kirk",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 6,
+      "depth": 0,
+      "title": "Charlie Kirk",
+      "participants_count": null,
+      "message_count": 6
+    },
+    {
+      "id": "sgtnewsnetwork",
+      "label": "Sergeant News Network \ud83c\uddfa\ud83c\uddf8",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 8,
+      "depth": 1,
+      "title": "Sergeant News Network \ud83c\uddfa\ud83c\uddf8",
+      "participants_count": null,
+      "message_count": 8
+    }
+  ],
+  "links": [
+    {
+      "source": "nickjfuentes",
+      "target": "realnickjfuentes",
+      "value": 1
+    },
+    {
+      "source": "CharlieKirk",
+      "target": "sgtnewsnetwork",
+      "value": 1
+    },
+    {
+      "source": "sgtnewsnetwork",
+      "target": "sgtnewsnetwork",
+      "value": 1
+    }
+  ]
+}

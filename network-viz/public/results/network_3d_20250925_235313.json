@@ -1,0 +1,3861 @@
+{
+  "nodes": [
+    {
+      "id": "nickjfuentes",
+      "label": "Nicholas J. Fuentes",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 91,
+      "depth": 0,
+      "title": "Nicholas J. Fuentes",
+      "participants_count": null,
+      "message_count": 91
+    },
+    {
+      "id": "middle_east_spectator",
+      "label": "Middle East Spectator \u2014 MES",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 1,
+      "title": "Middle East Spectator \u2014 MES",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "realnickjfuentes",
+      "label": "realnickjfuentes",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "globalsumudflotilla",
+      "label": "Global Sumud Flotilla",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 38,
+      "depth": 2,
+      "title": "Global Sumud Flotilla",
+      "participants_count": null,
+      "message_count": 38
+    },
+    {
+      "id": "tabzlive",
+      "label": "TabZ - Alternative Media",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 89,
+      "depth": 2,
+      "title": "TabZ - Alternative Media",
+      "participants_count": null,
+      "message_count": 89
+    },
+    {
+      "id": "geopolitics_prime",
+      "label": "Geopolitics Prime",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 78,
+      "depth": 2,
+      "title": "Geopolitics Prime",
+      "participants_count": null,
+      "message_count": 78
+    },
+    {
+      "id": "humansofgsf",
+      "label": "humansofgsf",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "carsieblanton",
+      "label": "carsieblanton",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "novaramedia",
+      "label": "novaramedia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rashidatlaib",
+      "label": "Tlaib",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 2,
+      "depth": 3,
+      "title": "Tlaib",
+      "participants_count": null,
+      "message_count": 2
+    },
+    {
+      "id": "metapedia_deutsch",
+      "label": "Metapedia - Die alternative Enzyklop\u00e4die - Unterst\u00fctzer-Kanal",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 94,
+      "depth": 3,
+      "title": "Metapedia - Die alternative Enzyklop\u00e4die - Unterst\u00fctzer-Kanal",
+      "participants_count": null,
+      "message_count": 94
+    },
+    {
+      "id": "geo_gaganauts",
+      "label": "Gaganauts of Geopolitics",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 82,
+      "depth": 3,
+      "title": "Gaganauts of Geopolitics",
+      "participants_count": null,
+      "message_count": 82
+    },
+    {
+      "id": "tatiana_italia_russia",
+      "label": "Tatiana Santi",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 66,
+      "depth": 3,
+      "title": "Tatiana Santi",
+      "participants_count": null,
+      "message_count": 66
+    },
+    {
+      "id": "multipolarmarket",
+      "label": "Multipolar Market",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 98,
+      "depth": 3,
+      "title": "Multipolar Market",
+      "participants_count": null,
+      "message_count": 98
+    },
+    {
+      "id": "palestine_updates",
+      "label": "Palestine Updates \ud83c\uddf5\ud83c\uddf8\u2694\ufe0f",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 83,
+      "depth": 3,
+      "title": "Palestine Updates \ud83c\uddf5\ud83c\uddf8\u2694\ufe0f",
+      "participants_count": null,
+      "message_count": 83
+    },
+    {
+      "id": "slavyangrad",
+      "label": "Slavyangrad",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 77,
+      "depth": 3,
+      "title": "Slavyangrad",
+      "participants_count": null,
+      "message_count": 77
+    },
+    {
+      "id": "tatiana_santi",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 3,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "medmannews",
+      "label": "Mediterranean Man",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 94,
+      "depth": 3,
+      "title": "Mediterranean Man",
+      "participants_count": null,
+      "message_count": 94
+    },
+    {
+      "id": "ostnews_faktencheck",
+      "label": "Ostnews Faktencheck",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 77,
+      "depth": 3,
+      "title": "Ostnews Faktencheck",
+      "participants_count": null,
+      "message_count": 77
+    },
+    {
+      "id": "diplomaticdebatex",
+      "label": "The Daily Diplomacy",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 3,
+      "title": "The Daily Diplomacy",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "medienzensur",
+      "label": "Das darfst du nicht sehen! In YouTube gel\u00f6schte sowie in Facebook gesperrte Videos - Meinungsfreiheit hier Art. 5 Grundgesetz",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 82,
+      "depth": 3,
+      "title": "Das darfst du nicht sehen! In YouTube gel\u00f6schte sowie in Facebook gesperrte Videos - Meinungsfreiheit hier Art. 5 Grundgesetz",
+      "participants_count": null,
+      "message_count": 82
+    },
+    {
+      "id": "internationalreporters",
+      "label": "International Reporters",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 75,
+      "depth": 3,
+      "title": "International Reporters",
+      "participants_count": null,
+      "message_count": 75
+    },
+    {
+      "id": "developmentnewsindia",
+      "label": "Indian Development News \ud83c\uddee\ud83c\uddf3",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 92,
+      "depth": 3,
+      "title": "Indian Development News \ud83c\uddee\ud83c\uddf3",
+      "participants_count": null,
+      "message_count": 92
+    },
+    {
+      "id": "satellit_de",
+      "label": "Satellit",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 61,
+      "depth": 3,
+      "title": "Satellit",
+      "participants_count": null,
+      "message_count": 61
+    },
+    {
+      "id": "newrulesgeo",
+      "label": "New Rules",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 3,
+      "title": "New Rules",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "worldwariiiinfo",
+      "label": "worldwariiiinfo",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "derschelm_neu",
+      "label": "derschelm_neu",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "fabulax",
+      "label": "fabulax",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "aufgewachtonline",
+      "label": "aufgewachtonline",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rosenbusch",
+      "label": "rosenbusch",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "danieleganser",
+      "label": "danieleganser",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesundistbesser",
+      "label": "gesundistbesser",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "meinednews",
+      "label": "meinednews",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "hh_wir_stehen_auf",
+      "label": "hh_wir_stehen_auf",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "qudsnen",
+      "label": "qudsnen",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geopwatch",
+      "label": "geopwatch",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "phantomschweiz",
+      "label": "phantomschweiz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "faktenfriedenfreiheit",
+      "label": "faktenfriedenfreiheit",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gedankenzuender",
+      "label": "gedankenzuender",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "intelsky",
+      "label": "intelsky",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "prozessbeobachter",
+      "label": "prozessbeobachter",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "auf1tv",
+      "label": "auf1tv",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "aufwachkanal_deine_rote_pille",
+      "label": "aufwachkanal_deine_rote_pille",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "demolinzfreiheit",
+      "label": "demolinzfreiheit",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "etreport",
+      "label": "etreport",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mary_illmiller",
+      "label": "mary_illmiller",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "wakeuphannover",
+      "label": "wakeuphannover",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "disclosetv",
+      "label": "disclosetv",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "martinrutter",
+      "label": "martinrutter",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "dmss2020",
+      "label": "dmss2020",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "intelslava",
+      "label": "intelslava",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geradeaus_denken",
+      "label": "geradeaus_denken",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "demotermine",
+      "label": "demotermine",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "fairdenkenoriginal",
+      "label": "fairdenkenoriginal",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vivoterra",
+      "label": "vivoterra",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "corona_reset",
+      "label": "corona_reset",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "timmkellner",
+      "label": "timmkellner",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "maeklegutelaune",
+      "label": "maeklegutelaune",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lionmedianews",
+      "label": "lionmedianews",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "compactmagazin",
+      "label": "compactmagazin",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "hannigrecht",
+      "label": "hannigrecht",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "friedensland_deutschland",
+      "label": "friedensland_deutschland",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "postvonhajomueller",
+      "label": "postvonhajomueller",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_hu",
+      "label": "ukr_leaks_hu",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_de",
+      "label": "ukr_leaks_de",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_ara",
+      "label": "ukr_leaks_ara",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensened",
+      "label": "infodefensened",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "prozorov_fr",
+      "label": "prozorov_fr",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gaganautspr",
+      "label": "gaganautspr",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geoindian",
+      "label": "geoindian",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "askabhijeet",
+      "label": "askabhijeet",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_sk",
+      "label": "ukr_leaks_sk",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "star_updatesss",
+      "label": "star_updatesss",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefall",
+      "label": "infodefall",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_pt",
+      "label": "ukr_leaks_pt",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_cn",
+      "label": "ukr_leaks_cn",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "addlist",
+      "label": "addlist",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_esp",
+      "label": "ukr_leaks_esp",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_italia",
+      "label": "ukr_leaks_italia",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_eng",
+      "label": "ukr_leaks_eng",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "militarywave",
+      "label": "militarywave",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_pl",
+      "label": "ukr_leaks_pl",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "diplomatic_delta",
+      "label": "diplomatic_delta",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_srb",
+      "label": "ukr_leaks_srb",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks",
+      "label": "ukr_leaks",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefscandinavia",
+      "label": "infodefscandinavia",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "two_majors",
+      "label": "two_majors",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefengland",
+      "label": "infodefengland",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "threesixtydegrees",
+      "label": "threesixtydegrees",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "internationalreporters_it",
+      "label": "internationalreporters_it",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rt_russian",
+      "label": "rt_russian",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "boost",
+      "label": "boost",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ir_italia",
+      "label": "ir_italia",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "donbassfilm",
+      "label": "donbassfilm",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tass_agency",
+      "label": "tass_agency",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "donbassitalia",
+      "label": "donbassitalia",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sputnik_africa",
+      "label": "sputnik_africa",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "trumpsear_tg",
+      "label": "trumpsear_tg",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "old_glory_vortex",
+      "label": "old_glory_vortex",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "star_union_news",
+      "label": "star_union_news",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "american_observer",
+      "label": "american_observer",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tponow",
+      "label": "tponow",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "shaheed",
+      "label": "shaheed",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "openlybiased",
+      "label": "openlybiased",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "palestinechat",
+      "label": "palestinechat",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tponews",
+      "label": "tponews",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "leonardo",
+      "label": "leonardo",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "johnatandelahoz",
+      "label": "johnatandelahoz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "diegolosada779",
+      "label": "diegolosada779",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "maria",
+      "label": "maria",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "taison9954",
+      "label": "taison9954",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "juan",
+      "label": "juan",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "news_of_donbass",
+      "label": "news_of_donbass",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "theislandernews",
+      "label": "theislandernews",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "news_of_donbass_bot",
+      "label": "news_of_donbass_bot",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "juancarlosmartine821",
+      "label": "juancarlosmartine821",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "jeffersonandresso",
+      "label": "jeffersonandresso",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "edinsonlinaresmor4",
+      "label": "edinsonlinaresmor4",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "trackamerc",
+      "label": "trackamerc",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "medmantg",
+      "label": "medmantg",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "prgeopoliticsprime",
+      "label": "prgeopoliticsprime",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "dbkrieg",
+      "label": "dbkrieg",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "politischebilder",
+      "label": "politischebilder",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "politische_nachrichten",
+      "label": "politische_nachrichten",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ostnews_faktencheck____",
+      "label": "ostnews_faktencheck____",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cuteandfunvideos",
+      "label": "cuteandfunvideos",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "berlinstehtauf",
+      "label": "berlinstehtauf",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geosight",
+      "label": "geosight",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "viktoriach13",
+      "label": "viktoriach13",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "angelaauspoing",
+      "label": "angelaauspoing",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "apolut",
+      "label": "apolut",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "bismarcksalptraume",
+      "label": "bismarcksalptraume",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "unitedhope",
+      "label": "unitedhope",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "parageaf513dschungel",
+      "label": "parageaf513dschungel",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "juergen_schaedler",
+      "label": "juergen_schaedler",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "betterworld",
+      "label": "betterworld",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "news_world_international",
+      "label": "news_world_international",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "simonevoss",
+      "label": "simonevoss",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gmail",
+      "label": "gmail",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "kachelkanal",
+      "label": "kachelkanal",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "liechtensteininfochat",
+      "label": "liechtensteininfochat",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "bitteltv",
+      "label": "bitteltv",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "veritaslibertas369",
+      "label": "veritaslibertas369",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "frmawa",
+      "label": "frmawa",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "x_paradoxon_x",
+      "label": "x_paradoxon_x",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "weforhumanitycampaigns",
+      "label": "weforhumanitycampaigns",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "losgehtsanthony",
+      "label": "losgehtsanthony",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "educational_tg",
+      "label": "educational_tg",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "echtes",
+      "label": "echtes",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "analytik_news",
+      "label": "analytik_news",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "alternativemedien",
+      "label": "alternativemedien",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "node_of_time_de",
+      "label": "node_of_time_de",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "paragafen",
+      "label": "paragafen",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "hinweise_rueckrufe",
+      "label": "hinweise_rueckrufe",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "realdonaldtrump",
+      "label": "realdonaldtrump",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "heilungfreiheiterleben",
+      "label": "heilungfreiheiterleben",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "taxeles",
+      "label": "taxeles",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "antiautoritaere_aktion",
+      "label": "antiautoritaere_aktion",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "roter_lotus",
+      "label": "roter_lotus",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "terminverteiler_bot",
+      "label": "terminverteiler_bot",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "christineanderson",
+      "label": "christineanderson",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lebensmutkanalersatz",
+      "label": "lebensmutkanalersatz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "russiadailyde",
+      "label": "russiadailyde",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesperrtbrd",
+      "label": "gesperrtbrd",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "werneraltnickelabsicherung",
+      "label": "werneraltnickelabsicherung",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mfritschpolgefangener",
+      "label": "mfritschpolgefangener",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "charliekirk11",
+      "label": "charliekirk11",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sportfitnessernaehrung",
+      "label": "sportfitnessernaehrung",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rosaroterpanzerbackup",
+      "label": "rosaroterpanzerbackup",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "neuigkeiten_de",
+      "label": "neuigkeiten_de",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "yourewellcomebot",
+      "label": "yourewellcomebot",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "allesaussermainstream",
+      "label": "allesaussermainstream",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "echtesessentalk",
+      "label": "echtesessentalk",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lknews2",
+      "label": "lknews2",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "freieenergie",
+      "label": "freieenergie",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tommypositiv",
+      "label": "tommypositiv",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "weforhumanity",
+      "label": "weforhumanity",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "shop_system_telegram",
+      "label": "shop_system_telegram",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "echtenachrichten",
+      "label": "echtenachrichten",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mediathek_nautikaspeech",
+      "label": "mediathek_nautikaspeech",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "blaupausetv_mv",
+      "label": "blaupausetv_mv",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "resistandfight1",
+      "label": "resistandfight1",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geheimeswissendereliten",
+      "label": "geheimeswissendereliten",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "veranstaltungen",
+      "label": "veranstaltungen",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "dsindf",
+      "label": "dsindf",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefgermany",
+      "label": "infodefgermany",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "stefanmagnet",
+      "label": "stefanmagnet",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "brandenburgtvdocs",
+      "label": "brandenburgtvdocs",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "global_affairs_byelena",
+      "label": "global_affairs_byelena",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "maerwert",
+      "label": "maerwert",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "studio_telegram_de",
+      "label": "studio_telegram_de",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gerichtsbarkeit",
+      "label": "gerichtsbarkeit",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "freieenergie_schweiz",
+      "label": "freieenergie_schweiz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lachkanal",
+      "label": "lachkanal",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "barbarossa_smgi",
+      "label": "barbarossa_smgi",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "unvergessenehelden",
+      "label": "unvergessenehelden",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "unregierbar",
+      "label": "unregierbar",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tankstellabeiz",
+      "label": "tankstellabeiz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesundundgut",
+      "label": "gesundundgut",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "auf1tv__",
+      "label": "auf1tv__",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rawilfriedschmitz",
+      "label": "rawilfriedschmitz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ndsreport",
+      "label": "ndsreport",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mikle1on",
+      "label": "mikle1on",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "zielfwo",
+      "label": "zielfwo",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sylviamiami1776",
+      "label": "sylviamiami1776",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rybar",
+      "label": "rybar",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "internationalreporters_eng",
+      "label": "internationalreporters_eng",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rybar_in_english",
+      "label": "rybar_in_english",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "grand_reequilibrage",
+      "label": "grand_reequilibrage",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rtenfrancais",
+      "label": "rtenfrancais",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "laurentbrayarddonbass",
+      "label": "laurentbrayarddonbass",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "laurentbrayard",
+      "label": "laurentbrayard",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rostecru",
+      "label": "rostecru",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "patrickpoppel",
+      "label": "patrickpoppel",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "welt_der_videos",
+      "label": "welt_der_videos",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "enplena_luz",
+      "label": "enplena_luz",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukraine_watch",
+      "label": "ukraine_watch",
+      "group": 2,
+      "size": 8,
+      "accessibility": "referenced",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "nickjfuentes",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "nickjfuentes",
+      "target": "realnickjfuentes",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "globalsumudflotilla",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "globalsumudflotilla",
+      "target": "globalsumudflotilla",
+      "value": 1
+    },
+    {
+      "source": "globalsumudflotilla",
+      "target": "humansofgsf",
+      "value": 1
+    },
+    {
+      "source": "globalsumudflotilla",
+      "target": "carsieblanton",
+      "value": 1
+    },
+    {
+      "source": "globalsumudflotilla",
+      "target": "novaramedia",
+      "value": 1
+    },
+    {
+      "source": "globalsumudflotilla",
+      "target": "rashidatlaib",
+      "value": 1
+    },
+    {
+      "source": "tabzlive",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "metapedia_deutsch",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "tatiana_italia_russia",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "multipolarmarket",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "palestine_updates",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "tatiana_santi",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "medmannews",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "ostnews_faktencheck",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "diplomaticdebatex",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "medienzensur",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "internationalreporters",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "developmentnewsindia",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "newrulesgeo",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "worldwariiiinfo",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "derschelm_neu",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "fabulax",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "aufgewachtonline",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "rosenbusch",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "danieleganser",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "gesundistbesser",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "meinednews",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "hh_wir_stehen_auf",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "qudsnen",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "geopwatch",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "phantomschweiz",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "faktenfriedenfreiheit",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "gedankenzuender",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "intelsky",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "prozessbeobachter",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "auf1tv",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "aufwachkanal_deine_rote_pille",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "demolinzfreiheit",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "etreport",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "mary_illmiller",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "metapedia_deutsch",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "wakeuphannover",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "disclosetv",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "martinrutter",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "dmss2020",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "intelslava",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "geradeaus_denken",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "demotermine",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "fairdenkenoriginal",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "vivoterra",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "corona_reset",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "timmkellner",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "maeklegutelaune",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "lionmedianews",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "compactmagazin",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "hannigrecht",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "friedensland_deutschland",
+      "value": 1
+    },
+    {
+      "source": "metapedia_deutsch",
+      "target": "postvonhajomueller",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_hu",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_de",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_ara",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "prozorov_fr",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "geoindian",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "askabhijeet",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_sk",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "star_updatesss",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_pt",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_cn",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_esp",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_italia",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_eng",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "militarywave",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_pl",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "diplomatic_delta",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_srb",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "threesixtydegrees",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tatiana_italia_russia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "internationalreporters_it",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "rt_russian",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "ir_italia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "donbassfilm",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tass_agency",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "donbassitalia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tatiana_santi",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "multipolarmarket",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "sputnik_africa",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "trumpsear_tg",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "old_glory_vortex",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "star_union_news",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "american_observer",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "tponow",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "shaheed",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "openlybiased",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "geopwatch",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "palestinechat",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "palestine_updates",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "tponews",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "leonardo",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "johnatandelahoz",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "diegolosada779",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "maria",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "taison9954",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "juan",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "news_of_donbass",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "theislandernews",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "news_of_donbass_bot",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "juancarlosmartine821",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "jeffersonandresso",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "edinsonlinaresmor4",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "trackamerc",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "medmantg",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "medmannews",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "dbkrieg",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "ostnews_faktencheck____",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "berlinstehtauf",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "diplomaticdebatex",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "diplomaticdebatex",
+      "target": "diplomaticdebatex",
+      "value": 1
+    },
+    {
+      "source": "diplomaticdebatex",
+      "target": "geosight",
+      "value": 1
+    },
+    {
+      "source": "diplomaticdebatex",
+      "target": "viktoriach13",
+      "value": 1
+    },
+    {
+      "source": "diplomaticdebatex",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "angelaauspoing",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "apolut",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "bismarcksalptraume",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "unitedhope",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "parageaf513dschungel",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "juergen_schaedler",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "betterworld",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "news_world_international",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "simonevoss",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "gmail",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "gesundistbesser",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "meinednews",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "kachelkanal",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "liechtensteininfochat",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "bitteltv",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "veritaslibertas369",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "faktenfriedenfreiheit",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "prozessbeobachter",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "frmawa",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "x_paradoxon_x",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "weforhumanitycampaigns",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "losgehtsanthony",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "educational_tg",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "echtes",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "analytik_news",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "metapedia_deutsch",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "alternativemedien",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "node_of_time_de",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "paragafen",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "hinweise_rueckrufe",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "realdonaldtrump",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "heilungfreiheiterleben",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "taxeles",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "antiautoritaere_aktion",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "roter_lotus",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "terminverteiler_bot",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "christineanderson",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "lebensmutkanalersatz",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "russiadailyde",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "gesperrtbrd",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "werneraltnickelabsicherung",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "mfritschpolgefangener",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "charliekirk11",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "sportfitnessernaehrung",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "rosaroterpanzerbackup",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "neuigkeiten_de",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "yourewellcomebot",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "allesaussermainstream",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "echtesessentalk",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "lknews2",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "freieenergie",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "tommypositiv",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "weforhumanity",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "shop_system_telegram",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "medienzensur",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "echtenachrichten",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "mediathek_nautikaspeech",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "blaupausetv_mv",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "resistandfight1",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "aufwachkanal_deine_rote_pille",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "geheimeswissendereliten",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "veranstaltungen",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "dsindf",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "infodefgermany",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "stefanmagnet",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "brandenburgtvdocs",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "global_affairs_byelena",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "maerwert",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "studio_telegram_de",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "gerichtsbarkeit",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "freieenergie_schweiz",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "demotermine",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "lachkanal",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "barbarossa_smgi",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "unvergessenehelden",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "unregierbar",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "tankstellabeiz",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "corona_reset",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "gesundundgut",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "auf1tv__",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "rawilfriedschmitz",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "ndsreport",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "mikle1on",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "zielfwo",
+      "value": 1
+    },
+    {
+      "source": "medienzensur",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "sylviamiami1776",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "rybar",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "news_of_donbass",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "internationalreporters_eng",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "rybar_in_english",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "grand_reequilibrage",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "rtenfrancais",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "laurentbrayarddonbass",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "internationalreporters",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "laurentbrayard",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "rostecru",
+      "value": 1
+    },
+    {
+      "source": "internationalreporters",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "gesundistbesser",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "patrickpoppel",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "frmawa",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "ostnews_faktencheck____",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "welt_der_videos",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "enplena_luz",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "newrulesgeo",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "ukraine_watch",
+      "value": 1
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "name": "network-viz-3d",
+  "name": "network-viz",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,11 +12,12 @@
   "dependencies": {
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.3.0",
-    "@types/d3": "^7.4.3",
-    "@types/three": "^0.180.0",
-    "d3": "^7.9.0",
+    "d3-force": "^3.0.0",
+    "d3-force-3d": "^3.0.6",
+    "papaparse": "^5.5.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.2",
     "three": "^0.180.0"
   },
   "devDependencies": {
