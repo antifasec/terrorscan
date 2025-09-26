@@ -1,0 +1,147 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.app-header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  z-index: 1000;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #4ecdc4;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.canvas-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+
+.placeholder-content {
+  text-align: center;
+  padding: 2rem;
+  border: 2px dashed #4ecdc4;
+  border-radius: 10px;
+}
+
+.placeholder-content h2 {
+  color: #4ecdc4;
+  margin: 0 0 1rem 0;
+}
+
+.placeholder-content p {
+  color: #999;
+  margin: 0;
+}
+
+/* Details Panel */
+.details-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 300px; /* Leave space for control panel */
+  background: rgba(10, 10, 10, 0.95);
+  border-top: 1px solid #333;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.details-panel-content {
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.details-panel h3 {
+  margin: 0 0 1rem 0;
+  color: #4ecdc4;
+  font-size: 1.2rem;
+}
+
+.details-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-item strong {
+  color: #4ecdc4;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.detail-item {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.position-coords {
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+}

@@ -1,0 +1,10 @@
+.DS_Store
+.claude
+
+crawl_state.json
+*.log
+*.session
+
+/.env
+/output
+/__pycache__

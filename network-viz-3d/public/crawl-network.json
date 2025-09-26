@@ -1,0 +1,6451 @@
+{
+  "nodes": [
+    {
+      "id": "nickjfuentes",
+      "label": "Nicholas J. Fuentes",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 91,
+      "depth": 0,
+      "title": "Nicholas J. Fuentes",
+      "participants_count": null,
+      "message_count": 91
+    },
+    {
+      "id": "middle_east_spectator",
+      "label": "Middle East Spectator \u2013 MES",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 1,
+      "title": "Middle East Spectator \u2013 MES",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "CharlieKirk",
+      "label": "Charlie Kirk",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 0,
+      "title": "Charlie Kirk",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "sgtnewsnetwork",
+      "label": "Sergeant News Network \ud83c\uddfa\ud83c\uddf8",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 88,
+      "depth": 1,
+      "title": "Sergeant News Network \ud83c\uddfa\ud83c\uddf8",
+      "participants_count": null,
+      "message_count": 88
+    },
+    {
+      "id": "medmannews",
+      "label": "Mediterranean Man",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 94,
+      "depth": 2,
+      "title": "Mediterranean Man",
+      "participants_count": null,
+      "message_count": 94
+    },
+    {
+      "id": "ytbaudiobot",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 2,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "alhaqnews",
+      "label": "AlHaqNews | English",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 91,
+      "depth": 2,
+      "title": "AlHaqNews | English",
+      "participants_count": null,
+      "message_count": 91
+    },
+    {
+      "id": "fotrosresistancee",
+      "label": "Fotros Resistance (AryJeay)",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 2,
+      "title": "Fotros Resistance (AryJeay)",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "boost",
+      "label": "Update to Boost",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 2,
+      "depth": 2,
+      "title": "Update to Boost",
+      "participants_count": null,
+      "message_count": 2
+    },
+    {
+      "id": "nofarmersnofoud",
+      "label": "\ud83d\ude9c No FARMERS No FOOD No FUTURE",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 93,
+      "depth": 2,
+      "title": "\ud83d\ude9c No FARMERS No FOOD No FUTURE",
+      "participants_count": null,
+      "message_count": 93
+    },
+    {
+      "id": "geopolitics_prime",
+      "label": "Geopolitics Prime",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 78,
+      "depth": 3,
+      "title": "Geopolitics Prime",
+      "participants_count": null,
+      "message_count": 78
+    },
+    {
+      "id": "fromthefront",
+      "label": "The Frontline",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 95,
+      "depth": 3,
+      "title": "The Frontline",
+      "participants_count": null,
+      "message_count": 95
+    },
+    {
+      "id": "alhawnews",
+      "label": "alhawnews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "viktoriach13",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 4,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "geo_gaganauts",
+      "label": "Gaganauts of Geopolitics",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 89,
+      "depth": 4,
+      "title": "Gaganauts of Geopolitics",
+      "participants_count": null,
+      "message_count": 89
+    },
+    {
+      "id": "ostnews_faktencheck",
+      "label": "Ostnews Faktencheck",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 77,
+      "depth": 4,
+      "title": "Ostnews Faktencheck",
+      "participants_count": null,
+      "message_count": 77
+    },
+    {
+      "id": "palestine_updates",
+      "label": "Palestine Updates \ud83c\uddf5\ud83c\uddf8\u2694\ufe0f",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 4,
+      "title": "Palestine Updates \ud83c\uddf5\ud83c\uddf8\u2694\ufe0f",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "elojoen",
+      "label": "El Ojo \ud83d\udc41 Noticias | Guerra entre Rusia y Ucrania | China | EE.UU. | Armas nucleares | Putin | Trump | Siria | Musk",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 91,
+      "depth": 4,
+      "title": "El Ojo \ud83d\udc41 Noticias | Guerra entre Rusia y Ucrania | China | EE.UU. | Armas nucleares | Putin | Trump | Siria | Musk",
+      "participants_count": null,
+      "message_count": 91
+    },
+    {
+      "id": "warmonitors",
+      "label": "War Monitor",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 86,
+      "depth": 4,
+      "title": "War Monitor",
+      "participants_count": null,
+      "message_count": 86
+    },
+    {
+      "id": "thewhiplashchannel",
+      "label": "The Whiplash Channel",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 54,
+      "depth": 4,
+      "title": "The Whiplash Channel",
+      "participants_count": null,
+      "message_count": 54
+    },
+    {
+      "id": "tatiana_santi",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 4,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "star_updatesss",
+      "label": "\ud83d\udd49 STAR UPDATE \ud83d\udd49 \ud83c\uddee\ud83c\uddf3",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 89,
+      "depth": 4,
+      "title": "\ud83d\udd49 STAR UPDATE \ud83d\udd49 \ud83c\uddee\ud83c\uddf3",
+      "participants_count": null,
+      "message_count": 89
+    },
+    {
+      "id": "tatiana_italia_russia",
+      "label": "Tatiana Santi",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 66,
+      "depth": 4,
+      "title": "Tatiana Santi",
+      "participants_count": null,
+      "message_count": 66
+    },
+    {
+      "id": "addlist",
+      "label": "addlist",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "intelslava",
+      "label": "Intel Slava",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 75,
+      "depth": 4,
+      "title": "Intel Slava",
+      "participants_count": null,
+      "message_count": 75
+    },
+    {
+      "id": "slovenskymedved",
+      "label": "Slovensk\u00fd medve\u010f",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 96,
+      "depth": 4,
+      "title": "Slovensk\u00fd medve\u010f",
+      "participants_count": null,
+      "message_count": 96
+    },
+    {
+      "id": "developmentnewsindia",
+      "label": "Indian Development News \ud83c\uddee\ud83c\uddf3",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 4,
+      "title": "Indian Development News \ud83c\uddee\ud83c\uddf3",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "newrulesgeo",
+      "label": "New Rules",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 4,
+      "title": "New Rules",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "multipolarmarket",
+      "label": "Multipolar Market",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 98,
+      "depth": 4,
+      "title": "Multipolar Market",
+      "participants_count": null,
+      "message_count": 98
+    },
+    {
+      "id": "tabzlive",
+      "label": "TabZ - Alternative Media",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 4,
+      "title": "TabZ - Alternative Media",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "two_majors",
+      "label": "Two Majors - English Channel",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 78,
+      "depth": 5,
+      "title": "Two Majors - English Channel",
+      "participants_count": null,
+      "message_count": 78
+    },
+    {
+      "id": "ukr_leaks_pl",
+      "label": "UKR LEAKS_pl",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 5,
+      "title": "UKR LEAKS_pl",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "ukr_leaks_hu",
+      "label": "UKR LEAKS_hu",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 92,
+      "depth": 5,
+      "title": "UKR LEAKS_hu",
+      "participants_count": null,
+      "message_count": 92
+    },
+    {
+      "id": "prozorov_fr",
+      "label": "Prozorov en fran\u00e7ais",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 87,
+      "depth": 5,
+      "title": "Prozorov en fran\u00e7ais",
+      "participants_count": null,
+      "message_count": 87
+    },
+    {
+      "id": "askabhijeet",
+      "label": "Abhijeet Srivastava",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 95,
+      "depth": 5,
+      "title": "Abhijeet Srivastava",
+      "participants_count": null,
+      "message_count": 95
+    },
+    {
+      "id": "ukr_leaks_pt",
+      "label": "UKR LEAKS_pt",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 86,
+      "depth": 5,
+      "title": "UKR LEAKS_pt",
+      "participants_count": null,
+      "message_count": 86
+    },
+    {
+      "id": "infodefensened",
+      "label": "InfodefenseNED",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 59,
+      "depth": 5,
+      "title": "InfodefenseNED",
+      "participants_count": null,
+      "message_count": 59
+    },
+    {
+      "id": "ukr_leaks_sk",
+      "label": "UKR LEAKS_sk",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 82,
+      "depth": 5,
+      "title": "UKR LEAKS_sk",
+      "participants_count": null,
+      "message_count": 82
+    },
+    {
+      "id": "ukr_leaks_ara",
+      "label": "UKR LEAKS \u0639\u0640\u0640\u0631\u0628\u064a\u0640\u0640\u0629",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 5,
+      "title": "UKR LEAKS \u0639\u0640\u0640\u0631\u0628\u064a\u0640\u0640\u0629",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "infodefengland",
+      "label": "InfoDefenseENGLISH",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 83,
+      "depth": 5,
+      "title": "InfoDefenseENGLISH",
+      "participants_count": null,
+      "message_count": 83
+    },
+    {
+      "id": "gaganautspr",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 5,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "slavyangrad",
+      "label": "Slavyangrad",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 76,
+      "depth": 5,
+      "title": "Slavyangrad",
+      "participants_count": null,
+      "message_count": 76
+    },
+    {
+      "id": "ukr_leaks_de",
+      "label": "UKR LEAKS_de",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 84,
+      "depth": 5,
+      "title": "UKR LEAKS_de",
+      "participants_count": null,
+      "message_count": 84
+    },
+    {
+      "id": "ukr_leaks_italia",
+      "label": "UKR LEAKS_Italia",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 85,
+      "depth": 5,
+      "title": "UKR LEAKS_Italia",
+      "participants_count": null,
+      "message_count": 85
+    },
+    {
+      "id": "militarywave",
+      "label": "Military Wave",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 98,
+      "depth": 5,
+      "title": "Military Wave",
+      "participants_count": null,
+      "message_count": 98
+    },
+    {
+      "id": "ukr_leaks",
+      "label": "UKR LEAKS",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 84,
+      "depth": 5,
+      "title": "UKR LEAKS",
+      "participants_count": null,
+      "message_count": 84
+    },
+    {
+      "id": "ukr_leaks_cn",
+      "label": "UKR LEAKS \u4e2d\u6587",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 83,
+      "depth": 5,
+      "title": "UKR LEAKS \u4e2d\u6587",
+      "participants_count": null,
+      "message_count": 83
+    },
+    {
+      "id": "infodefscandinavia",
+      "label": "InfodefSCANDINAVIA",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 72,
+      "depth": 5,
+      "title": "InfodefSCANDINAVIA",
+      "participants_count": null,
+      "message_count": 72
+    },
+    {
+      "id": "ukr_leaks_srb",
+      "label": "UKR LEAKS_srb",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 76,
+      "depth": 5,
+      "title": "UKR LEAKS_srb",
+      "participants_count": null,
+      "message_count": 76
+    },
+    {
+      "id": "premanandji",
+      "label": "Premanad ji maharaj Vrindavan",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 5,
+      "title": "Premanad ji maharaj Vrindavan",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "infodefall",
+      "label": "InfoDefense",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 6,
+      "depth": 5,
+      "title": "InfoDefense",
+      "participants_count": null,
+      "message_count": 6
+    },
+    {
+      "id": "ukr_leaks_esp",
+      "label": "UKR LEAKS_esp",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 88,
+      "depth": 5,
+      "title": "UKR LEAKS_esp",
+      "participants_count": null,
+      "message_count": 88
+    },
+    {
+      "id": "diplomatic_delta",
+      "label": "Diplomatic Delta",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 86,
+      "depth": 5,
+      "title": "Diplomatic Delta",
+      "participants_count": null,
+      "message_count": 86
+    },
+    {
+      "id": "ukr_leaks_eng",
+      "label": "UKR LEAKS_eng",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 96,
+      "depth": 5,
+      "title": "UKR LEAKS_eng",
+      "participants_count": null,
+      "message_count": 96
+    },
+    {
+      "id": "threesixtydegrees",
+      "label": "360 Degrees",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 76,
+      "depth": 5,
+      "title": "360 Degrees",
+      "participants_count": null,
+      "message_count": 76
+    },
+    {
+      "id": "cuteandfunvideos",
+      "label": "Cute and Fun Videos \ud83e\udd70",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 5,
+      "title": "Cute and Fun Videos \ud83e\udd70",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "politischebilder",
+      "label": "Politische Bilder \ud83e\udd2a",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 96,
+      "depth": 5,
+      "title": "Politische Bilder \ud83e\udd2a",
+      "participants_count": null,
+      "message_count": 96
+    },
+    {
+      "id": "politische_nachrichten",
+      "label": "Politische Nachrichten \ud83d\uddde",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 5,
+      "title": "Politische Nachrichten \ud83d\uddde",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "satellit_de",
+      "label": "Satellit",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 63,
+      "depth": 5,
+      "title": "Satellit",
+      "participants_count": null,
+      "message_count": 63
+    },
+    {
+      "id": "ostnews_faktencheck____",
+      "label": "ostnews_faktencheck____",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "uildonius",
+      "label": "Uildo News \ud83c\uddf5\ud83c\uddf8\ud83c\uddfa\ud83c\udde6\ud83c\uddf8\ud83c\uddfe",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 84,
+      "depth": 5,
+      "title": "Uildo News \ud83c\uddf5\ud83c\uddf8\ud83c\uddfa\ud83c\udde6\ud83c\uddf8\ud83c\uddfe",
+      "participants_count": null,
+      "message_count": 84
+    },
+    {
+      "id": "lebupdate",
+      "label": "Lebanese News and Updates",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 98,
+      "depth": 5,
+      "title": "Lebanese News and Updates",
+      "participants_count": null,
+      "message_count": 98
+    },
+    {
+      "id": "rollo_chino",
+      "label": "ROLLO CHINO",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 94,
+      "depth": 5,
+      "title": "ROLLO CHINO",
+      "participants_count": null,
+      "message_count": 94
+    },
+    {
+      "id": "american_observer",
+      "label": "American \u041ebserver",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 97,
+      "depth": 5,
+      "title": "American \u041ebserver",
+      "participants_count": null,
+      "message_count": 97
+    },
+    {
+      "id": "trumpsear_tg",
+      "label": "Trump's Ear",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 96,
+      "depth": 5,
+      "title": "Trump's Ear",
+      "participants_count": null,
+      "message_count": 96
+    },
+    {
+      "id": "star_union_news",
+      "label": "Star Union News",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 94,
+      "depth": 5,
+      "title": "Star Union News",
+      "participants_count": null,
+      "message_count": 94
+    },
+    {
+      "id": "old_glory_vortex",
+      "label": "Old Glory Vortex",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 99,
+      "depth": 5,
+      "title": "Old Glory Vortex",
+      "participants_count": null,
+      "message_count": 99
+    },
+    {
+      "id": "tartaria_hispanica",
+      "label": "TARTARIA HISPANICA",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 61,
+      "depth": 5,
+      "title": "TARTARIA HISPANICA",
+      "participants_count": null,
+      "message_count": 61
+    },
+    {
+      "id": "disclosetv",
+      "label": "Disclose.tv",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 97,
+      "depth": 5,
+      "title": "Disclose.tv",
+      "participants_count": null,
+      "message_count": 97
+    },
+    {
+      "id": "tartariahistorychannel",
+      "label": "Tartaria & History Channel",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 51,
+      "depth": 5,
+      "title": "Tartaria & History Channel",
+      "participants_count": null,
+      "message_count": 51
+    },
+    {
+      "id": "financialworldupdates",
+      "label": "Financial World Updates",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 87,
+      "depth": 5,
+      "title": "Financial World Updates",
+      "participants_count": null,
+      "message_count": 87
+    },
+    {
+      "id": "police_frequency",
+      "label": "Police frequency",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 90,
+      "depth": 5,
+      "title": "Police frequency",
+      "participants_count": null,
+      "message_count": 90
+    },
+    {
+      "id": "prgeopoliticsprime",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 5,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "tartaria",
+      "label": "Unknown",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 5,
+      "title": "Unknown",
+      "participants_count": 0,
+      "message_count": 0
+    },
+    {
+      "id": "star_ccricket",
+      "label": "Star Cricket \ud83c\udfcf",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 88,
+      "depth": 5,
+      "title": "Star Cricket \ud83c\udfcf",
+      "participants_count": null,
+      "message_count": 88
+    },
+    {
+      "id": "hashminer_encodes",
+      "label": "\u029c\u1d00\ua731\u029c\u1d0d\u026a\u0274\u1d07\u0280 \u1d21\u1d00\u026a\u1d1b\u026a\u0274\u0262 \u1d00\u0280\u1d07\u0274\u1d00",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 2,
+      "depth": 5,
+      "title": "\u029c\u1d00\ua731\u029c\u1d0d\u026a\u0274\u1d07\u0280 \u1d21\u1d00\u026a\u1d1b\u026a\u0274\u0262 \u1d00\u0280\u1d07\u0274\u1d00",
+      "participants_count": null,
+      "message_count": 2
+    },
+    {
+      "id": "vidurneeti",
+      "label": "VidurNeeti \ud83c\uddee\ud83c\uddf3",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 70,
+      "depth": 5,
+      "title": "VidurNeeti \ud83c\uddee\ud83c\uddf3",
+      "participants_count": null,
+      "message_count": 70
+    },
+    {
+      "id": "vflixprime2",
+      "label": "VFlix Prime",
+      "group": 0,
+      "size": 15,
+      "accessibility": "accessible",
+      "accessible": true,
+      "participants": 0,
+      "messages_count": 97,
+      "depth": 5,
+      "title": "VFlix Prime",
+      "participants_count": null,
+      "message_count": 97
+    },
+    {
+      "id": "star_studypoint",
+      "label": "star_studypoint",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "star_updatess",
+      "label": "star_updatess",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ir_italia",
+      "label": "ir_italia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "donbassitalia",
+      "label": "donbassitalia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "donbassfilm",
+      "label": "donbassfilm",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rt_russian",
+      "label": "rt_russian",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tass_agency",
+      "label": "tass_agency",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "internationalreporters_it",
+      "label": "internationalreporters_it",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cig_telegram",
+      "label": "cig_telegram",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "zemavek",
+      "label": "zemavek",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukraine_watch",
+      "label": "ukraine_watch",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "enplena_luz",
+      "label": "enplena_luz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sputnik_africa",
+      "label": "sputnik_africa",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "theislandernews",
+      "label": "theislandernews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "inners_of_the_politics__",
+      "label": "inners_of_the_politics__",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "r_diplomat",
+      "label": "r_diplomat",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mylordbebo",
+      "label": "mylordbebo",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "eastcalling",
+      "label": "eastcalling",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "designersmil",
+      "label": "designersmil",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rybar_in_english",
+      "label": "rybar_in_english",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "inners_of_the_politics",
+      "label": "inners_of_the_politics",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "dva_majors",
+      "label": "dva_majors",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "belarusian_silovik",
+      "label": "belarusian_silovik",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "warhistoryalconafter",
+      "label": "warhistoryalconafter",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "eurasianchoice",
+      "label": "eurasianchoice",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rybar",
+      "label": "rybar",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rian_ru",
+      "label": "rian_ru",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "belarus_vpo",
+      "label": "belarus_vpo",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "clarehockingnews",
+      "label": "clarehockingnews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_analytics",
+      "label": "ukr_leaks_analytics",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukr_leaks_",
+      "label": "ukr_leaks_",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "internationalreporters",
+      "label": "internationalreporters",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "kornilov1968",
+      "label": "kornilov1968",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "evfilindash",
+      "label": "evfilindash",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "pointnews",
+      "label": "pointnews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "olegtsarov",
+      "label": "olegtsarov",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "otryadkovpaka",
+      "label": "otryadkovpaka",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "istrkalkglk",
+      "label": "istrkalkglk",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "fluieras",
+      "label": "fluieras",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cossack_pika",
+      "label": "cossack_pika",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "turan_express",
+      "label": "turan_express",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "chinesepanorama",
+      "label": "chinesepanorama",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sterngang",
+      "label": "sterngang",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rybar_mena",
+      "label": "rybar_mena",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rusputnikmd",
+      "label": "rusputnikmd",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "wargonzo",
+      "label": "wargonzo",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "intervision_world",
+      "label": "intervision_world",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "insiderukr",
+      "label": "insiderukr",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "kirasazonova",
+      "label": "kirasazonova",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "zarussia_1",
+      "label": "zarussia_1",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mid_russia",
+      "label": "mid_russia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "yurasumy",
+      "label": "yurasumy",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "bratzabrata",
+      "label": "bratzabrata",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mfarussia",
+      "label": "mfarussia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "thebelgorodbrit",
+      "label": "thebelgorodbrit",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenseenglish",
+      "label": "infodefenseenglish",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "watchdogusa",
+      "label": "watchdogusa",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "epoddubny",
+      "label": "epoddubny",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "abbasdjuma",
+      "label": "abbasdjuma",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vysokygovorit",
+      "label": "vysokygovorit",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sputnikafrica_bot",
+      "label": "sputnikafrica_bot",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tcofrus",
+      "label": "tcofrus",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "thedurancom",
+      "label": "thedurancom",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "jlamador57",
+      "label": "jlamador57",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rwapodcast",
+      "label": "rwapodcast",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "trackamerc",
+      "label": "trackamerc",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "carvalho_bruno96",
+      "label": "carvalho_bruno96",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "taxeles",
+      "label": "taxeles",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "the_other_ukraina",
+      "label": "the_other_ukraina",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "russlaenderhumor",
+      "label": "russlaenderhumor",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "analytik_news",
+      "label": "analytik_news",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "dillfrash",
+      "label": "dillfrash",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefgermany",
+      "label": "infodefgermany",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "neuigkeiten_de",
+      "label": "neuigkeiten_de",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "netzwerkkontakt_bot",
+      "label": "netzwerkkontakt_bot",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "crazybear2022",
+      "label": "crazybear2022",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "evgeniy_lisitsyn",
+      "label": "evgeniy_lisitsyn",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ukrleaks_media",
+      "label": "ukrleaks_media",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "european_dissident",
+      "label": "european_dissident",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ucraniando",
+      "label": "ucraniando",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "moscowkremlinputinenglish",
+      "label": "moscowkremlinputinenglish",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "condottieros",
+      "label": "condottieros",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "iperiodu",
+      "label": "iperiodu",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "stockgambler",
+      "label": "stockgambler",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "norgerussisk",
+      "label": "norgerussisk",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "oleg_blokhin",
+      "label": "oleg_blokhin",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "schamanrahu",
+      "label": "schamanrahu",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infantmilitario",
+      "label": "infantmilitario",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rvvoenkor",
+      "label": "rvvoenkor",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "victorstepanych",
+      "label": "victorstepanych",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mikle1on",
+      "label": "mikle1on",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "batka_ru",
+      "label": "batka_ru",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sergeykolyasnikov",
+      "label": "sergeykolyasnikov",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "runeurope",
+      "label": "runeurope",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "narodnapatrola",
+      "label": "narodnapatrola",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "bunkersrb",
+      "label": "bunkersrb",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vestniksrb",
+      "label": "vestniksrb",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "angiezen",
+      "label": "angiezen",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "principshop",
+      "label": "principshop",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sadhanpath",
+      "label": "sadhanpath",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "politicsuntold",
+      "label": "politicsuntold",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "harimohantyagi",
+      "label": "harimohantyagi",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "brajbhakti",
+      "label": "brajbhakti",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "shripremanandji",
+      "label": "shripremanandji",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "bhaktcharitra",
+      "label": "bhaktcharitra",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenserum",
+      "label": "infodefenserum",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenserus",
+      "label": "infodefenserus",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenselva",
+      "label": "infodefenselva",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefslo",
+      "label": "infodefslo",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefspain",
+      "label": "infodefspain",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenseisr",
+      "label": "infodefenseisr",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefgreece",
+      "label": "infodefgreece",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefpoland",
+      "label": "infodefpoland",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenselit",
+      "label": "infodefenselit",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefaz",
+      "label": "infodefaz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensejpn",
+      "label": "infodefensejpn",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefbulgaria",
+      "label": "infodefbulgaria",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensepers",
+      "label": "infodefensepers",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefarm",
+      "label": "infodefarm",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefestonia",
+      "label": "infodefestonia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodeffrance1",
+      "label": "infodeffrance1",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefportugal",
+      "label": "infodefportugal",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefarab",
+      "label": "infodefarab",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefmagyarok",
+      "label": "infodefmagyarok",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefturkey",
+      "label": "infodefturkey",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefchina",
+      "label": "infodefchina",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenseteambot",
+      "label": "infodefenseteambot",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensefrreserve",
+      "label": "infodefensefrreserve",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefserbia",
+      "label": "infodefserbia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensecze",
+      "label": "infodefensecze",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefenseuz",
+      "label": "infodefenseuz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "enplenaluz",
+      "label": "enplenaluz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefitaly",
+      "label": "infodefitaly",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefspectrum",
+      "label": "infodefspectrum",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "infodefensemailbot",
+      "label": "infodefensemailbot",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "warriorofnorth",
+      "label": "warriorofnorth",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "visionobjetiva",
+      "label": "visionobjetiva",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ptaxis",
+      "label": "ptaxis",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ptyes",
+      "label": "ptyes",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "zovpobedy",
+      "label": "zovpobedy",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "russiadailyde",
+      "label": "russiadailyde",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesundohnemedikament",
+      "label": "gesundohnemedikament",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "frmawa",
+      "label": "frmawa",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "werneraltnickelabsicherung",
+      "label": "werneraltnickelabsicherung",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tommypositiv",
+      "label": "tommypositiv",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lebensmutkanalersatz",
+      "label": "lebensmutkanalersatz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rundumgsund",
+      "label": "rundumgsund",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "node_of_time_de",
+      "label": "node_of_time_de",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "hinweise_rueckrufe",
+      "label": "hinweise_rueckrufe",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geheimeswissendereliten",
+      "label": "geheimeswissendereliten",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "blaupausetv_mv",
+      "label": "blaupausetv_mv",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "meinednews",
+      "label": "meinednews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "royalallemand",
+      "label": "royalallemand",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sportfitnessernaehrung",
+      "label": "sportfitnessernaehrung",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rechtsanwaeltin_beate_bahner",
+      "label": "rechtsanwaeltin_beate_bahner",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "kachelkanal",
+      "label": "kachelkanal",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesundundgut",
+      "label": "gesundundgut",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "theync",
+      "label": "theync",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "medienzensur",
+      "label": "medienzensur",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "yourewellcomebot",
+      "label": "yourewellcomebot",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "unvergessenehelden",
+      "label": "unvergessenehelden",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "gesundistbesser",
+      "label": "gesundistbesser",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lahme_ente",
+      "label": "lahme_ente",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "kartenaufdeckung",
+      "label": "kartenaufdeckung",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "phantomschweiz",
+      "label": "phantomschweiz",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "evahermanoffiziell",
+      "label": "evahermanoffiziell",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "junge_freiheit_official",
+      "label": "junge_freiheit_official",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "rabbitresearch",
+      "label": "rabbitresearch",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "metapedia_deutsch",
+      "label": "metapedia_deutsch",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "maeckleschafftwissen",
+      "label": "maeckleschafftwissen",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "x_paradoxon_x",
+      "label": "x_paradoxon_x",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "simonevoss",
+      "label": "simonevoss",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "freiemedientv",
+      "label": "freiemedientv",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "ddddoffiziell",
+      "label": "ddddoffiziell",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "neuezeit2026",
+      "label": "neuezeit2026",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "maeklegutelaune",
+      "label": "maeklegutelaune",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "russischdeutschenachrichten",
+      "label": "russischdeutschenachrichten",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "nachhallvonhelgoland",
+      "label": "nachhallvonhelgoland",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "mtnews_deutsch",
+      "label": "mtnews_deutsch",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "legitimnews",
+      "label": "legitimnews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "findefehler",
+      "label": "findefehler",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "impfen_doku",
+      "label": "impfen_doku",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "patrickpoppel",
+      "label": "patrickpoppel",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "welt_der_videos",
+      "label": "welt_der_videos",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "iswnews_en",
+      "label": "iswnews_en",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "manarlive",
+      "label": "manarlive",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "generacionia",
+      "label": "generacionia",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lavidaessonido1",
+      "label": "lavidaessonido1",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "lavidaessonido",
+      "label": "lavidaessonido",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "techladotech",
+      "label": "techladotech",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "depreeconomica",
+      "label": "depreeconomica",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "hayqverlo",
+      "label": "hayqverlo",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cuerpo_mente",
+      "label": "cuerpo_mente",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "senalesdelespacio",
+      "label": "senalesdelespacio",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tohkasvazi_108",
+      "label": "tohkasvazi_108",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cosmonautas",
+      "label": "cosmonautas",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tartarajapn",
+      "label": "tartarajapn",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "undergroundplants",
+      "label": "undergroundplants",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "underground",
+      "label": "underground",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "beyondhistory",
+      "label": "beyondhistory",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "orgone_light",
+      "label": "orgone_light",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "science",
+      "label": "science",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "r_damnthatsinteresting",
+      "label": "r_damnthatsinteresting",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "huparxis",
+      "label": "huparxis",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "almapt25",
+      "label": "almapt25",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "neuroticoyt",
+      "label": "neuroticoyt",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "\u0442\u043e\u0447\u043a\u0430",
+      "label": "\u0442\u043e\u0447\u043a\u0430",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "beyond",
+      "label": "beyond",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "e2gcensored",
+      "label": "e2gcensored",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "flatearth",
+      "label": "flatearth",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sefnnetwork",
+      "label": "sefnnetwork",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "orgone",
+      "label": "orgone",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tartariainmycitypix",
+      "label": "tartariainmycitypix",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cosmonautas161",
+      "label": "cosmonautas161",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "realdonaldtrump",
+      "label": "realdonaldtrump",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tartariabritannica",
+      "label": "tartariabritannica",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "wind_history",
+      "label": "wind_history",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "larazadelosgigantes",
+      "label": "larazadelosgigantes",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "poweredpyramids",
+      "label": "poweredpyramids",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tartarianenglishgroup",
+      "label": "tartarianenglishgroup",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "agentm2024",
+      "label": "agentm2024",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "\u0432\u0435\u0442\u0440\u044b",
+      "label": "\u0432\u0435\u0442\u0440\u044b",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "powered",
+      "label": "powered",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "earthseeders",
+      "label": "earthseeders",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "agent",
+      "label": "agent",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "tartariaitaliachannel",
+      "label": "tartariaitaliachannel",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "greatreject",
+      "label": "greatreject",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "undergroundgardenchat",
+      "label": "undergroundgardenchat",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "en_travaux",
+      "label": "en_travaux",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cryptoworldnews",
+      "label": "cryptoworldnews",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cryptocurrency_inside",
+      "label": "cryptocurrency_inside",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "altcointrading",
+      "label": "altcointrading",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "sheriffs",
+      "label": "sheriffs",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "star_ccricketanalysis",
+      "label": "star_ccricketanalysis",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "cricxplorers1",
+      "label": "cricxplorers1",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "geosight",
+      "label": "geosight",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "robertkennedyjr____",
+      "label": "robertkennedyjr____",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vidurneeti_hindi__",
+      "label": "vidurneeti_hindi__",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vidurneeti____",
+      "label": "vidurneeti____",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "vidurneeti__",
+      "label": "vidurneeti__",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "realdonaldtrump____",
+      "label": "realdonaldtrump____",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    },
+    {
+      "id": "doge____",
+      "label": "doge____",
+      "group": 1,
+      "size": 10,
+      "accessibility": "failed",
+      "accessible": false,
+      "participants": 0,
+      "messages_count": 0,
+      "depth": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "nickjfuentes",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "medmannews",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "ytbaudiobot",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "alhaqnews",
+      "value": 1
+    },
+    {
+      "source": "middle_east_spectator",
+      "target": "fotrosresistancee",
+      "value": 1
+    },
+    {
+      "source": "CharlieKirk",
+      "target": "sgtnewsnetwork",
+      "value": 1
+    },
+    {
+      "source": "sgtnewsnetwork",
+      "target": "sgtnewsnetwork",
+      "value": 1
+    },
+    {
+      "source": "sgtnewsnetwork",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "sgtnewsnetwork",
+      "target": "nofarmersnofoud",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "medmannews",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "medmannews",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "alhaqnews",
+      "target": "fromthefront",
+      "value": 1
+    },
+    {
+      "source": "alhaqnews",
+      "target": "alhawnews",
+      "value": 1
+    },
+    {
+      "source": "alhaqnews",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "alhaqnews",
+      "target": "alhaqnews",
+      "value": 1
+    },
+    {
+      "source": "fotrosresistancee",
+      "target": "alhaqnews",
+      "value": 1
+    },
+    {
+      "source": "fotrosresistancee",
+      "target": "fotrosresistancee",
+      "value": 1
+    },
+    {
+      "source": "fotrosresistancee",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "nofarmersnofoud",
+      "target": "sgtnewsnetwork",
+      "value": 1
+    },
+    {
+      "source": "nofarmersnofoud",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "nofarmersnofoud",
+      "target": "nofarmersnofoud",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "viktoriach13",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "ostnews_faktencheck",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "palestine_updates",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "elojoen",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "warmonitors",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "thewhiplashchannel",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "tatiana_santi",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "star_updatesss",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "tatiana_italia_russia",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "medmannews",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "intelslava",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "slovenskymedved",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "developmentnewsindia",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "newrulesgeo",
+      "value": 1
+    },
+    {
+      "source": "geopolitics_prime",
+      "target": "multipolarmarket",
+      "value": 1
+    },
+    {
+      "source": "fromthefront",
+      "target": "fromthefront",
+      "value": 1
+    },
+    {
+      "source": "fromthefront",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "fromthefront",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_pl",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_hu",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "prozorov_fr",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "askabhijeet",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_pt",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_sk",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_ara",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "star_updatesss",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_de",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_italia",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "militarywave",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_cn",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_srb",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "premanandji",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_esp",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "diplomatic_delta",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "ukr_leaks_eng",
+      "value": 1
+    },
+    {
+      "source": "geo_gaganauts",
+      "target": "threesixtydegrees",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "ostnews_faktencheck",
+      "target": "ostnews_faktencheck____",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "palestine_updates",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "uildonius",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "palestine_updates",
+      "target": "lebupdate",
+      "value": 1
+    },
+    {
+      "source": "elojoen",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "elojoen",
+      "target": "rollo_chino",
+      "value": 1
+    },
+    {
+      "source": "elojoen",
+      "target": "elojoen",
+      "value": 1
+    },
+    {
+      "source": "warmonitors",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "warmonitors",
+      "target": "american_observer",
+      "value": 1
+    },
+    {
+      "source": "warmonitors",
+      "target": "trumpsear_tg",
+      "value": 1
+    },
+    {
+      "source": "warmonitors",
+      "target": "star_union_news",
+      "value": 1
+    },
+    {
+      "source": "warmonitors",
+      "target": "old_glory_vortex",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "tartaria_hispanica",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "thewhiplashchannel",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "disclosetv",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "tartariahistorychannel",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "financialworldupdates",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "police_frequency",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "thewhiplashchannel",
+      "target": "tartaria",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "star_ccricket",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "hashminer_encodes",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "star_updatesss",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "vidurneeti",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "vflixprime2",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "star_studypoint",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "star_updatess",
+      "value": 1
+    },
+    {
+      "source": "star_updatesss",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "ir_italia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tatiana_santi",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "donbassitalia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tatiana_italia_russia",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "donbassfilm",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "rt_russian",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "tass_agency",
+      "value": 1
+    },
+    {
+      "source": "tatiana_italia_russia",
+      "target": "internationalreporters_it",
+      "value": 1
+    },
+    {
+      "source": "intelslava",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "intelslava",
+      "target": "cig_telegram",
+      "value": 1
+    },
+    {
+      "source": "slovenskymedved",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "slovenskymedved",
+      "target": "zemavek",
+      "value": 1
+    },
+    {
+      "source": "slovenskymedved",
+      "target": "slovenskymedved",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "developmentnewsindia",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "ukraine_watch",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "enplena_luz",
+      "value": 1
+    },
+    {
+      "source": "newrulesgeo",
+      "target": "newrulesgeo",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "trumpsear_tg",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "star_union_news",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "sputnik_africa",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "american_observer",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "old_glory_vortex",
+      "value": 1
+    },
+    {
+      "source": "multipolarmarket",
+      "target": "multipolarmarket",
+      "value": 1
+    },
+    {
+      "source": "tabzlive",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "viktoriach13",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "theislandernews",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "inners_of_the_politics__",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "r_diplomat",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "mylordbebo",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "eastcalling",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "designersmil",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "rybar_in_english",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "inners_of_the_politics",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "militarywave",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "dva_majors",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "belarusian_silovik",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "warhistoryalconafter",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "eurasianchoice",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "ukr_leaks_eng",
+      "value": 1
+    },
+    {
+      "source": "two_majors",
+      "target": "rybar",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_pl",
+      "target": "rian_ru",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_pl",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_pl",
+      "target": "ukr_leaks_pl",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_pl",
+      "target": "belarus_vpo",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_hu",
+      "target": "ukr_leaks_hu",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_hu",
+      "target": "clarehockingnews",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_hu",
+      "target": "ukr_leaks_analytics",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_hu",
+      "target": "ukr_leaks_",
+      "value": 1
+    },
+    {
+      "source": "prozorov_fr",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "prozorov_fr",
+      "target": "internationalreporters",
+      "value": 1
+    },
+    {
+      "source": "prozorov_fr",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "prozorov_fr",
+      "target": "prozorov_fr",
+      "value": 1
+    },
+    {
+      "source": "prozorov_fr",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "askabhijeet",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_pt",
+      "target": "ukr_leaks_pt",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "kornilov1968",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "evfilindash",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "pointnews",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "olegtsarov",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "otryadkovpaka",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "istrkalkglk",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "fluieras",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "cossack_pika",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "turan_express",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "chinesepanorama",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "sterngang",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "rybar_mena",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "rusputnikmd",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "belarusian_silovik",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "wargonzo",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "intervision_world",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "insiderukr",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "kirasazonova",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "zarussia_1",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "mid_russia",
+      "value": 1
+    },
+    {
+      "source": "infodefensened",
+      "target": "yurasumy",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_sk",
+      "target": "ukr_leaks_sk",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_sk",
+      "target": "bratzabrata",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_ara",
+      "target": "ukr_leaks_ara",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "viktoriach13",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "mfarussia",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "thebelgorodbrit",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "infodefenseenglish",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "militarywave",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "watchdogusa",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "epoddubny",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "abbasdjuma",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "vysokygovorit",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "sputnikafrica_bot",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "tcofrus",
+      "value": 1
+    },
+    {
+      "source": "infodefengland",
+      "target": "thedurancom",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "jlamador57",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "rwapodcast",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "trackamerc",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "theislandernews",
+      "value": 1
+    },
+    {
+      "source": "slavyangrad",
+      "target": "carvalho_bruno96",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "taxeles",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "the_other_ukraina",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "russlaenderhumor",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "analytik_news",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "dillfrash",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "ukr_leaks_de",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "infodefgermany",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "neuigkeiten_de",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "netzwerkkontakt_bot",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_de",
+      "target": "crazybear2022",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "rian_ru",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "evgeniy_lisitsyn",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "ukr_leaks_eng",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "belarus_vpo",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "ukr_leaks_italia",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_italia",
+      "target": "ukrleaks_media",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "european_dissident",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "theislandernews",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "ucraniando",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "moscowkremlinputinenglish",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "militarywave",
+      "target": "militarywave",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks",
+      "target": "rian_ru",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks",
+      "target": "evgeniy_lisitsyn",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks",
+      "target": "ukr_leaks",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks",
+      "target": "ukr_leaks_analytics",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks",
+      "target": "belarus_vpo",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_cn",
+      "target": "ukr_leaks_cn",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "kornilov1968",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "condottieros",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "iperiodu",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "stockgambler",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "norgerussisk",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "oleg_blokhin",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "schamanrahu",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "slavyangrad",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "infantmilitario",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "ukraine_watch",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "rvvoenkor",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "victorstepanych",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "belarusian_silovik",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "mikle1on",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "batka_ru",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "sergeykolyasnikov",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "vysokygovorit",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "runeurope",
+      "value": 1
+    },
+    {
+      "source": "infodefscandinavia",
+      "target": "belarus_vpo",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "narodnapatrola",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "bunkersrb",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "vestniksrb",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "ukr_leaks_srb",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "angiezen",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "boost",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_srb",
+      "target": "principshop",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "sadhanpath",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "premanandji",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "politicsuntold",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "harimohantyagi",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "brajbhakti",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "shripremanandji",
+      "value": 1
+    },
+    {
+      "source": "premanandji",
+      "target": "bhaktcharitra",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefgermany",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenserum",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenserus",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenselva",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefslo",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefspain",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenseisr",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefgreece",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefpoland",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenselit",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefaz",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensejpn",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefbulgaria",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensepers",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefarm",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefestonia",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodeffrance1",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensened",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefportugal",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefarab",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefengland",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefmagyarok",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefturkey",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefchina",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenseteambot",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensefrreserve",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefscandinavia",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefserbia",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensecze",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefenseuz",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefall",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "enplenaluz",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefitaly",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefspectrum",
+      "value": 1
+    },
+    {
+      "source": "infodefall",
+      "target": "infodefensemailbot",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "rian_ru",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "evgeniy_lisitsyn",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "ukr_leaks_esp",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "sputnikafrica_bot",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "rybar",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "warriorofnorth",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_esp",
+      "target": "visionobjetiva",
+      "value": 1
+    },
+    {
+      "source": "diplomatic_delta",
+      "target": "ptaxis",
+      "value": 1
+    },
+    {
+      "source": "diplomatic_delta",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "diplomatic_delta",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "diplomatic_delta",
+      "target": "ptyes",
+      "value": 1
+    },
+    {
+      "source": "diplomatic_delta",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "two_majors",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "viktoriach13",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "rian_ru",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "zovpobedy",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "ukrleaks_media",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "sputnikafrica_bot",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "geopolitics_prime",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "ukr_leaks_eng",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "dva_majors",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "rybar",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "warriorofnorth",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "prgeopoliticsprime",
+      "value": 1
+    },
+    {
+      "source": "ukr_leaks_eng",
+      "target": "belarus_vpo",
+      "value": 1
+    },
+    {
+      "source": "threesixtydegrees",
+      "target": "gaganautspr",
+      "value": 1
+    },
+    {
+      "source": "threesixtydegrees",
+      "target": "geo_gaganauts",
+      "value": 1
+    },
+    {
+      "source": "threesixtydegrees",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "russiadailyde",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "gesundohnemedikament",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "frmawa",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "werneraltnickelabsicherung",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "tommypositiv",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "lebensmutkanalersatz",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "infodefgermany",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "addlist",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "rundumgsund",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "node_of_time_de",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "hinweise_rueckrufe",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "geheimeswissendereliten",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "blaupausetv_mv",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "meinednews",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "royalallemand",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "sportfitnessernaehrung",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "rechtsanwaeltin_beate_bahner",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "kachelkanal",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "gesundundgut",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "theync",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "medienzensur",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "yourewellcomebot",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "unvergessenehelden",
+      "value": 1
+    },
+    {
+      "source": "cuteandfunvideos",
+      "target": "gesundistbesser",
+      "value": 1
+    },
+    {
+      "source": "politischebilder",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "politischebilder",
+      "target": "lahme_ente",
+      "value": 1
+    },
+    {
+      "source": "politischebilder",
+      "target": "node_of_time_de",
+      "value": 1
+    },
+    {
+      "source": "politischebilder",
+      "target": "kartenaufdeckung",
+      "value": 1
+    },
+    {
+      "source": "politischebilder",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "phantomschweiz",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "evahermanoffiziell",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "lahme_ente",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "infodefgermany",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "junge_freiheit_official",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "rabbitresearch",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "metapedia_deutsch",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "maeckleschafftwissen",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "x_paradoxon_x",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "simonevoss",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "freiemedientv",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "node_of_time_de",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "ddddoffiziell",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "neuezeit2026",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "maeklegutelaune",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "meinednews",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "russischdeutschenachrichten",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "nachhallvonhelgoland",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "kachelkanal",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "mikle1on",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "kartenaufdeckung",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "mtnews_deutsch",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "medienzensur",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "ostnews_faktencheck____",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "legitimnews",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "findefehler",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "impfen_doku",
+      "value": 1
+    },
+    {
+      "source": "politische_nachrichten",
+      "target": "gesundistbesser",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "frmawa",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "cuteandfunvideos",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "ostnews_faktencheck____",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "politischebilder",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "patrickpoppel",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "politische_nachrichten",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "satellit_de",
+      "value": 1
+    },
+    {
+      "source": "satellit_de",
+      "target": "welt_der_videos",
+      "value": 1
+    },
+    {
+      "source": "uildonius",
+      "target": "tabzlive",
+      "value": 1
+    },
+    {
+      "source": "uildonius",
+      "target": "iswnews_en",
+      "value": 1
+    },
+    {
+      "source": "uildonius",
+      "target": "palestine_updates",
+      "value": 1
+    },
+    {
+      "source": "lebupdate",
+      "target": "fotrosresistancee",
+      "value": 1
+    },
+    {
+      "source": "lebupdate",
+      "target": "middle_east_spectator",
+      "value": 1
+    },
+    {
+      "source": "lebupdate",
+      "target": "manarlive",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "generacionia",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "elojoen",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "lavidaessonido1",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "lavidaessonido",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "rollo_chino",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "techladotech",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "depreeconomica",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "hayqverlo",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "cuerpo_mente",
+      "value": 1
+    },
+    {
+      "source": "rollo_chino",
+      "target": "senalesdelespacio",
+      "value": 1
+    },
+    {
+      "source": "american_observer",
+      "target": "american_observer",
+      "value": 1
+    },
+    {
+      "source": "american_observer",
+      "target": "old_glory_vortex",
+      "value": 1
+    },
+    {
+      "source": "trumpsear_tg",
+      "target": "trumpsear_tg",
+      "value": 1
+    },
+    {
+      "source": "star_union_news",
+      "target": "star_union_news",
+      "value": 1
+    },
+    {
+      "source": "old_glory_vortex",
+      "target": "american_observer",
+      "value": 1
+    },
+    {
+      "source": "old_glory_vortex",
+      "target": "old_glory_vortex",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "tohkasvazi_108",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "cosmonautas",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "tartarajapn",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "undergroundplants",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "underground",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "beyondhistory",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "orgone_light",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "science",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "r_damnthatsinteresting",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "huparxis",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "almapt25",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "neuroticoyt",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "tartaria",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "\u0442\u043e\u0447\u043a\u0430",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "beyond",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "tartaria_hispanica",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "e2gcensored",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "flatearth",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "sefnnetwork",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "orgone",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "tartariainmycitypix",
+      "value": 1
+    },
+    {
+      "source": "tartaria_hispanica",
+      "target": "cosmonautas161",
+      "value": 1
+    },
+    {
+      "source": "disclosetv",
+      "target": "realdonaldtrump",
+      "value": 1
+    },
+    {
+      "source": "disclosetv",
+      "target": "disclosetv",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "undergroundplants",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "underground",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartariabritannica",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "wind_history",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "larazadelosgigantes",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartariahistorychannel",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "poweredpyramids",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartarianenglishgroup",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "beyondhistory",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "science",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "agentm2024",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "\u0432\u0435\u0442\u0440\u044b",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "orgone_light",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "powered",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "earthseeders",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartaria",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "agent",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "beyond",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartariaitaliachannel",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartaria_hispanica",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "greatreject",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "undergroundgardenchat",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "sefnnetwork",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "en_travaux",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "orgone",
+      "value": 1
+    },
+    {
+      "source": "tartariahistorychannel",
+      "target": "tartariainmycitypix",
+      "value": 1
+    },
+    {
+      "source": "financialworldupdates",
+      "target": "cryptoworldnews",
+      "value": 1
+    },
+    {
+      "source": "financialworldupdates",
+      "target": "cryptocurrency_inside",
+      "value": 1
+    },
+    {
+      "source": "financialworldupdates",
+      "target": "altcointrading",
+      "value": 1
+    },
+    {
+      "source": "financialworldupdates",
+      "target": "financialworldupdates",
+      "value": 1
+    },
+    {
+      "source": "police_frequency",
+      "target": "police_frequency",
+      "value": 1
+    },
+    {
+      "source": "police_frequency",
+      "target": "sheriffs",
+      "value": 1
+    },
+    {
+      "source": "star_ccricket",
+      "target": "star_ccricketanalysis",
+      "value": 1
+    },
+    {
+      "source": "star_ccricket",
+      "target": "cricxplorers1",
+      "value": 1
+    },
+    {
+      "source": "star_ccricket",
+      "target": "geosight",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "robertkennedyjr____",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "vidurneeti_hindi__",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "vidurneeti____",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "vidurneeti",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "vidurneeti__",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "realdonaldtrump____",
+      "value": 1
+    },
+    {
+      "source": "vidurneeti",
+      "target": "doge____",
+      "value": 1
+    },
+    {
+      "source": "vflixprime2",
+      "target": "vflixprime2",
+      "value": 1
+    }
+  ]
+}
