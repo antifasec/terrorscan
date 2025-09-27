@@ -37,7 +37,7 @@ jobs:
 
       - name: Run terrorscan for ${{ inputs.channel }}
         run: |
-          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 9 -m 99 -mc 99 -o results
+          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 4 -m 99 -mc 99 -o results
         continue-on-error: true
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
