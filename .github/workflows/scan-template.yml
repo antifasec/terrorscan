@@ -43,7 +43,7 @@ jobs:
 
       - name: Run terrorscan for ${{ inputs.channel }}
         run: |
-          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 4 -m 99 -mc 99 -o results
+          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 3 -m 99 -mc 99 -o results
         continue-on-error: true
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
@@ -71,6 +71,76 @@ jobs:
           cp -r results/* "${TIMESTAMPED_DIR}/"
 
           echo "Scan results prepared in ${TIMESTAMPED_DIR}"
+
+      - name: Update manifest
+        run: |
+          # Download existing manifest from Pages
+          curl -f -s -o existing_manifest.json "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" || {
+            echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+          }
+
+          # Update manifest with new scan data
+          YEAR=$(date +%Y)
+          MONTH=$(date +%m)
+          DAY=$(date +%d)
+          TIMESTAMP=$(date +%H%M%S)
+          TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
+
+          python3 -c "
+import json
+import os
+from datetime import datetime
+
+# Load existing manifest
+with open('existing_manifest.json', 'r') as f:
+    manifest = json.load(f)
+
+# Initialize channel if not exists
+if '${{ inputs.data_dir }}' not in manifest['channels']:
+    manifest['channels']['${{ inputs.data_dir }}'] = {'scans': []}
+
+# Get file list and sizes for this scan
+scan_files = []
+if os.path.exists('${TIMESTAMPED_DIR}'):
+    for root, dirs, files in os.walk('${TIMESTAMPED_DIR}'):
+        for file in files:
+            filepath = os.path.join(root, file)
+            rel_path = os.path.relpath(filepath, 'pages_output')
+            size = os.path.getsize(filepath)
+            scan_files.append({
+                'name': file,
+                'path': '/' + rel_path,
+                'url': 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/' + rel_path,
+                'size': size,
+                'type': file.split('.')[-1] if '.' in file else 'unknown'
+            })
+
+    # Add this scan to manifest
+    scan_entry = {
+        'timestamp': '${YEAR}-${MONTH}-${DAY}T${TIMESTAMP[:2]}:${TIMESTAMP[2:4]}:${TIMESTAMP[4:6]}Z',
+        'channel': '${{ inputs.channel }}',
+        'path': 'public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}',
+        'files': scan_files,
+        'fileCount': len(scan_files)
+    }
+
+    manifest['channels']['${{ inputs.data_dir }}']['scans'].append(scan_entry)
+    manifest['lastUpdated'] = datetime.now().isoformat() + 'Z'
+
+    # Sort scans by timestamp (most recent first)
+    manifest['channels']['${{ inputs.data_dir }}']['scans'].sort(key=lambda x: x['timestamp'], reverse=True)
+
+    print(f'Added scan with {len(scan_files)} files to manifest')
+else:
+    print('No scan directory found, skipping manifest update')
+
+# Save updated manifest
+os.makedirs('pages_output/public/data', exist_ok=True)
+with open('pages_output/public/data/manifest.json', 'w') as f:
+    json.dump(manifest, f, indent=2)
+
+print('Manifest updated')
+"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
