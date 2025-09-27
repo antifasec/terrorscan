@@ -1,14 +1,15 @@
 name: Scan Channel Template
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       channel:
-        description: 'Channel name to scan'
+        description: "Channel name to scan"
         required: true
         type: string
       data_dir:
-        description: 'Directory name for storing data (lowercase)'
+        description: "Directory name for storing data (lowercase)"
         required: true
         type: string
 
@@ -50,34 +51,37 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Commit scan results to gh-pages branch
+      - name: Commit scan results to main branch
         run: |
-          # Create timestamp for unique filename
-          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          # Check if scan produced any results
+          if [ ! -d "results" ] || [ -z "$(ls -A results 2>/dev/null)" ]; then
+            echo "No scan results found for ${{ inputs.channel }}, skipping commit"
+            exit 0
+          fi
 
-          # Switch to gh-pages branch, create if it doesn't exist
-          git fetch origin
-          if git show-ref --quiet refs/remotes/origin/gh-pages; then
-            git checkout gh-pages
+          # Create date-based directory structure
+          YEAR=$(date +%Y)
+          MONTH=$(date +%m)
+          DAY=$(date +%d)
+          TIMESTAMP=$(date +%H%M%S)
+          DATE_DIR="data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}"
+          TIMESTAMPED_DIR="${DATE_DIR}/${TIMESTAMP}"
+
+          # Create timestamped directory
+          mkdir -p "${TIMESTAMPED_DIR}"
+
+          # Copy all scan results to timestamped directory
+          cp -r results/* "${TIMESTAMPED_DIR}/"
+
+          # Commit and push results
+          git add data/${{ inputs.data_dir }}/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
           else
-            git checkout --orphan gh-pages
-            git rm -rf .
-            mkdir -p data
-            echo "# Scan Data" > README.md
-            git add README.md
-            git commit -m "Initialize gh-pages branch"
+            git commit -m "Add ${{ inputs.channel }} scan results ${YEAR}-${MONTH}-${DAY} ${TIMESTAMP}"
+            git push origin main || {
+              echo "Push failed, attempting to pull and retry"
+              git pull --rebase origin main
+              git push origin main
+            }
           fi
-
-          # Create data directory if it doesn't exist
-          mkdir -p data/${{ inputs.data_dir }}
-
-          # Copy scan results with timestamp
-          if [ -f "results/network_3d_${{ inputs.channel }}.json" ]; then
-            cp results/network_3d_${{ inputs.channel }}.json data/${{ inputs.data_dir }}/network_3d_${TIMESTAMP}.json
-            cp results/network_3d_${{ inputs.channel }}.json data/${{ inputs.data_dir }}/network_3d_latest.json
-            git add data/${{ inputs.data_dir }}/
-            git commit -m "Add ${{ inputs.channel }} scan results ${TIMESTAMP}" || echo "No changes to commit"
-          fi
-
-          # Push to gh-pages branch
-          git push origin gh-pages
