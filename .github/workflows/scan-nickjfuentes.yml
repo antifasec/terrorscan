@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+    inputs:
+      reset_manifest:
+        description: "Reset manifest and start fresh"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -16,4 +22,5 @@ jobs:
     with:
       channel: nickjfuentes
       data_dir: nickjfuentes
+      reset_manifest: ${{ inputs.reset_manifest || false }}
     secrets: inherit

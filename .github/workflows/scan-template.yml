@@ -12,6 +12,11 @@ on:
         description: "Directory name for storing data (lowercase)"
         required: true
         type: string
+      reset_manifest:
+        description: "Reset manifest and start fresh (ignores previous artifacts)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -53,6 +58,14 @@ jobs:
 
       - name: Download previous complete site artifact
         run: |
+          # Check if we should reset and start fresh
+          if [ "${{ inputs.reset_manifest }}" = "true" ]; then
+            echo "Reset manifest flag is set - starting completely fresh"
+            mkdir -p pages_output/public/data
+            echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+            exit 0
+          fi
+
           # Try to get the most recent complete-site artifact from ANY workflow
           echo "Looking for previous complete site artifact across all workflows..."
 
