@@ -167,7 +167,11 @@ jobs:
 
                     echo "Integrated scan results to $target_dir"
 
-                    # Update manifest for this scan
+                    # Update manifest for this scan - use current manifest state
+                    if [ -f "pages_output/public/data/manifest.json" ]; then
+                      cp pages_output/public/data/manifest.json existing_manifest.json
+                    fi
+
                     python3 update_manifest.py \
                       --data-dir "$data_dir" \
                       --channel "$channel" \
