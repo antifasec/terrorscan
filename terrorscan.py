@@ -284,7 +284,7 @@ class TerrorScan:
         return {ch.lower() for ch in channels if len(ch) > 3}
 
     async def save_data(self, output_dir: str = "terrorscan_output"):
-        Path(output_dir).mkdir(exist_ok=True)
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
