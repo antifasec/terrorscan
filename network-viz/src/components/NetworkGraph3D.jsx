@@ -1,14 +1,11 @@
-import { useRef, useMemo, useState, useEffect } from 'react'
+import { useRef, useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, Text, Html } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force-3d'
 
-function CameraController({ nodes, selectedNode }) {
-  const { camera } = useThree()
-  const controlsRef = useRef()
-  const lastCenter = useRef(new THREE.Vector3(0, 0, 0))
-  const targetCenter = useRef(new THREE.Vector3(0, 0, 0))
+const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }, ref) => {
+  const { gl, camera } = useThree()
   const isInitialized = useRef(false)
   const isTransitioning = useRef(false)
   const transitionStart = useRef(new THREE.Vector3())
@@ -16,130 +13,440 @@ function CameraController({ nodes, selectedNode }) {
   const transitionProgress = useRef(0)
   const lastSelectedNodeId = useRef(null)
 
+  // Camera transition state
+  const cameraTransition = useRef({
+    isTransitioning: false,
+    startPosition: new THREE.Vector3(),
+    targetPosition: new THREE.Vector3(),
+    startLookAt: new THREE.Vector3(),
+    targetLookAt: new THREE.Vector3(),
+    progress: 0,
+    stabilizingFrames: 0
+  })
+
+  // Two modes: mesh rotation (no selection) vs camera orbit (node selected)
+  const isMouseDown = useRef({ left: false, right: false })
+  const lastMousePos = useRef({ x: 0, y: 0 })
+  const meshRotation = useRef({ x: 0, y: 0 })
+  const meshPosition = useRef(new THREE.Vector3(0, 0, 0))
+  const panOffset = useRef(new THREE.Vector3(0, 0, 0))
+  const userHasPanned = useRef(false)
+
+  // First person look direction
+  const firstPersonLookDirection = useRef(new THREE.Vector3(0, 0, -1))
+
+  // Camera orbit mode (when node selected)
+  const cameraSpherical = useRef({ radius: 20, phi: Math.PI / 2, theta: 0 })
+  const targetCameraSpherical = useRef({ radius: 20, phi: Math.PI / 2, theta: 0 })
+  const cameraTarget = useRef(new THREE.Vector3(0, 0, 0))
+
+  // Current mode state
+  const currentMode = useRef('mesh') // 'mesh' or 'camera'
+
+  // Handle first person mode trigger
+  useEffect(() => {
+    if (firstPersonTarget) {
+      const nodePos = new THREE.Vector3(firstPersonTarget.x || 0, firstPersonTarget.y || 0, firstPersonTarget.z || 0)
+
+      cameraTransition.current.isTransitioning = true
+      cameraTransition.current.progress = 0
+      cameraTransition.current.startPosition.copy(camera.position)
+      cameraTransition.current.targetPosition.copy(nodePos)
+      cameraTransition.current.startLookAt.copy(new THREE.Vector3(0, 0, 0))
+      cameraTransition.current.targetLookAt.copy(nodePos.clone().add(new THREE.Vector3(0, 0, -10)))
+
+      currentMode.current = 'firstperson'
+      setCurrentMode('firstperson') // Sync with React state
+      setFirstPersonTarget(null) // Clear the trigger
+    }
+  }, [firstPersonTarget, setFirstPersonTarget])
+
+  // Mouse event handlers
+  useEffect(() => {
+    const handleMouseDown = (event) => {
+      event.preventDefault()
+      if (event.button === 0) { // Left click
+        isMouseDown.current.left = true
+        lastMousePos.current = { x: event.clientX, y: event.clientY }
+      } else if (event.button === 2) { // Right click
+        isMouseDown.current.right = true
+        lastMousePos.current = { x: event.clientX, y: event.clientY }
+      }
+    }
+
+    const handleMouseMove = (event) => {
+      if (!isMouseDown.current.left && !isMouseDown.current.right) return
+
+      const deltaX = event.clientX - lastMousePos.current.x
+      const deltaY = event.clientY - lastMousePos.current.y
+
+      if (isMouseDown.current.left) {
+        // Left drag - rotation
+        const rotateSpeed = 0.005
+
+        if (currentMode.current === 'camera') {
+          // Camera orbit mode - orbit around selected node
+          targetCameraSpherical.current.theta -= deltaX * rotateSpeed
+          targetCameraSpherical.current.phi += deltaY * rotateSpeed
+          // No clamping - infinite rotation
+        } else if (currentMode.current === 'firstperson') {
+          // First person mode - rotate look direction (inverted X for natural feel)
+          const rotationY = new THREE.Matrix4().makeRotationY(deltaX * rotateSpeed)
+          const rotationX = new THREE.Matrix4().makeRotationX(-deltaY * rotateSpeed)
+
+          firstPersonLookDirection.current.applyMatrix4(rotationY)
+          firstPersonLookDirection.current.applyMatrix4(rotationX)
+          firstPersonLookDirection.current.normalize()
+        } else {
+          // Mesh rotation mode - rotate entire mesh
+          meshRotation.current.y += deltaX * rotateSpeed
+          meshRotation.current.x += deltaY * rotateSpeed
+        }
+      } else if (isMouseDown.current.right) {
+        // Right drag - panning with zoom-relative speed
+        if (currentMode.current === 'camera') {
+          // Camera orbit mode - pan by moving the orbit center
+          const panSpeed = cameraSpherical.current.radius * 0.001 // Scale with orbit radius
+          const right = new THREE.Vector3(1, 0, 0)
+          const up = new THREE.Vector3(0, 1, 0)
+          panOffset.current.add(right.multiplyScalar(-deltaX * panSpeed))
+          panOffset.current.add(up.multiplyScalar(deltaY * panSpeed))
+        } else {
+          // Mesh rotation mode - pan by moving the mesh
+          const panSpeed = camera.position.z * 0.001 // Scale with camera distance
+          meshPosition.current.x += deltaX * panSpeed
+          meshPosition.current.y -= deltaY * panSpeed
+          userHasPanned.current = true
+        }
+      }
+
+      lastMousePos.current = { x: event.clientX, y: event.clientY }
+    }
+
+    const handleMouseUp = () => {
+      isMouseDown.current.left = false
+      isMouseDown.current.right = false
+    }
+
+    const handleContextMenu = (event) => {
+      event.preventDefault() // Prevent right-click menu
+    }
+
+    const handleWheel = (event) => {
+      event.preventDefault()
+      const zoomSpeed = 1
+      const zoomDelta = event.deltaY * zoomSpeed
+
+      if (currentMode.current === 'camera') {
+        // Camera orbit mode - infinite zoom in both directions
+        targetCameraSpherical.current.radius = Math.max(1, targetCameraSpherical.current.radius + zoomDelta * 0.5)
+      } else {
+        // Mesh mode - infinite zoom in both directions
+        const newZ = Math.max(1, camera.position.z + zoomDelta)
+        camera.position.setZ(newZ)
+      }
+    }
+
+    gl.domElement.addEventListener('mousedown', handleMouseDown)
+    gl.domElement.addEventListener('mousemove', handleMouseMove)
+    gl.domElement.addEventListener('mouseup', handleMouseUp)
+    gl.domElement.addEventListener('wheel', handleWheel)
+    gl.domElement.addEventListener('contextmenu', handleContextMenu)
+
+    return () => {
+      gl.domElement.removeEventListener('mousedown', handleMouseDown)
+      gl.domElement.removeEventListener('mousemove', handleMouseMove)
+      gl.domElement.removeEventListener('mouseup', handleMouseUp)
+      gl.domElement.removeEventListener('wheel', handleWheel)
+      gl.domElement.removeEventListener('contextmenu', handleContextMenu)
+    }
+  }, [gl, camera])
+
   useFrame((state, delta) => {
-    if (nodes.length === 0 || !controlsRef.current) return
+    if (nodes.length === 0 || !meshRef.current) return
 
-    let newTargetCenter
+    const currentSelectedId = selectedNode?.id || null
 
-    if (selectedNode) {
-      // Lock onto selected node as center of universe
-      newTargetCenter = new THREE.Vector3(
+    // Handle camera transitions first
+    if (cameraTransition.current.isTransitioning) {
+      // Animate camera transition (for first-person or node selection)
+      cameraTransition.current.progress += delta * 1.0
+
+      if (cameraTransition.current.progress >= 1) {
+        cameraTransition.current.isTransitioning = false
+        console.log('Camera transition complete, final mode:', currentMode.current)
+      }
+
+      // Smooth camera animation
+      const t = Math.min(1, cameraTransition.current.progress)
+      const smoothProgress = t * t * (3 - 2 * t)
+
+      const currentPos = cameraTransition.current.startPosition.clone().lerp(
+        cameraTransition.current.targetPosition, smoothProgress
+      )
+      const currentLookAt = cameraTransition.current.startLookAt.clone().lerp(
+        cameraTransition.current.targetLookAt, smoothProgress
+      )
+
+      camera.position.copy(currentPos)
+      camera.lookAt(currentLookAt)
+
+      meshRef.current.position.set(0, 0, 0)
+    } else if (selectedNode) {
+      // CAMERA FLIGHT MODE - Selected node becomes center of universe
+      if (currentMode.current !== 'firstperson') {
+        currentMode.current = 'camera'
+      }
+      const nodeWorldPos = new THREE.Vector3(
         selectedNode.x || 0,
         selectedNode.y || 0,
         selectedNode.z || 0
       )
-    } else {
-      // Default to network centroid
-      let centerX = 0, centerY = 0, centerZ = 0
-      let validNodes = 0
 
-      nodes.forEach(node => {
-        if (node.x !== undefined && node.y !== undefined && node.z !== undefined) {
-          centerX += node.x
-          centerY += node.y
-          centerZ += node.z
-          validNodes++
+      // Check if we need to start a transition to camera mode
+      if (currentSelectedId !== lastSelectedNodeId.current) {
+        // Preserve first-person mode if already in it, otherwise use camera mode
+        if (currentMode.current === 'firstperson') {
+          // In first-person mode - fly to new node in first-person
+          cameraTransition.current.isTransitioning = true
+          cameraTransition.current.progress = 0
+          cameraTransition.current.startPosition.copy(camera.position)
+          cameraTransition.current.targetPosition.copy(nodeWorldPos.clone().add(new THREE.Vector3(0, 1, 0)))
+          cameraTransition.current.startLookAt.copy(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(10).add(camera.position))
+          cameraTransition.current.targetLookAt.copy(nodeWorldPos.clone().add(firstPersonLookDirection.current.clone().multiplyScalar(20)))
+        } else {
+          // Switching to camera flight mode
+          isTransitioning.current = true
+          transitionProgress.current = 0
+
+          // Treat selected node as new centroid - move mesh to center it at origin
+          const meshOffset = nodeWorldPos.clone().negate()
+
+          // Setup smooth mesh transition to center the selected node
+          transitionStart.current.copy(meshPosition.current)
+          transitionTarget.current.copy(meshOffset)
+
+          // Keep camera in current position but look at origin where node will be
+          camera.lookAt(0, 0, 0)
+
+          // Set spherical coordinates for orbit around origin (where node will be centered)
+          const currentDistance = camera.position.length()
+          targetCameraSpherical.current.radius = Math.max(10, currentDistance)
+          targetCameraSpherical.current.phi = Math.PI / 2
+          targetCameraSpherical.current.theta = 0
+
+          cameraSpherical.current.radius = targetCameraSpherical.current.radius
+          cameraSpherical.current.phi = targetCameraSpherical.current.phi
+          cameraSpherical.current.theta = targetCameraSpherical.current.theta
         }
-      })
 
-      if (validNodes > 0) {
-        newTargetCenter = new THREE.Vector3(
-          centerX / validNodes,
-          centerY / validNodes,
-          centerZ / validNodes
-        )
+        lastSelectedNodeId.current = currentSelectedId
+      }
+
+      if (isTransitioning.current) {
+        // Transition mesh position (for both selection and deselection)
+        transitionProgress.current += delta * 2 // Smooth mesh transition
+
+        if (transitionProgress.current >= 1) {
+          isTransitioning.current = false
+          transitionProgress.current = 1
+        }
+
+        const easeOut = 1 - Math.pow(1 - transitionProgress.current, 3)
+        meshPosition.current.copy(transitionStart.current.clone().lerp(transitionTarget.current, easeOut))
+        meshRef.current.position.copy(meshPosition.current)
       } else {
-        newTargetCenter = new THREE.Vector3(0, 0, 0)
+        // Camera orbit mode - reset mesh transform once
+        if (meshRef.current.position.x !== 0 || meshRef.current.position.y !== 0 || meshRef.current.position.z !== 0) {
+          meshRef.current.position.set(0, 0, 0)
+          meshRef.current.rotation.set(0, 0, 0)
+        }
+
+        // Keep mesh rotation but reset position for orbit mode
+        meshRef.current.position.set(0, 0, 0)
+        // Don't reset rotation - preserve current mesh orientation
+
+        // Don't interpolate at all - use target values directly after transition
+        cameraSpherical.current.radius = targetCameraSpherical.current.radius
+        cameraSpherical.current.phi = targetCameraSpherical.current.phi
+        cameraSpherical.current.theta = targetCameraSpherical.current.theta
+
+        // Skip all spherical positioning during transition to avoid conflicts
+        if (!cameraTransition.current.isTransitioning) {
+          // Calculate camera position using spherical coordinates
+          const sphericalPos = new THREE.Vector3()
+          sphericalPos.setFromSphericalCoords(
+            cameraSpherical.current.radius,
+            cameraSpherical.current.phi,
+            cameraSpherical.current.theta
+          )
+
+          if (currentMode.current === 'firstperson') {
+            // First person mode - camera slightly above the node to avoid being inside it
+            const nodeWorldPosition = new THREE.Vector3(selectedNode.x || 0, selectedNode.y || 0, selectedNode.z || 0)
+            const cameraOffset = new THREE.Vector3(0, 1, 0) // Slightly above the node
+            camera.position.copy(nodeWorldPosition.clone().add(cameraOffset))
+
+            // Look in the direction the user is pointing (controlled by mouse)
+            const lookTarget = nodeWorldPosition.clone().add(firstPersonLookDirection.current.clone().multiplyScalar(20))
+            camera.lookAt(lookTarget)
+          } else {
+            // Normal orbit mode - positioning relative to node world position
+            const nodeWorldPosition = new THREE.Vector3(selectedNode.x || 0, selectedNode.y || 0, selectedNode.z || 0)
+            const finalPosition = nodeWorldPosition.clone().add(sphericalPos).add(panOffset.current)
+
+            camera.position.copy(finalPosition)
+            camera.lookAt(nodeWorldPosition.clone().add(panOffset.current))
+          }
+        }
       }
-    }
-
-    // Check if we need to start a transition
-    const currentSelectedId = selectedNode?.id || null
-    if (currentSelectedId !== lastSelectedNodeId.current) {
-      // Start transition animation
-      isTransitioning.current = true
-      transitionProgress.current = 0
-      transitionStart.current.copy(lastCenter.current)
-      transitionTarget.current.copy(newTargetCenter)
-      lastSelectedNodeId.current = currentSelectedId
-    }
-
-    if (isTransitioning.current) {
-      // Animate transition over 1 second
-      transitionProgress.current += delta * 2 // 2 = speed (1/0.5 seconds)
-
-      if (transitionProgress.current >= 1) {
-        // Transition complete
-        isTransitioning.current = false
-        transitionProgress.current = 1
-      }
-
-      // Smooth easing function (ease-out)
-      const easeOut = 1 - Math.pow(1 - transitionProgress.current, 3)
-
-      // Interpolate between start and target
-      const currentCenter = transitionStart.current.clone().lerp(transitionTarget.current, easeOut)
-
-      // Calculate movement delta from last frame
-      const movementDelta = currentCenter.clone().sub(lastCenter.current)
-
-      // Move camera and target
-      camera.position.add(movementDelta)
-      controlsRef.current.target.add(movementDelta)
-
-      lastCenter.current.copy(currentCenter)
-      targetCenter.current.copy(currentCenter)
     } else {
-      // Normal tracking (for continuous movement during simulation)
-      const movementDelta = newTargetCenter.clone().sub(lastCenter.current)
+      // MESH ROTATION MODE - No node selected
+      currentMode.current = 'mesh'
+      if (currentSelectedId !== lastSelectedNodeId.current) {
+        // Switching back to mesh mode - preserve camera position
+        isTransitioning.current = true
+        transitionProgress.current = 0
 
-      if (movementDelta.length() > 0.01) { // Only move if significant change
-        camera.position.add(movementDelta)
-        controlsRef.current.target.add(movementDelta)
-        lastCenter.current.copy(newTargetCenter)
+        // Calculate what mesh position would center the network under current camera
+        const currentCameraPos = camera.position.clone()
+
+        // Calculate network centroid
+        let centerX = 0, centerY = 0, centerZ = 0
+        let validNodes = 0
+
+        nodes.forEach(node => {
+          if (node.x !== undefined && node.y !== undefined && node.z !== undefined) {
+            centerX += node.x
+            centerY += node.y
+            centerZ += node.z
+            validNodes++
+          }
+        })
+
+        const networkCentroid = validNodes > 0 ?
+          new THREE.Vector3(centerX / validNodes, centerY / validNodes, centerZ / validNodes) :
+          new THREE.Vector3(0, 0, 0)
+
+        // Return mesh to center of frame when deselecting
+        const meshOffset = networkCentroid.clone().negate()
+
+        transitionStart.current.copy(meshPosition.current)
+        transitionTarget.current.copy(meshOffset)
+
+        // Reset all state to pre-selection behavior
+        userHasPanned.current = false
+        panOffset.current.set(0, 0, 0) // Clear any camera orbit panning
+        currentMode.current = 'mesh' // Ensure mode is properly set
+
+        // Reset camera to proper mesh-viewing position
+        const currentDistance = camera.position.length()
+        camera.position.set(0, 0, Math.max(20, currentDistance))
+        camera.lookAt(0, 0, 0)
+
+        lastSelectedNodeId.current = currentSelectedId
       }
+
+      if (isTransitioning.current) {
+        // Transition to mesh mode
+        transitionProgress.current += delta * 3
+
+        if (transitionProgress.current >= 1) {
+          isTransitioning.current = false
+          transitionProgress.current = 1
+        }
+
+        const easeOut = 1 - Math.pow(1 - transitionProgress.current, 3)
+        meshPosition.current.copy(transitionStart.current.clone().lerp(transitionTarget.current, easeOut))
+      }
+
+      // Apply mesh rotation and position with auto-centering
+      meshRef.current.rotation.x = meshRotation.current.x
+      meshRef.current.rotation.y = meshRotation.current.y
+
+      // Auto-center mesh if user hasn't manually panned AND not in first-person mode
+      if (!userHasPanned.current && currentMode.current !== 'firstperson') {
+        // Calculate network centroid
+        let centerX = 0, centerY = 0, centerZ = 0
+        let validNodes = 0
+
+        nodes.forEach(node => {
+          if (node.x !== undefined && node.y !== undefined && node.z !== undefined) {
+            centerX += node.x
+            centerY += node.y
+            centerZ += node.z
+            validNodes++
+          }
+        })
+
+        if (validNodes > 0) {
+          const autoCenterPos = new THREE.Vector3(
+            -centerX / validNodes,
+            -centerY / validNodes,
+            -centerZ / validNodes
+          )
+
+          // More responsive centering to keep centroid at origin
+          meshPosition.current.lerp(autoCenterPos, 0.1)
+        }
+      }
+
+      meshRef.current.position.copy(meshPosition.current)
+
+      // Always look at mesh center (origin) when in mesh mode
+      camera.lookAt(0, 0, 0)
     }
 
     if (!isInitialized.current) {
-      // First time initialization
-      controlsRef.current.target.copy(newTargetCenter)
-      lastCenter.current.copy(newTargetCenter)
+      // Initial load - fit mesh to screen
+      if (nodes.length > 0) {
+        // Calculate bounding box of all nodes
+        let minX = Infinity, maxX = -Infinity
+        let minY = Infinity, maxY = -Infinity
+        let minZ = Infinity, maxZ = -Infinity
+
+        nodes.forEach(node => {
+          if (node.x !== undefined && node.y !== undefined && node.z !== undefined) {
+            minX = Math.min(minX, node.x)
+            maxX = Math.max(maxX, node.x)
+            minY = Math.min(minY, node.y)
+            maxY = Math.max(maxY, node.y)
+            minZ = Math.min(minZ, node.z)
+            maxZ = Math.max(maxZ, node.z)
+          }
+        })
+
+        // Calculate bounding box dimensions
+        const width = maxX - minX
+        const height = maxY - minY
+        const depth = maxZ - minZ
+        const maxDimension = Math.max(width, height, depth)
+
+        // Position camera to fit entire network with some padding
+        const fov = 50 * (Math.PI / 180) // Convert to radians
+        const distance = (maxDimension / 2) / Math.tan(fov / 2) * 1.2 // 20% padding
+
+        camera.position.set(0, 0, Math.max(20, distance))
+        camera.lookAt(0, 0, 0)
+      }
+
       isInitialized.current = true
     }
-
-    controlsRef.current.update()
   })
 
-  return (
-    <OrbitControls
-      ref={controlsRef}
-      enablePan={false}
-      enableZoom={true}
-      enableRotate={true}
-      enableDamping={false}
-      rotateSpeed={0.5}
-      zoomSpeed={0.8}
-      target={[0, 0, 0]}
-    />
-  )
-}
+  return null
+})
 
 function Node({ node, onClick, selected, isConnected, selectedNode }) {
   const meshRef = useRef()
   const [hovered, setHovered] = useState(false)
-  const targetPosition = useRef({ x: 0, y: 0, z: 0 })
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (meshRef.current && node) {
-      // Much smoother interpolation with frame-rate independent damping
-      const dampingFactor = 1 - Math.pow(0.02, delta) // Frame-rate independent
-      const targetX = node.x || 0
-      const targetY = node.y || 0
-      const targetZ = node.z || 0
-
-      meshRef.current.position.x += (targetX - meshRef.current.position.x) * dampingFactor
-      meshRef.current.position.y += (targetY - meshRef.current.position.y) * dampingFactor
-      meshRef.current.position.z += (targetZ - meshRef.current.position.z) * dampingFactor
+      // Direct position update - no interpolation to keep nodes and links connected
+      meshRef.current.position.x = node.x || 0
+      meshRef.current.position.y = node.y || 0
+      meshRef.current.position.z = node.z || 0
     }
   })
 
@@ -148,18 +455,14 @@ function Node({ node, onClick, selected, isConnected, selectedNode }) {
     if (hovered) return '#4ecdc4'
     if (selectedNode && isConnected) return '#ffff00' // Bright yellow for connected nodes
 
-    // Color by depth - cooler colors for deeper levels
+    // Cyberpunk neon color scheme by depth
     const depth = node.depth || 0
     const depthColors = [
-      '#ff4757', // Depth 0: Bright red (seed nodes)
-      '#ff6b35', // Depth 1: Orange-red
-      '#f39c12', // Depth 2: Orange
-      '#f1c40f', // Depth 3: Yellow
-      '#2ecc71', // Depth 4: Green
-      '#3498db', // Depth 5: Blue
-      '#9b59b6', // Depth 6: Purple
-      '#e67e22', // Depth 7: Dark orange
-      '#95a5a6', // Depth 8+: Gray
+      '#9d4edd', // Depth 0: Neon purple
+      '#ff0080', // Depth 2: Neon pink
+      '#00ff41', // Depth 3: Neon green
+      '#00ffff', // Depth 1: Neon cyan
+      '#888888', // Depth 4+: Gray
     ]
 
     return depthColors[Math.min(depth, depthColors.length - 1)]
@@ -173,9 +476,9 @@ function Node({ node, onClick, selected, isConnected, selectedNode }) {
   }
 
   const getEmissiveIntensity = () => {
-    if (selected) return 0.4 // Strong glow for center of universe
-    if (selectedNode && isConnected) return 0.2 // Subtle glow for connected nodes
-    return 0
+    if (selected) return 1.0 // Maximum glow for center of universe
+    if (selectedNode && isConnected) return 0.8 // Very bright glow for connected nodes
+    return 0.6 // Strong glow for all nodes in cyberpunk style
   }
 
   const nodeSize = Math.max(0.5, Math.min(8, (node.size || 5) * 0.4))
@@ -183,69 +486,75 @@ function Node({ node, onClick, selected, isConnected, selectedNode }) {
   return (
     <mesh
       ref={meshRef}
-      onClick={() => onClick && onClick(node)}
+      onClick={(event) => {
+        event.stopPropagation()
+        event.nativeEvent.nodeClicked = true
+        onClick && onClick(node)
+      }}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
+      renderOrder={100}
     >
-      <sphereGeometry args={[nodeSize, 16, 16]} />
-      <meshStandardMaterial
-        color={getNodeColor()}
-        transparent
-        opacity={getNodeOpacity()}
-        emissive={getNodeColor()}
-        emissiveIntensity={getEmissiveIntensity()}
-      />
-      {/* Always show participant count for nodes with participants */}
-      {node.participantsCount > 0 && (
-        <Html position={[0, nodeSize + 0.3, 0]} center>
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            color: 'white',
-            padding: '2px 6px',
-            borderRadius: '3px',
-            fontSize: '10px',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            pointerEvents: 'none',
-            border: '1px solid rgba(255, 255, 255, 0.3)'
-          }}>
-            {node.participantsCount.toLocaleString()}
-          </div>
-        </Html>
-      )}
+      {/* Colored glow halo renders first */}
+      <mesh renderOrder={98}>
+        <sphereGeometry args={[nodeSize * 2, 16, 16]} />
+        <meshBasicMaterial
+          color={getNodeColor()}
+          transparent
+          opacity={0.4}
+          side={THREE.FrontSide}
+          blending={THREE.AdditiveBlending}
+          depthTest={false}
+          depthWrite={false}
+        />
+      </mesh>
 
-      {/* Detailed tooltip on hover/select - positioned to the side */}
-      {(hovered || selected) && (
-        <Html position={[nodeSize + 1.5, nodeSize * 0.5, 0]} transform={false} occlude={false}>
+      {/* White node core renders on top */}
+      <mesh renderOrder={101}>
+        <sphereGeometry args={[nodeSize, 16, 16]} />
+        <meshPhongMaterial
+          color="#ffffff"
+          transparent
+          opacity={getNodeOpacity()}
+          emissive="#ffffff"
+          emissiveIntensity={0.2}
+          shininess={100}
+          depthTest={true}
+          depthWrite={true}
+        />
+      </mesh>
+      {/* Show label on hover, when selected, or when connected to selected node */}
+      {(hovered || selected || (selectedNode && isConnected)) && (
+        <Html
+          position={[0, nodeSize + 0.5, 0]}
+          center
+          transform={false}
+          occlude={false}
+          style={{
+            pointerEvents: 'none',
+            zIndex: 2000
+          }}
+        >
           <div style={{
-            background: 'rgba(0, 0, 0, 0.9)',
             color: 'white',
-            padding: '6px 10px',
-            borderRadius: '6px',
             fontSize: '12px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-            transform: 'translateX(0)' // Ensure it doesn't move with camera
+            userSelect: 'none',
+            opacity: selected ? 1.0 : (isConnected ? 0.9 : 0.8)
           }}>
-            <div><strong>{node.baseLabel || node.label || node.id}</strong></div>
-            {node.depth !== undefined && (
+            {node.baseLabel || node.id}
+            {node.participantsCount > 0 && (
               <div style={{
-                color: getNodeColor(),
-                fontWeight: 'bold',
-                borderLeft: `3px solid ${getNodeColor()}`,
-                paddingLeft: '6px',
-                marginBottom: '4px'
+                fontSize: '10px',
+                color: '#ccc',
+                marginTop: '2px'
               }}>
-                🔗 Depth {node.depth} {node.depth === 0 ? '(Seed)' : ''}
+                {node.participantsCount.toLocaleString()}
               </div>
-            )}
-            {node.participantsCount !== undefined && node.participantsCount > 0 && (
-              <div>👥 {node.participantsCount.toLocaleString()} participants</div>
-            )}
-            {node.messageCount !== undefined && (
-              <div>💬 {node.messageCount.toLocaleString()} messages</div>
             )}
           </div>
         </Html>
@@ -254,9 +563,56 @@ function Node({ node, onClick, selected, isConnected, selectedNode }) {
   )
 }
 
-function Link({ link, nodes, selectedNode }) {
-  const lineRef = useRef()
-  const currentPositions = useRef(new Float32Array(6))
+function DirectionalCone({ sourceNode, targetNode, isHighlighted, currentMode }) {
+  const coneRef = useRef()
+
+  useFrame(() => {
+    if (coneRef.current && sourceNode && targetNode) {
+      const sourcePos = new THREE.Vector3(sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0)
+      const targetPos = new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0)
+
+      // Position cone at the center of the edge
+      const arrowPos = sourcePos.clone().lerp(targetPos, 0.5)
+      coneRef.current.position.copy(arrowPos)
+
+      // Create a matrix to align cone with direction
+      const matrix = new THREE.Matrix4()
+      matrix.lookAt(arrowPos, targetPos, new THREE.Vector3(0, 1, 0))
+      coneRef.current.setRotationFromMatrix(matrix)
+
+      // Rotate cone to point forward (cone geometry points up by default)
+      coneRef.current.rotateX(-Math.PI / 2)
+    }
+  })
+
+  const cylinderColor = isHighlighted ? "#ffff00" : "#ffffff"
+
+  // Make cones smaller in first-person mode
+  const getConeSize = () => {
+    if (currentMode === 'firstperson' && isHighlighted) {
+      return [0.5, 1, 8] // Much smaller for first-person view
+    }
+    return [2, 4, 8] // Normal size
+  }
+
+  return (
+    <mesh ref={coneRef} renderOrder={2}>
+      <coneGeometry args={getConeSize()} />
+      <meshStandardMaterial
+        color={cylinderColor}
+        transparent
+        opacity={isHighlighted ? 0.9 : 0.8}
+        emissive={isHighlighted ? cylinderColor : cylinderColor}
+        emissiveIntensity={isHighlighted ? 0.3 : 0.1}
+        depthTest={true}
+        depthWrite={false}
+      />
+    </mesh>
+  )
+}
+
+function Link({ link, nodes, selectedNode, allLinks, currentMode }) {
+  const cylinderRef = useRef()
 
   const isConnectedToSelected = selectedNode ? (() => {
     const sourceId = link.source.id || link.source
@@ -264,53 +620,93 @@ function Link({ link, nodes, selectedNode }) {
     return sourceId === selectedNode.id || targetId === selectedNode.id
   })() : false
 
+  // Don't hide edges in first-person, but make them smaller
+  const shouldHideInFirstPerson = false
+
+  // Get source and target nodes for positioning
+  const sourceNode = nodes.find(n => n.id === (link.source.id || link.source))
+  const targetNode = nodes.find(n => n.id === (link.target.id || link.target))
+
   useFrame(() => {
-    if (lineRef.current && nodes) {
-      const sourceNode = nodes.find(n => n.id === link.source.id || n.id === link.source)
-      const targetNode = nodes.find(n => n.id === link.target.id || n.id === link.target)
+    if (cylinderRef.current && sourceNode && targetNode) {
+      const sourcePos = new THREE.Vector3(sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0)
+      const targetPos = new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0)
 
-      if (sourceNode && targetNode) {
-        const lerpFactor = 0.05 // Match node interpolation speed
-        const targetPositions = new Float32Array([
-          sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0,
-          targetNode.x || 0, targetNode.y || 0, targetNode.z || 0
-        ])
+      // Calculate midpoint
+      const midpoint = sourcePos.clone().add(targetPos).multiplyScalar(0.5)
 
-        // Smooth interpolation for links
-        for (let i = 0; i < 6; i++) {
-          currentPositions.current[i] += (targetPositions[i] - currentPositions.current[i]) * lerpFactor
-        }
+      // Calculate distance for cylinder height
+      const distance = sourcePos.distanceTo(targetPos)
 
-        lineRef.current.geometry.attributes.position.array.set(currentPositions.current)
-        lineRef.current.geometry.attributes.position.needsUpdate = true
-      }
+      // Position cylinder at midpoint
+      cylinderRef.current.position.copy(midpoint)
+
+      // Set cylinder height to match distance (reset scale first)
+      cylinderRef.current.scale.set(1, 1, 1)
+      cylinderRef.current.scale.y = distance
+
+      // Calculate direction vector for rotation
+      const direction = targetPos.clone().sub(sourcePos)
+
+      // Create rotation matrix to align cylinder with connection
+      const matrix = new THREE.Matrix4()
+      matrix.lookAt(sourcePos, targetPos, new THREE.Vector3(0, 0, 1))
+      cylinderRef.current.setRotationFromMatrix(matrix)
+
+      // Rotate so cylinder aligns with its Y-axis pointing along the connection
+      cylinderRef.current.rotateX(Math.PI / 2)
     }
   })
 
+  // Make cylinders smaller in first-person mode for connected edges
+  const getRadiusForMode = () => {
+    if (currentMode === 'firstperson' && isConnectedToSelected) {
+      return 0.1 // Much smaller for first-person view
+    }
+    return isConnectedToSelected ? 0.8 : 0.4
+  }
+
+  const cylinderRadius = getRadiusForMode()
+
+  // Don't render if should be hidden in first-person mode
+  if (shouldHideInFirstPerson) {
+    return null
+  }
+
   return (
-    <line ref={lineRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={2}
-          array={new Float32Array(6)}
-          itemSize={3}
+    <group>
+      <mesh ref={cylinderRef} renderOrder={1}>
+        <cylinderGeometry args={[cylinderRadius, cylinderRadius, 1, 8]} />
+        <meshStandardMaterial
+          color={isConnectedToSelected ? "#ffff00" : "#ffffff"}
+          transparent
+          opacity={isConnectedToSelected ? 0.95 : (selectedNode ? 0.4 : 0.8)}
+          emissive={isConnectedToSelected ? "#ffff00" : "#ffffff"}
+          emissiveIntensity={isConnectedToSelected ? 0.3 : 0.2}
+          depthTest={true}
+          depthWrite={false}
         />
-      </bufferGeometry>
-      <lineBasicMaterial
-        color={isConnectedToSelected ? "#ffff00" : "#888888"}
-        transparent
-        opacity={isConnectedToSelected ? 0.9 : (selectedNode ? 0.2 : 0.6)}
-        linewidth={isConnectedToSelected ? 3 : 2}
-      />
-    </line>
+      </mesh>
+
+      {/* Directional cone - always show unless hidden in first-person */}
+      {sourceNode && targetNode && (
+        <DirectionalCone
+          sourceNode={sourceNode}
+          targetNode={targetNode}
+          isHighlighted={isConnectedToSelected}
+          currentMode={currentMode}
+        />
+      )}
+    </group>
   )
 }
 
-function ForceGraph3D({ data }) {
+function ForceGraph3D({ data, onReset, fileName }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [simulationAlpha, setSimulationAlpha] = useState(0)
   const [showControls, setShowControls] = useState(false)
+  const [firstPersonTarget, setFirstPersonTarget] = useState(null)
+  const [currentMode, setCurrentMode] = useState('mesh')
   const [forceParams, setForceParams] = useState({
     linkDistance: 15,
     chargeStrength: -300,
@@ -322,6 +718,69 @@ function ForceGraph3D({ data }) {
   const simulationRef = useRef(null)
   const nodesRef = useRef([])
   const linksRef = useRef([])
+  const meshGroupRef = useRef()
+  const meshControllerRef = useRef()
+
+  // Drag tracking refs
+  const mouseDownPos = useRef({ x: 0, y: 0 })
+  const isDragging = useRef(false)
+
+  // Handle background click and ESC key to deselect
+  useEffect(() => {
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        if (currentMode.current === 'firstperson') {
+          // Exit first person mode, return to orbit
+          currentMode.current = 'camera'
+          setCurrentMode('camera')
+        } else if (selectedNode) {
+          setSelectedNode(null)
+        }
+      }
+    }
+
+    const handleMouseDown = (event) => {
+      mouseDownPos.current = { x: event.clientX, y: event.clientY }
+      isDragging.current = false
+    }
+
+    const handleMouseMove = (event) => {
+      if (mouseDownPos.current.x !== 0 || mouseDownPos.current.y !== 0) {
+        const deltaX = Math.abs(event.clientX - mouseDownPos.current.x)
+        const deltaY = Math.abs(event.clientY - mouseDownPos.current.y)
+        if (deltaX > 5 || deltaY > 5) {
+          isDragging.current = true
+        }
+      }
+    }
+
+    const handleCanvasClick = (event) => {
+      // Don't deselect if this was a node click or a drag operation
+      if (event.nodeClicked || isDragging.current) return
+
+      // Only deselect if clicking on canvas background without dragging
+      if (event.target.tagName === 'CANVAS' && selectedNode) {
+        setSelectedNode(null)
+      }
+
+      // Reset drag tracking
+      mouseDownPos.current = { x: 0, y: 0 }
+      isDragging.current = false
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('mousedown', handleMouseDown)
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('click', handleCanvasClick)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('click', handleCanvasClick)
+    }
+  }, [selectedNode])
 
   const { nodes, links } = useMemo(() => {
     if (!data || !data.nodes || !data.links) return { nodes: [], links: [] }
@@ -424,12 +883,16 @@ function ForceGraph3D({ data }) {
         .distanceMax(30)
       )
       .force('center', forceCenter(0, 0, 0).strength(forceParams.centerStrength))
-      .alphaDecay(0.01)
-      .velocityDecay(0.3)
+      .alphaDecay(0.01) // Normal decay
+      .velocityDecay(0.4) // Higher damping for stability
       .alpha(1)
-      .alphaMin(0.005)
+      .alphaMin(0.001)
       .on('tick', () => {
         setSimulationAlpha(sim.alpha())
+        // Very gentle reheating only when completely stopped
+        if (sim.alpha() < 0.002) {
+          sim.alpha(0.005) // Tiny amount of energy for subtle movement
+        }
       })
 
     simulationRef.current = sim
@@ -439,7 +902,7 @@ function ForceGraph3D({ data }) {
         simulationRef.current.stop()
       }
     }
-  }, [nodes, links])
+  }, [nodes, links, forceParams.linkDistance, forceParams.linkStrength, forceParams.chargeStrength, forceParams.repelStrength, forceParams.centerStrength])
 
   useEffect(() => {
     return () => {
@@ -455,14 +918,22 @@ function ForceGraph3D({ data }) {
 
   return (
     <div className="graph-container">
-      <Canvas camera={{ position: [10, 10, 10], fov: 50 }}>
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} />
-        <pointLight position={[-10, -10, -10]} intensity={0.4} />
+      <Canvas camera={{ position: [0, 0, 20], fov: 50, far: 10000 }}>
+        <ambientLight intensity={0.1} />
+        <pointLight position={[10, 10, 10]} intensity={0.3} />
+        <pointLight position={[-10, -10, -10]} intensity={0.2} />
 
-        <CameraController nodes={nodes} selectedNode={selectedNode} />
+        <MeshController
+          nodes={nodes}
+          selectedNode={selectedNode}
+          firstPersonTarget={firstPersonTarget}
+          setFirstPersonTarget={setFirstPersonTarget}
+          setCurrentMode={setCurrentMode}
+          meshRef={meshGroupRef}
+        />
 
-        {nodes.map((node) => {
+        <group ref={meshGroupRef}>
+          {nodes.map((node) => {
           // Check if this node is connected to the selected node
           const isConnected = selectedNode ? links.some(link => {
             const sourceId = link.source.id || link.source
@@ -483,47 +954,58 @@ function ForceGraph3D({ data }) {
           )
         })}
 
-        {links.map((link, index) => (
-          <Link
-            key={`${link.source.id || link.source}-${link.target.id || link.target}-${index}`}
-            link={link}
-            nodes={nodes}
-            selectedNode={selectedNode}
-          />
-        ))}
+          {links.map((link, index) => (
+            <Link
+              key={`${link.source.id || link.source}-${link.target.id || link.target}-${index}`}
+              link={link}
+              nodes={nodes}
+              selectedNode={selectedNode}
+              allLinks={links}
+              currentMode={currentMode}
+            />
+          ))}
+        </group>
 
       </Canvas>
 
-      {/* Network stats and legend overlay - bottom left of screen */}
+      {/* Cyberpunk legend overlay - bottom left of screen */}
+      <div className="screen-legend-overlay">
+        <div className="legend-items">
+          <div className="legend-item">
+            <div className="legend-dot" style={{ backgroundColor: '#9d4edd', boxShadow: '0 0 8px #9d4edd' }}></div>
+            <span>Depth 0</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-dot" style={{ backgroundColor: '#00ffff', boxShadow: '0 0 8px #00ffff' }}></div>
+            <span>Depth 1</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-dot" style={{ backgroundColor: '#ff0080', boxShadow: '0 0 8px #ff0080' }}></div>
+            <span>Depth 2</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-dot" style={{ backgroundColor: '#00ff41', boxShadow: '0 0 8px #00ff41' }}></div>
+            <span>Depth 3</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-dot" style={{ backgroundColor: '#888888', boxShadow: '0 0 4px #888888' }}></div>
+            <span>Depth 4+</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Network stats overlay - bottom right of screen */}
       <div className="screen-stats-overlay">
         <div className="stat-line">Nodes: {data.nodes.length}</div>
         <div className="stat-line">Links: {data.links.length}</div>
         <div className="stat-line">
           Simulation: {simulationAlpha > 0.01 ? 'Running' : 'Stable'} ({simulationAlpha.toFixed(3)})
         </div>
+      </div>
 
-        <div className="legend-items">
-          <div className="legend-item">
-            <div className="legend-dot" style={{ backgroundColor: '#ff4757' }}></div>
-            <span>Depth 0 (Seeds)</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot" style={{ backgroundColor: '#ff6b35' }}></div>
-            <span>Depth 1</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot" style={{ backgroundColor: '#f39c12' }}></div>
-            <span>Depth 2</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot" style={{ backgroundColor: '#f1c40f' }}></div>
-            <span>Depth 3</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot" style={{ backgroundColor: '#2ecc71' }}></div>
-            <span>Depth 4+</span>
-          </div>
-        </div>
+      {/* Filename overlay - bottom center of screen */}
+      <div className="screen-filename-overlay">
+        {fileName}
       </div>
 
       {/* Floating node details card - outside canvas, in top left */}
@@ -588,18 +1070,38 @@ function ForceGraph3D({ data }) {
                 <span className="label">📏 Size:</span>
                 <span className="value">{selectedNode.size?.toFixed(2) || 'N/A'}</span>
               </div>
+
+              <button
+                onClick={() => {
+                  setFirstPersonTarget(selectedNode)
+                }}
+                style={{
+                  marginTop: '1rem',
+                  padding: '0.5rem 1rem',
+                  background: '#646cff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  color: 'white',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  width: '100%'
+                }}
+              >
+                🎮 First Person View
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Collapsible control panel */}
+      {/* Simplified gear control panel */}
       <div className={`graph-controls ${showControls ? 'expanded' : 'collapsed'}`}>
         <button
-          className="controls-toggle"
+          className="gear-toggle"
           onClick={() => setShowControls(!showControls)}
         >
-          {showControls ? '◀' : '▶'} Controls
+          ⚙️
         </button>
 
         {showControls && (
@@ -700,7 +1202,7 @@ function ForceGraph3D({ data }) {
   )
 }
 
-function NetworkGraph3D({ data }) {
+function NetworkGraph3D({ data, onReset, fileName }) {
   if (!data) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
@@ -710,7 +1212,7 @@ function NetworkGraph3D({ data }) {
     )
   }
 
-  return <ForceGraph3D data={data} />
+  return <ForceGraph3D data={data} onReset={onReset} fileName={fileName} />
 }
 
 export default NetworkGraph3D

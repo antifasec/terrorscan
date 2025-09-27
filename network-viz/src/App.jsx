@@ -19,22 +19,10 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>Network Visualization 3D</h1>
-        {graphData && (
-          <div className="current-file">
-            <span>Loaded: {fileName}</span>
-            <button onClick={handleReset} className="reset-btn">
-              Load New File
-            </button>
-          </div>
-        )}
-      </header>
-
       {!graphData ? (
         <FileUpload onDataLoaded={handleDataLoaded} />
       ) : (
-        <NetworkGraph3D data={graphData} />
+        <NetworkGraph3D data={graphData} onReset={handleReset} fileName={fileName} />
       )}
     </div>
   )

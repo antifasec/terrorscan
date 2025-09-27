@@ -171,48 +171,48 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(26, 26, 26, 0.9);
-  border-radius: 8px;
   z-index: 100;
   transition: all 0.3s ease;
-  min-width: 160px;
 }
 
 .graph-controls.collapsed {
-  padding: 0;
+  background: none;
 }
 
 .graph-controls.expanded {
+  background: rgba(26, 26, 26, 0.9);
+  border-radius: 8px;
   padding: 1rem;
+  padding-top: 60px; /* Space for gear at top */
+  min-width: 200px;
 }
 
-.controls-toggle {
+.gear-toggle {
   background: rgba(100, 108, 255, 0.9);
   border: none;
   color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  width: 100%;
-  transition: background-color 0.2s;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
 }
 
-.controls-toggle:hover {
+.gear-toggle:hover {
   background: rgba(100, 108, 255, 1);
+  transform: rotate(90deg);
 }
 
-.graph-controls.collapsed .controls-toggle {
-  border-radius: 8px;
-}
-
-.graph-controls.expanded .controls-toggle {
-  border-radius: 8px 8px 0 0;
-  margin: -1rem -1rem 1rem -1rem;
+.gear-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 101;
 }
 
 .control-group {
@@ -414,16 +414,44 @@
   }
 }
 
-.screen-stats-overlay {
+.screen-legend-overlay {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.screen-stats-overlay {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
   color: white;
   font-family: inherit;
   font-size: 13px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   z-index: 50;
   pointer-events: none;
+  text-align: right;
+}
+
+.screen-filename-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  z-index: 50;
+  pointer-events: none;
+  text-align: center;
 }
 
 .stat-line {

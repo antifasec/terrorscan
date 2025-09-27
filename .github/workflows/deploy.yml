@@ -52,10 +52,10 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
-          cache-dependency-path: network-viz-3d/package-lock.json
+          cache-dependency-path: network-viz/package-lock.json
 
       - name: Install Node.js dependencies
-        working-directory: network-viz-3d
+        working-directory: network-viz
         run: npm ci
 
       - name: Copy scan results to 3D viz
@@ -64,13 +64,13 @@ jobs:
           if [ -d "results" ] && [ "$(ls -A results/network_3d_*.json 2>/dev/null)" ]; then
             LATEST_JSON=$(ls -t results/network_3d_*.json | head -1)
             echo "Copying latest scan results: $LATEST_JSON"
-            cp "$LATEST_JSON" network-viz-3d/public/crawl-network.json
+            cp "$LATEST_JSON" network-viz/public/crawl-network.json
           else
             echo "No scan results found, using existing data"
           fi
 
       - name: Build 3D visualization
-        working-directory: network-viz-3d
+        working-directory: network-viz
         run: npm run build
 
       - name: Setup Pages
@@ -79,7 +79,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./network-viz-3d/dist"
+          path: "./network-viz/dist"
 
       - name: Deploy to GitHub Pages
         id: deployment

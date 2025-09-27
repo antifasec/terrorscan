@@ -140,10 +140,14 @@ function FileUpload({ onDataLoaded }) {
       if (channel.linked_channels) {
         channel.linked_channels.forEach(linkedChannel => {
           if (channelData[linkedChannel]) {
+            // Use message count as link weight (default to 1 if not available)
+            const linkWeight = channel.messages?.length || 1
+
             links.push({
               source: channelId,
               target: linkedChannel,
-              value: 1
+              value: linkWeight,
+              messageCount: linkWeight
             })
           }
         })
