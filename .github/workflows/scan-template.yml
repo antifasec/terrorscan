@@ -53,32 +53,40 @@ jobs:
 
       - name: Download previous complete site artifact
         run: |
-          # Try to get the most recent complete-site artifact
-          echo "Looking for previous complete site artifact..."
+          # Try to get the most recent complete-site artifact from ANY workflow
+          echo "Looking for previous complete site artifact across all workflows..."
 
-          # Use GitHub CLI to find and download the latest complete-site artifact
-          gh run list --limit 20 --json databaseId,status,conclusion,createdAt \
-            --jq '.[] | select(.status == "completed" and .conclusion == "success")' > recent_runs.json
+          # Get all recent runs from all workflows in the repository
+          gh run list --repo ${{ github.repository }} --limit 50 --json databaseId,status,conclusion,createdAt,workflowName \
+            --jq '.[] | select(.status == "completed" and .conclusion == "success") | [.databaseId, .workflowName, .createdAt] | @tsv' \
+            | sort -k3 -r > recent_runs.tsv
 
           FOUND_ARTIFACT=false
 
-          while read -r run_id && [ "$FOUND_ARTIFACT" = false ]; do
-            echo "Checking run $run_id for complete-site artifact..."
+          while IFS=$'\t' read -r run_id workflow_name created_at && [ "$FOUND_ARTIFACT" = false ]; do
+            echo "Checking run $run_id ($workflow_name, $created_at) for complete-site artifact..."
 
             # Check if this run has a complete-site artifact
-            if gh run view "$run_id" --json artifacts --jq '.artifacts[].name' | grep -q '^complete-site$'; then
-              echo "Found complete-site artifact in run $run_id, downloading..."
-              gh run download "$run_id" --name "complete-site" --dir ./previous_site/ && FOUND_ARTIFACT=true
-              break
+            if gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | grep -q '^complete-site$'; then
+              echo "Found complete-site artifact in run $run_id from workflow: $workflow_name"
+
+              # Try to download the artifact
+              if gh run download "$run_id" --repo ${{ github.repository }} --name "complete-site" --dir ./previous_site/; then
+                echo "Successfully downloaded complete-site artifact"
+                FOUND_ARTIFACT=true
+                break
+              else
+                echo "Failed to download artifact from run $run_id, trying next..."
+              fi
             fi
-          done < <(jq -r '.databaseId' recent_runs.json)
+          done < recent_runs.tsv
 
           if [ "$FOUND_ARTIFACT" = true ]; then
             echo "Previous site downloaded successfully"
             # Extract the previous site
             if [ -f "previous_site/site.tar.gz" ]; then
-              tar -xzf previous_site/site.tar.gz -C ./
-              echo "Previous site extracted"
+              tar -xzf previous_site/site.tar.gz
+              echo "Previous site extracted - $(find pages_output -type f | wc -l) files restored"
             else
               echo "Previous site archive not found, starting fresh"
               mkdir -p pages_output/public/data
