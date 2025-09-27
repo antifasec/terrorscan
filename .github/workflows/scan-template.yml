@@ -19,6 +19,7 @@ permissions:
 jobs:
   scan-channel:
     runs-on: ubuntu-latest
+    environment: ColtonGranger
 
     steps:
       - name: Checkout repository
