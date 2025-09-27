@@ -25,11 +25,6 @@ function App() {
     <div className={`app ${currentView === 'home' ? 'home-mode' : ''}`}>
       {currentView === 'home' ? (
         <div className="home-view">
-          <header className="app-header">
-            <h1>Network Visualization Tool</h1>
-            <p>Explore scan data or upload your own network files</p>
-          </header>
-
           <div className="main-content">
             <div className="section">
               <h2>📁 Browse Scan Data</h2>
