@@ -1,0 +1,83 @@
+name: Scan Channel Template
+
+on:
+  workflow_call:
+    inputs:
+      channel:
+        description: 'Channel name to scan'
+        required: true
+        type: string
+      data_dir:
+        description: 'Directory name for storing data (lowercase)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  scan-channel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create .env file with secrets
+        run: |
+          echo "TELEGRAM_API_ID=${{ secrets.TELEGRAM_API_ID }}" >> .env
+          echo "TELEGRAM_API_HASH=${{ secrets.TELEGRAM_API_HASH }}" >> .env
+          echo "TELEGRAM_PHONE=${{ secrets.TELEGRAM_PHONE }}" >> .env
+          echo "TELEGRAM_SESSION_STRING=${{ secrets.TELEGRAM_SESSION_STRING }}" >> .env
+
+      - name: Run terrorscan for ${{ inputs.channel }}
+        run: |
+          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 9 -m 99 -mc 99 -o results
+        continue-on-error: true
+
+      - name: Setup git config
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit scan results to gh-pages branch
+        run: |
+          # Create timestamp for unique filename
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+          # Switch to gh-pages branch, create if it doesn't exist
+          git fetch origin
+          if git show-ref --quiet refs/remotes/origin/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf .
+            mkdir -p data
+            echo "# Scan Data" > README.md
+            git add README.md
+            git commit -m "Initialize gh-pages branch"
+          fi
+
+          # Create data directory if it doesn't exist
+          mkdir -p data/${{ inputs.data_dir }}
+
+          # Copy scan results with timestamp
+          if [ -f "results/network_3d_${{ inputs.channel }}.json" ]; then
+            cp results/network_3d_${{ inputs.channel }}.json data/${{ inputs.data_dir }}/network_3d_${TIMESTAMP}.json
+            cp results/network_3d_${{ inputs.channel }}.json data/${{ inputs.data_dir }}/network_3d_latest.json
+            git add data/${{ inputs.data_dir }}/
+            git commit -m "Add ${{ inputs.channel }} scan results ${TIMESTAMP}" || echo "No changes to commit"
+          fi
+
+          # Push to gh-pages branch
+          git push origin gh-pages

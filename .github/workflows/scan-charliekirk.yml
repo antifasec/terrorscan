@@ -1,0 +1,14 @@
+name: Scan CharlieKirk Channel
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  scan:
+    uses: ./.github/workflows/scan-template.yml
+    with:
+      channel: CharlieKirk
+      data_dir: charliekirk
+    secrets: inherit
