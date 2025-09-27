@@ -56,6 +56,38 @@ jobs:
           TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
+      - name: Create individual scan result artifact
+        if: success()
+        run: |
+          if [ -d "results" ] && [ "$(ls -A results 2>/dev/null)" ]; then
+            # Create metadata for this scan
+            SCAN_DATE=$(date +%Y%m%d)
+            SCAN_TIME=$(date +%H%M%S)
+            echo '{
+              "channel": "${{ inputs.channel }}",
+              "data_dir": "${{ inputs.data_dir }}",
+              "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+              "scan_date": "'${SCAN_DATE}'",
+              "scan_time": "'${SCAN_TIME}'",
+              "run_number": "${{ github.run_number }}",
+              "workflow_name": "${{ github.workflow }}"
+            }' > results/scan_metadata.json
+
+            # Create artifact with timestamp in filename
+            tar -czf scan-results-${{ inputs.data_dir }}-${SCAN_DATE}-${SCAN_TIME}.tar.gz results/
+            echo "Created scan artifact: scan-results-${{ inputs.data_dir }}-${SCAN_DATE}-${SCAN_TIME}.tar.gz"
+          else
+            echo "No scan results found, skipping individual artifact creation"
+          fi
+
+      - name: Upload individual scan result artifact
+        if: success() && hashFiles('scan-results-*.tar.gz') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-results-${{ inputs.data_dir }}-${{ github.run_number }}
+          path: scan-results-*.tar.gz
+          retention-days: 90
+
       - name: Download previous complete site artifact
         run: |
           # Check if we should reset and start fresh

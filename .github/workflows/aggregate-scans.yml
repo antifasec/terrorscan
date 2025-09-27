@@ -1,0 +1,228 @@
+name: Aggregate Scan Results
+
+on:
+  workflow_run:
+    workflows: ["Scan CharlieKirk Channel", "Scan nickjfuentes Channel", "Scan TPUSA Channel"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: "Force complete rebuild of manifest and site"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  aggregate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all recent scan result artifacts
+        run: |
+          echo "Searching for recent scan result artifacts..."
+
+          # Get recent completed workflow runs that might have scan artifacts
+          gh run list --repo ${{ github.repository }} --limit 20 --json databaseId,status,conclusion,createdAt,workflowName \
+            --jq '.[] | select(.status == "completed" and .conclusion == "success") | [.databaseId, .workflowName, .createdAt] | @tsv' \
+            | sort -k3 -r > recent_runs.tsv
+
+          mkdir -p scan_artifacts
+          FOUND_ARTIFACTS=0
+
+          while IFS=$'\t' read -r run_id workflow_name created_at; do
+            echo "Checking run $run_id ($workflow_name, $created_at) for scan result artifacts..."
+
+            # List all artifacts for this run and look for scan-results-* pattern
+            gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | while read artifact_name; do
+              if [[ "$artifact_name" =~ ^scan-results-.*-[0-9]+$ ]]; then
+                echo "Found scan artifact: $artifact_name in run $run_id"
+
+                # Try to download the artifact
+                if gh run download "$run_id" --repo ${{ github.repository }} --name "$artifact_name" --dir ./scan_artifacts/; then
+                  echo "Successfully downloaded $artifact_name"
+                  ((FOUND_ARTIFACTS++))
+                else
+                  echo "Failed to download $artifact_name from run $run_id"
+                fi
+              fi
+            done
+          done < recent_runs.tsv
+
+          echo "Downloaded $FOUND_ARTIFACTS scan result artifacts"
+          ls -la scan_artifacts/ || echo "No scan artifacts directory created"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download previous complete site artifact
+        run: |
+          # Skip if force rebuild is requested
+          if [ "${{ inputs.force_rebuild }}" = "true" ]; then
+            echo "Force rebuild requested - starting fresh"
+            mkdir -p pages_output/public/data
+            echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+            exit 0
+          fi
+
+          # Try to get the most recent complete-site artifact
+          echo "Looking for previous complete site artifact..."
+
+          gh run list --repo ${{ github.repository }} --limit 50 --json databaseId,status,conclusion,createdAt,workflowName \
+            --jq '.[] | select(.status == "completed" and .conclusion == "success") | [.databaseId, .workflowName, .createdAt] | @tsv' \
+            | sort -k3 -r > recent_runs.tsv
+
+          FOUND_ARTIFACT=false
+
+          while IFS=$'\t' read -r run_id workflow_name created_at && [ "$FOUND_ARTIFACT" = false ]; do
+            echo "Checking run $run_id ($workflow_name, $created_at) for complete-site artifact..."
+
+            if gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | grep -q '^complete-site$'; then
+              echo "Found complete-site artifact in run $run_id from workflow: $workflow_name"
+
+              if gh run download "$run_id" --repo ${{ github.repository }} --name "complete-site" --dir ./previous_site/; then
+                echo "Successfully downloaded complete-site artifact"
+                FOUND_ARTIFACT=true
+                break
+              else
+                echo "Failed to download artifact from run $run_id, trying next..."
+              fi
+            fi
+          done < recent_runs.tsv
+
+          if [ "$FOUND_ARTIFACT" = true ]; then
+            echo "Previous site downloaded successfully"
+            if [ -f "previous_site/site.tar.gz" ]; then
+              tar -xzf previous_site/site.tar.gz
+              echo "Previous site extracted - $(find pages_output -type f 2>/dev/null | wc -l) files restored"
+            else
+              echo "Previous site archive not found, starting fresh"
+              mkdir -p pages_output/public/data
+            fi
+          else
+            echo "No previous complete-site artifact found, starting fresh"
+            mkdir -p pages_output/public/data
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Process and integrate scan artifacts
+        run: |
+          echo "Processing scan artifacts..."
+
+          # Extract and process each scan artifact
+          if [ -d "scan_artifacts" ] && [ "$(ls -A scan_artifacts 2>/dev/null)" ]; then
+            for artifact_file in scan_artifacts/*.tar.gz; do
+              if [ -f "$artifact_file" ]; then
+                echo "Processing $artifact_file..."
+
+                # Create temp directory for extraction
+                temp_dir="temp_$(basename "$artifact_file" .tar.gz)"
+                mkdir -p "$temp_dir"
+                tar -xzf "$artifact_file" -C "$temp_dir"
+
+                # Read metadata to determine where to place files
+                if [ -f "$temp_dir/results/scan_metadata.json" ]; then
+                  # Extract metadata
+                  data_dir=$(jq -r '.data_dir // empty' "$temp_dir/results/scan_metadata.json")
+                  scan_date=$(jq -r '.scan_date // empty' "$temp_dir/results/scan_metadata.json")
+                  scan_time=$(jq -r '.scan_time // empty' "$temp_dir/results/scan_metadata.json")
+                  channel=$(jq -r '.channel // empty' "$temp_dir/results/scan_metadata.json")
+
+                  if [ -n "$data_dir" ] && [ -n "$scan_date" ] && [ -n "$scan_time" ]; then
+                    # Create timestamped directory structure
+                    year=${scan_date:0:4}
+                    month=${scan_date:4:2}
+                    day=${scan_date:6:2}
+
+                    target_dir="pages_output/public/data/$data_dir/$year/$month/$day/$scan_time"
+                    mkdir -p "$target_dir"
+
+                    # Copy scan results (excluding metadata as it's processed separately)
+                    cp -r "$temp_dir"/results/* "$target_dir/"
+
+                    echo "Integrated scan results to $target_dir"
+
+                    # Update manifest for this scan
+                    python3 update_manifest.py \
+                      --data-dir "$data_dir" \
+                      --channel "$channel" \
+                      --year "$year" \
+                      --month "$month" \
+                      --day "$day" \
+                      --timestamp "$scan_time" \
+                      --repo-owner "${{ github.repository_owner }}" \
+                      --repo-name "${{ github.event.repository.name }}"
+                  else
+                    echo "Missing required metadata in $artifact_file, skipping..."
+                  fi
+                else
+                  echo "No metadata found in $artifact_file, skipping..."
+                fi
+
+                # Cleanup temp directory
+                rm -rf "$temp_dir"
+              fi
+            done
+          else
+            echo "No scan artifacts found to process"
+          fi
+
+      - name: Set up Node.js for UI build
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: network-viz/package-lock.json
+
+      - name: Build and include UI
+        run: |
+          # Build the visualization
+          cd network-viz
+          npm ci
+          npm run build
+
+          # Copy UI build to root of pages output
+          cp -r dist/* ../pages_output/
+
+          echo "UI built and included in deployment"
+          echo "Total files in deployment: $(find ../pages_output -type f | wc -l)"
+
+      - name: Create and upload complete site artifact
+        run: |
+          # Create a compressed archive of the complete site
+          tar -czf site.tar.gz pages_output/
+          echo "Complete site archived for future builds"
+
+      - name: Upload complete site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: complete-site
+          path: site.tar.gz
+          retention-days: 30
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./pages_output"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
