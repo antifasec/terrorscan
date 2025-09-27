@@ -14,7 +14,9 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   scan-channel:
@@ -45,42 +47,43 @@ jobs:
           TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
-      - name: Setup git config
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-      - name: Commit scan results to main branch
+      - name: Prepare scan results for GitHub Pages
         run: |
           # Check if scan produced any results
           if [ ! -d "results" ] || [ -z "$(ls -A results 2>/dev/null)" ]; then
-            echo "No scan results found for ${{ inputs.channel }}, skipping commit"
-            exit 0
-          fi
-
-          # Create date-based directory structure
-          YEAR=$(date +%Y)
-          MONTH=$(date +%m)
-          DAY=$(date +%d)
-          TIMESTAMP=$(date +%H%M%S)
-          DATE_DIR="data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}"
-          TIMESTAMPED_DIR="${DATE_DIR}/${TIMESTAMP}"
-
-          # Create timestamped directory
-          mkdir -p "${TIMESTAMPED_DIR}"
-
-          # Copy all scan results to timestamped directory
-          cp -r results/* "${TIMESTAMPED_DIR}/"
-
-          # Commit and push results
-          git add data/${{ inputs.data_dir }}/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "No scan results found for ${{ inputs.channel }}, creating empty directory"
+            mkdir -p pages_output/data/${{ inputs.data_dir }}
+            echo "No results available" > pages_output/data/${{ inputs.data_dir }}/README.txt
           else
-            git commit -m "Add ${{ inputs.channel }} scan results ${YEAR}-${MONTH}-${DAY} ${TIMESTAMP}"
-            git push origin main || {
-              echo "Push failed, attempting to pull and retry"
-              git pull --rebase origin main
-              git push origin main
-            }
+            # Create date-based directory structure
+            YEAR=$(date +%Y)
+            MONTH=$(date +%m)
+            DAY=$(date +%d)
+            TIMESTAMP=$(date +%H%M%S)
+            DATE_DIR="pages_output/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}"
+            TIMESTAMPED_DIR="${DATE_DIR}/${TIMESTAMP}"
+
+            # Create timestamped directory
+            mkdir -p "${TIMESTAMPED_DIR}"
+
+            # Copy all scan results to timestamped directory
+            cp -r results/* "${TIMESTAMPED_DIR}/"
+
+            # Create an index file for easy browsing
+            echo "# ${{ inputs.channel }} Scan Results - ${YEAR}-${MONTH}-${DAY} ${TIMESTAMP}" > "${TIMESTAMPED_DIR}/README.md"
+            echo "" >> "${TIMESTAMPED_DIR}/README.md"
+            echo "Files in this scan:" >> "${TIMESTAMPED_DIR}/README.md"
+            ls -la "${TIMESTAMPED_DIR}/" | grep -v "^d" >> "${TIMESTAMPED_DIR}/README.md"
           fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./pages_output"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
