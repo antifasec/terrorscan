@@ -26,15 +26,9 @@ function App() {
       {currentView === 'home' ? (
         <div className="home-view">
           <div className="main-content">
-            <div className="section">
-              <h2>📁 Browse Scan Data</h2>
-              <FileExplorer onFileSelected={handleDataLoaded} />
-            </div>
-
-            <div className="section">
-              <h2>📤 Upload Custom File</h2>
-              <FileUpload onDataLoaded={handleDataLoaded} />
-            </div>
+            <FileUpload onDataLoaded={handleDataLoaded} />
+            <h2>📁 Browse Public Scan Data</h2>
+            <FileExplorer onFileSelected={handleDataLoaded} />
           </div>
         </div>
       ) : (

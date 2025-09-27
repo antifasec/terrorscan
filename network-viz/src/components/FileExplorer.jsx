@@ -6,25 +6,14 @@ function FileExplorer({ onFileSelected }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Column view navigation state
-  const [columns, setColumns] = useState([])
-  const [selectedPath, setSelectedPath] = useState([])
+  // Tree view navigation state
+  const [treeData, setTreeData] = useState(null)
+  const [expandedNodes, setExpandedNodes] = useState(new Set())
+  const [selectedNode, setSelectedNode] = useState(null)
   const [previewData, setPreviewData] = useState(null)
-
-  // Mobile navigation state
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
-  const [currentColumnIndex, setCurrentColumnIndex] = useState(0)
 
   useEffect(() => {
     fetchManifest()
-
-    // Listen for resize events to update mobile state
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const fetchManifest = async () => {
@@ -44,7 +33,7 @@ function FileExplorer({ onFileSelected }) {
 
       const data = await response.json()
       setManifest(data)
-      initializeColumns(data)
+      initializeTreeData(data)
     } catch (err) {
       console.error('Error fetching manifest:', err)
       setError(err.message)
@@ -53,207 +42,246 @@ function FileExplorer({ onFileSelected }) {
     }
   }
 
-  const initializeColumns = (manifestData) => {
+  const initializeTreeData = (manifestData) => {
     if (!manifestData?.channels) return
 
-    // First column: Channels
-    const channelItems = Object.keys(manifestData.channels).map(channelName => ({
-      id: channelName,
-      name: channelName,
-      type: 'channel',
-      icon: '📺',
-      scanCount: manifestData.channels[channelName].scans.length
-    }))
+    const rootNode = {
+      id: 'root',
+      name: 'Scan Data',
+      type: 'root',
+      icon: '📁',
+      children: [],
+      path: []
+    }
 
-    setColumns([
-      {
-        id: 'channels',
-        title: 'Channels',
-        items: channelItems
+    // Build channel nodes
+    Object.keys(manifestData.channels).forEach(channelName => {
+      const channelScans = manifestData.channels[channelName].scans
+      const channelNode = {
+        id: `channel_${channelName}`,
+        name: channelName,
+        type: 'channel',
+        icon: '📺',
+        scanCount: channelScans.length,
+        children: [],
+        path: [channelName],
+        parent: rootNode
       }
-    ])
+
+      // Group scans by year/month/day structure
+      const yearNodes = new Map()
+
+      channelScans.forEach(scan => {
+        const date = new Date(scan.timestamp)
+        const year = date.getFullYear().toString()
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        const day = date.getDate().toString().padStart(2, '0')
+
+        // Get or create year node
+        if (!yearNodes.has(year)) {
+          yearNodes.set(year, {
+            id: `year_${channelName}_${year}`,
+            name: year,
+            type: 'year',
+            icon: '📅',
+            children: [],
+            path: [channelName, year],
+            parent: channelNode,
+            months: new Map()
+          })
+        }
+
+        const yearNode = yearNodes.get(year)
+
+        // Get or create month node
+        if (!yearNode.months.has(month)) {
+          const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          yearNode.months.set(month, {
+            id: `month_${channelName}_${year}_${month}`,
+            name: `${monthNames[parseInt(month) - 1]} ${year}`,
+            type: 'month',
+            icon: '📅',
+            children: [],
+            path: [channelName, year, month],
+            parent: yearNode,
+            days: new Map()
+          })
+        }
+
+        const monthNode = yearNode.months.get(month)
+
+        // Get or create day node
+        if (!monthNode.days.has(day)) {
+          monthNode.days.set(day, {
+            id: `day_${channelName}_${year}_${month}_${day}`,
+            name: `${day}`,
+            type: 'day',
+            icon: '📅',
+            children: [],
+            path: [channelName, year, month, day],
+            parent: monthNode
+          })
+        }
+
+        const dayNode = monthNode.days.get(day)
+
+        // Create scan node
+        const scanNode = {
+          id: `scan_${scan.timestamp}`,
+          name: formatTime(scan.timestamp),
+          type: 'scan',
+          icon: '⏰',
+          children: [],
+          path: [channelName, year, month, day, scan.timestamp],
+          parent: dayNode,
+          scanData: scan
+        }
+
+        // Add file nodes
+        scan.files?.forEach(file => {
+          const isNetworkFile = (file.name.includes('network') || file.name.includes('3d')) && file.type === 'json'
+          const fileNode = {
+            id: `file_${scan.timestamp}_${file.name}`,
+            name: file.name,
+            type: 'file',
+            subtype: file.type,
+            icon: getFileIcon(file.type, isNetworkFile),
+            size: file.size,
+            url: file.url,
+            path: [channelName, year, month, day, scan.timestamp, file.name],
+            parent: scanNode,
+            fileData: file,
+            isRenderable: isNetworkFile
+          }
+          scanNode.children.push(fileNode)
+        })
+
+        dayNode.children.push(scanNode)
+      })
+
+      // Convert maps to arrays and sort
+      yearNodes.forEach(yearNode => {
+        yearNode.months.forEach(monthNode => {
+          monthNode.children = Array.from(monthNode.days.values())
+            .sort((a, b) => b.name.localeCompare(a.name)) // Newest first
+          delete monthNode.days
+        })
+        yearNode.children = Array.from(yearNode.months.values())
+          .sort((a, b) => b.name.localeCompare(a.name)) // Newest first
+        delete yearNode.months
+      })
+
+      channelNode.children = Array.from(yearNodes.values())
+        .sort((a, b) => b.name.localeCompare(a.name)) // Newest first
+
+      rootNode.children.push(channelNode)
+    })
+
+    setTreeData(rootNode)
+    // Auto-expand root level
+    setExpandedNodes(new Set(['root']))
   }
 
-  const handleItemClick = async (item, columnIndex) => {
-    const newSelectedPath = selectedPath.slice(0, columnIndex + 1)
-    newSelectedPath[columnIndex] = item.id
-    setSelectedPath(newSelectedPath)
+  const toggleNode = (nodeId) => {
+    const newExpanded = new Set(expandedNodes)
+    if (newExpanded.has(nodeId)) {
+      newExpanded.delete(nodeId)
+    } else {
+      newExpanded.add(nodeId)
+    }
+    setExpandedNodes(newExpanded)
+  }
 
-    // Clear columns after the current one
-    const newColumns = columns.slice(0, columnIndex + 1)
+  const handleNodeClick = async (node, event) => {
+    event.stopPropagation()
 
-    if (item.type === 'channel') {
-      // Show years for this channel
-      const channel = manifest.channels[item.id]
-      const yearItems = getYearsFromScans(channel.scans)
+    setSelectedNode(node.id)
 
-      newColumns.push({
-        id: 'years',
-        title: 'Years',
-        items: yearItems
-      })
-    } else if (item.type === 'year') {
-      // Show months for this year
-      const channel = manifest.channels[selectedPath[0]]
-      const monthItems = getMonthsFromScans(channel.scans, item.id)
-
-      newColumns.push({
-        id: 'months',
-        title: 'Months',
-        items: monthItems
-      })
-    } else if (item.type === 'month') {
-      // Show days for this month
-      const channel = manifest.channels[selectedPath[0]]
-      const year = selectedPath[1]
-      const dayItems = getDaysFromScans(channel.scans, year, item.id)
-
-      newColumns.push({
-        id: 'days',
-        title: 'Days',
-        items: dayItems
-      })
-    } else if (item.type === 'day') {
-      // Show scans for this day
-      const channel = manifest.channels[selectedPath[0]]
-      const year = selectedPath[1]
-      const month = selectedPath[2]
-      const scanItems = getScansForDay(channel.scans, year, month, item.id)
-
-      newColumns.push({
-        id: 'scans',
-        title: 'Scans',
-        items: scanItems
-      })
-    } else if (item.type === 'scan') {
-      // Show files for this scan
-      const fileItems = item.files?.map(file => {
-        const isNetworkFile = (file.name.includes('network') || file.name.includes('3d')) && file.type === 'json'
-        return {
-          id: file.name,
-          name: file.name,
-          type: 'file',
-          subtype: file.type,
-          icon: getFileIcon(file.type, isNetworkFile),
-          size: file.size,
-          url: file.url,
-          fileData: file,
-          isRenderable: isNetworkFile
-        }
-      }) || []
-
-      newColumns.push({
-        id: 'files',
-        title: 'Files',
-        items: fileItems
-      })
-    } else if (item.type === 'file') {
+    if (node.type === 'file') {
       // Handle file clicks based on type
-      if (item.subtype === 'json') {
+      if (node.subtype === 'json') {
         // Check if it's a renderable network file
-        if (item.name.includes('network') || item.name.includes('3d')) {
+        if (node.name.includes('network') || node.name.includes('3d')) {
           try {
-            const response = await fetch(item.url)
+            const response = await fetch(node.url)
             const data = await response.json()
-            onFileSelected(data, item.name)
+            onFileSelected(data, node.name)
           } catch (err) {
             console.error('Error loading network file:', err)
             // Fallback to direct download
-            window.open(item.url, '_blank')
+            window.open(node.url, '_blank')
           }
         } else {
           // Preview other JSON files
           try {
-            const response = await fetch(item.url)
+            const response = await fetch(node.url)
             const data = await response.json()
-            setPreviewData({ name: item.name, data })
+            setPreviewData({ name: node.name, data })
           } catch (err) {
             console.error('Error loading JSON file:', err)
             // Fallback to direct download
-            window.open(item.url, '_blank')
+            window.open(node.url, '_blank')
           }
         }
       } else {
         // For all other file types (CSV, TXT, MD, etc.), direct download
-        console.log('Opening file for download:', item.url)
-        window.open(item.url, '_blank')
+        console.log('Opening file for download:', node.url)
+        window.open(node.url, '_blank')
       }
-    }
-
-    setColumns(newColumns)
-    setSelectedPath(newSelectedPath)
-
-    // On mobile, navigate to the next column
-    if (isMobile && newColumns.length > 1) {
-      setCurrentColumnIndex(newColumns.length - 1)
+    } else if (node.children && node.children.length > 0) {
+      // Toggle expand/collapse for nodes with children
+      toggleNode(node.id)
     }
   }
 
-  const getYearsFromScans = (scans) => {
-    const years = new Set()
-    scans.forEach(scan => {
-      const year = scan.timestamp.split('-')[0]
-      years.add(year)
-    })
+  const renderTreeNode = (node, depth = 0) => {
+    const isExpanded = expandedNodes.has(node.id)
+    const isSelected = selectedNode === node.id
+    const hasChildren = node.children && node.children.length > 0
+    const indentStyle = { paddingLeft: `${depth * 20 + 12}px` }
 
-    return Array.from(years).sort().reverse().map(year => ({
-      id: year,
-      name: year,
-      type: 'year',
-      icon: '📅'
-    }))
-  }
+    return (
+      <div key={node.id} className="tree-node">
+        <div
+          className={`tree-item ${isSelected ? 'selected' : ''} ${node.type}`}
+          onClick={(e) => handleNodeClick(node, e)}
+          style={indentStyle}
+        >
+          {hasChildren && (
+            <span
+              className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleNode(node.id)
+              }}
+            >
+              ▶
+            </span>
+          )}
+          {!hasChildren && <span className="expand-spacer"></span>}
 
-  const getMonthsFromScans = (scans, year) => {
-    const months = new Set()
-    scans.forEach(scan => {
-      if (scan.timestamp.startsWith(year)) {
-        const month = scan.timestamp.split('-')[1]
-        months.add(month)
-      }
-    })
+          <span className="node-icon">{node.icon}</span>
+          <span className="node-name">{node.name}</span>
 
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          {node.scanCount && (
+            <span className="node-detail">{node.scanCount} scans</span>
+          )}
+          {node.fileData?.size && (
+            <span className="node-detail">{(node.fileData.size / 1024).toFixed(1)} KB</span>
+          )}
+          {node.type === 'file' && !node.isRenderable && (
+            <span className="download-indicator">⬇</span>
+          )}
+        </div>
 
-    return Array.from(months).sort().reverse().map(month => ({
-      id: month,
-      name: `${monthNames[parseInt(month) - 1]} ${year}`,
-      type: 'month',
-      icon: '📅'
-    }))
-  }
-
-  const getDaysFromScans = (scans, year, month) => {
-    const days = new Set()
-    scans.forEach(scan => {
-      if (scan.timestamp.startsWith(`${year}-${month}`)) {
-        const day = scan.timestamp.split('-')[2].split('T')[0]
-        days.add(day)
-      }
-    })
-
-    return Array.from(days).sort().reverse().map(day => ({
-      id: day,
-      name: `${day}`,
-      type: 'day',
-      icon: '📅'
-    }))
-  }
-
-  const getScansForDay = (scans, year, month, day) => {
-    return scans
-      .filter(scan => scan.timestamp.startsWith(`${year}-${month}-${day}`))
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-      .map(scan => ({
-        id: scan.timestamp,
-        name: formatTime(scan.timestamp),
-        type: 'scan',
-        icon: '⏰',
-        files: scan.files,
-        fileCount: scan.fileCount,
-        ...scan
-      }))
+        {hasChildren && isExpanded && (
+          <div className="tree-children">
+            {node.children.map(child => renderTreeNode(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    )
   }
 
   const formatTime = (timestamp) => {
@@ -296,7 +324,7 @@ function FileExplorer({ onFileSelected }) {
     )
   }
 
-  if (!manifest || !manifest.channels || Object.keys(manifest.channels).length === 0) {
+  if (!treeData) {
     return (
       <div className="file-explorer empty">
         <h3>No scan data available</h3>
@@ -305,107 +333,95 @@ function FileExplorer({ onFileSelected }) {
     )
   }
 
-  const navigateToColumn = (columnIndex) => {
-    setCurrentColumnIndex(columnIndex)
-  }
+  const getBreadcrumb = () => {
+    if (!selectedNode || !treeData) return []
 
-  const canGoBack = () => {
-    return isMobile && currentColumnIndex > 0
-  }
-
-  const canGoForward = () => {
-    return isMobile && currentColumnIndex < columns.length - 1
-  }
-
-  const goBack = () => {
-    if (canGoBack()) {
-      setCurrentColumnIndex(currentColumnIndex - 1)
+    const findNode = (node, targetId, path = []) => {
+      if (node.id === targetId) {
+        return [...path, node]
+      }
+      if (node.children) {
+        for (const child of node.children) {
+          const result = findNode(child, targetId, [...path, node])
+          if (result) return result
+        }
+      }
+      return null
     }
+
+    return findNode(treeData, selectedNode) || []
   }
 
-  const goForward = () => {
-    if (canGoForward()) {
-      setCurrentColumnIndex(currentColumnIndex + 1)
+  const expandAll = () => {
+    const collectAllIds = (node, ids = new Set()) => {
+      ids.add(node.id)
+      if (node.children) {
+        node.children.forEach(child => collectAllIds(child, ids))
+      }
+      return ids
     }
+    setExpandedNodes(collectAllIds(treeData))
   }
+
+  const collapseAll = () => {
+    setExpandedNodes(new Set(['root']))
+  }
+
+  const breadcrumb = getBreadcrumb()
 
   return (
-    <div className={`file-explorer column-view ${isMobile ? 'mobile' : ''}`}>
+    <div className="file-explorer tree-view">
       <div className="explorer-header">
-        {isMobile && canGoBack() && (
-          <button onClick={goBack} className="nav-btn back-btn">
-            ‹ Back
-          </button>
-        )}
-
         <div className="breadcrumb">
-          <span className="breadcrumb-item root">📁 Scan Data</span>
-          {selectedPath.map((pathItem, index) => (
-            <span key={index} className="breadcrumb-item">
-              <span className="breadcrumb-separator">›</span>
-              {pathItem}
-            </span>
-          ))}
+          {breadcrumb.length > 0 ? (
+            breadcrumb.map((node, index) => (
+              <span key={node.id}>
+                {index > 0 && <span className="breadcrumb-separator">›</span>}
+                <span className="breadcrumb-item">
+                  {node.icon} {node.name}
+                </span>
+              </span>
+            ))
+          ) : (
+            <span className="breadcrumb-item root">📁 Scan Data</span>
+          )}
         </div>
 
-        <button onClick={fetchManifest} className="refresh-btn">
-          🔄
-        </button>
+        <div className="header-actions">
+          <button onClick={expandAll} className="action-btn" title="Expand All">
+            ⊞
+          </button>
+          <button onClick={collapseAll} className="action-btn" title="Collapse All">
+            ⊟
+          </button>
+          <button onClick={fetchManifest} className="refresh-btn" title="Refresh">
+            🔄
+          </button>
+        </div>
       </div>
 
-      <div className="columns-container" style={{
-        transform: isMobile ? `translateX(-${currentColumnIndex * 140}px)` : 'none',
-        transition: isMobile ? 'transform 0.3s ease' : 'none'
-      }}>
-        {columns.map((column, columnIndex) => (
-          <div key={column.id} className="column">
-            <div className="column-header">
-              <h3>{column.title}</h3>
-              <span className="item-count">{column.items.length}</span>
-            </div>
-            <div className="column-content">
-              {column.items.length === 0 ? (
-                <div className="empty-column">No items</div>
-              ) : (
-                column.items.map((item, itemIndex) => (
-                  <div
-                    key={item.id}
-                    className={`column-item ${selectedPath[columnIndex] === item.id ? 'selected' : ''} ${item.type}`}
-                    onClick={() => handleItemClick(item, columnIndex)}
-                  >
-                    <span className="item-icon">{item.icon}</span>
-                    <span className="item-name">{item.name}</span>
-                    {item.scanCount && (
-                      <span className="item-detail">{item.scanCount} scans</span>
-                    )}
-                    {item.fileCount && (
-                      <span className="item-detail">{item.fileCount} files</span>
-                    )}
-                    {item.size && (
-                      <span className="item-detail">{(item.size / 1024).toFixed(1)} KB</span>
-                    )}
-                    {item.type === 'file' && !item.isRenderable && (
-                      <span className="download-indicator">⬇</span>
-                    )}
-                    {item.type !== 'file' && <span className="chevron">›</span>}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        ))}
+      <div className="tree-container">
+        <div className="tree-content">
+          {renderTreeNode(treeData)}
+        </div>
 
         {previewData && (
-          <div className="column preview-column">
-            <div className="column-header">
-              <h3>Preview</h3>
+          <div className="preview-panel">
+            <div className="preview-header">
+              <h3>Preview: {previewData.name}</h3>
+              <button
+                className="close-preview"
+                onClick={() => setPreviewData(null)}
+                title="Close Preview"
+              >
+                ×
+              </button>
             </div>
-            <div className="column-content">
-              <div className="preview-content">
-                <h4>{previewData.name}</h4>
-                <div className="json-preview">
-                  <pre>{JSON.stringify(previewData.data, null, 2).slice(0, 1000)}...</pre>
-                </div>
+            <div className="preview-content">
+              <div className="json-preview">
+                <pre>{JSON.stringify(previewData.data, null, 2).slice(0, 1000)}...</pre>
+              </div>
+              <div className="preview-actions">
                 <button
                   className="load-file-btn"
                   onClick={() => onFileSelected(previewData.data, previewData.name)}
@@ -420,9 +436,9 @@ function FileExplorer({ onFileSelected }) {
 
       <div className="manifest-info">
         <small>
-          Last updated: {manifest.lastUpdated ? new Date(manifest.lastUpdated).toLocaleString() : 'Unknown'}
+          Last updated: {manifest?.lastUpdated ? new Date(manifest.lastUpdated).toLocaleString() : 'Unknown'}
           {' • '}
-          Total channels: {Object.keys(manifest.channels).length}
+          Total channels: {manifest ? Object.keys(manifest.channels).length : 0}
         </small>
       </div>
     </div>
