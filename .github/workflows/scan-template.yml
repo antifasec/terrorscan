@@ -18,6 +18,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   scan-channel:
     runs-on: ubuntu-latest
@@ -51,30 +55,22 @@ jobs:
         run: |
           # Check if scan produced any results
           if [ ! -d "results" ] || [ -z "$(ls -A results 2>/dev/null)" ]; then
-            echo "No scan results found for ${{ inputs.channel }}, creating empty directory"
-            mkdir -p pages_output/data/${{ inputs.data_dir }}
-            echo "No results available" > pages_output/data/${{ inputs.data_dir }}/README.txt
-          else
-            # Create date-based directory structure
-            YEAR=$(date +%Y)
-            MONTH=$(date +%m)
-            DAY=$(date +%d)
-            TIMESTAMP=$(date +%H%M%S)
-            DATE_DIR="pages_output/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}"
-            TIMESTAMPED_DIR="${DATE_DIR}/${TIMESTAMP}"
-
-            # Create timestamped directory
-            mkdir -p "${TIMESTAMPED_DIR}"
-
-            # Copy all scan results to timestamped directory
-            cp -r results/* "${TIMESTAMPED_DIR}/"
-
-            # Create an index file for easy browsing
-            echo "# ${{ inputs.channel }} Scan Results - ${YEAR}-${MONTH}-${DAY} ${TIMESTAMP}" > "${TIMESTAMPED_DIR}/README.md"
-            echo "" >> "${TIMESTAMPED_DIR}/README.md"
-            echo "Files in this scan:" >> "${TIMESTAMPED_DIR}/README.md"
-            ls -la "${TIMESTAMPED_DIR}/" | grep -v "^d" >> "${TIMESTAMPED_DIR}/README.md"
+            echo "No scan results found for ${{ inputs.channel }}"
+            exit 0
           fi
+
+          # Create date-based directory structure
+          YEAR=$(date +%Y)
+          MONTH=$(date +%m)
+          DAY=$(date +%d)
+          TIMESTAMP=$(date +%H%M%S)
+          TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
+
+          # Create timestamped directory and copy results
+          mkdir -p "${TIMESTAMPED_DIR}"
+          cp -r results/* "${TIMESTAMPED_DIR}/"
+
+          echo "Scan results prepared in ${TIMESTAMPED_DIR}"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
