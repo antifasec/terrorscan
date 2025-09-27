@@ -86,7 +86,7 @@ jobs:
           TIMESTAMP=$(date +%H%M%S)
           TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
 
-          python3 -c "
+          python3 << 'EOF'
 import json
 import os
 from datetime import datetime
@@ -96,13 +96,16 @@ with open('existing_manifest.json', 'r') as f:
     manifest = json.load(f)
 
 # Initialize channel if not exists
-if '${{ inputs.data_dir }}' not in manifest['channels']:
-    manifest['channels']['${{ inputs.data_dir }}'] = {'scans': []}
+data_dir = '${{ inputs.data_dir }}'
+if data_dir not in manifest['channels']:
+    manifest['channels'][data_dir] = {'scans': []}
 
 # Get file list and sizes for this scan
 scan_files = []
-if os.path.exists('${TIMESTAMPED_DIR}'):
-    for root, dirs, files in os.walk('${TIMESTAMPED_DIR}'):
+timestamped_dir = 'pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}'
+
+if os.path.exists(timestamped_dir):
+    for root, dirs, files in os.walk(timestamped_dir):
         for file in files:
             filepath = os.path.join(root, file)
             rel_path = os.path.relpath(filepath, 'pages_output')
@@ -124,11 +127,11 @@ if os.path.exists('${TIMESTAMPED_DIR}'):
         'fileCount': len(scan_files)
     }
 
-    manifest['channels']['${{ inputs.data_dir }}']['scans'].append(scan_entry)
+    manifest['channels'][data_dir]['scans'].append(scan_entry)
     manifest['lastUpdated'] = datetime.now().isoformat() + 'Z'
 
     # Sort scans by timestamp (most recent first)
-    manifest['channels']['${{ inputs.data_dir }}']['scans'].sort(key=lambda x: x['timestamp'], reverse=True)
+    manifest['channels'][data_dir]['scans'].sort(key=lambda x: x['timestamp'], reverse=True)
 
     print(f'Added scan with {len(scan_files)} files to manifest')
 else:
@@ -140,7 +143,7 @@ with open('pages_output/public/data/manifest.json', 'w') as f:
     json.dump(manifest, f, indent=2)
 
 print('Manifest updated')
-"
+EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
