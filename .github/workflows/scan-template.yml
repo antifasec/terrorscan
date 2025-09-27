@@ -51,7 +51,46 @@ jobs:
           TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
-      - name: Prepare scan results and update manifest
+      - name: Download previous complete site artifact
+        run: |
+          # Try to get the most recent complete-site artifact
+          echo "Looking for previous complete site artifact..."
+
+          # Use GitHub CLI to find and download the latest complete-site artifact
+          gh run list --limit 20 --json databaseId,status,conclusion,createdAt \
+            --jq '.[] | select(.status == "completed" and .conclusion == "success")' > recent_runs.json
+
+          FOUND_ARTIFACT=false
+
+          while read -r run_id && [ "$FOUND_ARTIFACT" = false ]; do
+            echo "Checking run $run_id for complete-site artifact..."
+
+            # Check if this run has a complete-site artifact
+            if gh run view "$run_id" --json artifacts --jq '.artifacts[].name' | grep -q '^complete-site$'; then
+              echo "Found complete-site artifact in run $run_id, downloading..."
+              gh run download "$run_id" --name "complete-site" --dir ./previous_site/ && FOUND_ARTIFACT=true
+              break
+            fi
+          done < <(jq -r '.databaseId' recent_runs.json)
+
+          if [ "$FOUND_ARTIFACT" = true ]; then
+            echo "Previous site downloaded successfully"
+            # Extract the previous site
+            if [ -f "previous_site/site.tar.gz" ]; then
+              tar -xzf previous_site/site.tar.gz -C ./
+              echo "Previous site extracted"
+            else
+              echo "Previous site archive not found, starting fresh"
+              mkdir -p pages_output/public/data
+            fi
+          else
+            echo "No previous complete-site artifact found, starting fresh"
+            mkdir -p pages_output/public/data
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Add new scan data to complete site
         run: |
           # Check if scan produced any results
           if [ ! -d "results" ] || [ -z "$(ls -A results 2>/dev/null)" ]; then
@@ -59,25 +98,29 @@ jobs:
             exit 0
           fi
 
-          # Create date-based directory structure
+          # Add the NEW scan data to the existing complete site
           YEAR=$(date +%Y)
           MONTH=$(date +%m)
           DAY=$(date +%d)
           TIMESTAMP=$(date +%H%M%S)
-          TIMESTAMPED_DIR="public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
+          TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
 
-          # Create timestamped directory and copy results (only this scan's data)
-          mkdir -p "pages_output/${TIMESTAMPED_DIR}"
-          cp -r results/* "pages_output/${TIMESTAMPED_DIR}/"
+          # Add new scan results to the complete site
+          mkdir -p "${TIMESTAMPED_DIR}"
+          cp -r results/* "${TIMESTAMPED_DIR}/"
 
-          echo "Scan results prepared in pages_output/${TIMESTAMPED_DIR}"
+          echo "New scan results added to complete site at ${TIMESTAMPED_DIR}"
 
-          # Download existing manifest (contains URLs to all previous scans)
-          curl -f -s "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" \
-            -o existing_manifest.json || {
-            echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
-            echo "No existing manifest found, starting fresh"
-          }
+          # Download existing manifest if we don't have one from the artifact
+          if [ ! -f "pages_output/public/data/manifest.json" ]; then
+            curl -f -s "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" \
+              -o existing_manifest.json || {
+              echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+            }
+          else
+            cp pages_output/public/data/manifest.json existing_manifest.json
+            echo "Using manifest from previous site artifact"
+          fi
 
           # Run the manifest update script
           python3 update_manifest.py \
@@ -89,6 +132,38 @@ jobs:
             --timestamp "${TIMESTAMP}" \
             --repo-owner "${{ github.repository_owner }}" \
             --repo-name "${{ github.event.repository.name }}"
+
+      - name: Set up Node.js for UI build
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: network-viz/package-lock.json
+
+      - name: Build and include UI
+        run: |
+          # Build the visualization
+          cd network-viz
+          npm ci
+          npm run build
+
+          # Copy UI build to root of pages output (so it's accessible at the domain root)
+          cp -r dist/* ../pages_output/
+
+          echo "UI built and included in deployment"
+
+      - name: Create and upload complete site artifact
+        run: |
+          # Create a compressed archive of the complete site
+          tar -czf site.tar.gz pages_output/
+          echo "Complete site archived for future builds"
+
+      - name: Upload complete site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: complete-site
+          path: site.tar.gz
+          retention-days: 30
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
