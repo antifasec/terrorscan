@@ -51,7 +51,7 @@ jobs:
           TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
-      - name: Prepare scan results for GitHub Pages
+      - name: Prepare scan results and update manifest
         run: |
           # Check if scan produced any results
           if [ ! -d "results" ] || [ -z "$(ls -A results 2>/dev/null)" ]; then
@@ -64,17 +64,19 @@ jobs:
           MONTH=$(date +%m)
           DAY=$(date +%d)
           TIMESTAMP=$(date +%H%M%S)
-          TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
+          TIMESTAMPED_DIR="public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
 
-          # Create timestamped directory and copy results
-          mkdir -p "${TIMESTAMPED_DIR}"
-          cp -r results/* "${TIMESTAMPED_DIR}/"
+          # Create timestamped directory and copy results (only this scan's data)
+          mkdir -p "pages_output/${TIMESTAMPED_DIR}"
+          cp -r results/* "pages_output/${TIMESTAMPED_DIR}/"
 
-          echo "Scan results prepared in ${TIMESTAMPED_DIR}"
+          echo "Scan results prepared in pages_output/${TIMESTAMPED_DIR}"
 
-          # Download existing manifest from Pages
-          curl -f -s -o existing_manifest.json "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" || {
+          # Download existing manifest (contains URLs to all previous scans)
+          curl -f -s "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" \
+            -o existing_manifest.json || {
             echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+            echo "No existing manifest found, starting fresh"
           }
 
           # Run the manifest update script
