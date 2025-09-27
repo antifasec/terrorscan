@@ -34,17 +34,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create .env file with secrets
-        run: |
-          echo "TELEGRAM_API_ID=${{ secrets.TELEGRAM_API_ID }}" >> .env
-          echo "TELEGRAM_API_HASH=${{ secrets.TELEGRAM_API_HASH }}" >> .env
-          echo "TELEGRAM_PHONE=${{ secrets.TELEGRAM_PHONE }}" >> .env
-          echo "TELEGRAM_SESSION_STRING=${{ secrets.TELEGRAM_SESSION_STRING }}" >> .env
-
       - name: Run terrorscan for ${{ inputs.channel }}
         run: |
           python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 9 -m 99 -mc 99 -o results
         continue-on-error: true
+        env:
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
+          TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
       - name: Setup git config
         run: |

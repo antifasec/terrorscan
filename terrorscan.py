@@ -652,6 +652,9 @@ def scan(channel: str, depth: int, max_messages: int, output: str):
 def deep_scan(channels: str, max_depth: int, max_channels: int, max_messages: int, output: str, resume: bool):
     """Perform deep recursive crawling of the entire network starting from seed channels"""
 
+    # Reload environment variables to catch any updates
+    load_dotenv()
+
     api_id = os.getenv("TELEGRAM_API_ID")
     api_hash = os.getenv("TELEGRAM_API_HASH")
     phone = os.getenv("TELEGRAM_PHONE")
