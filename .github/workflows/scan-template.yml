@@ -86,23 +86,36 @@ jobs:
           TIMESTAMP=$(date +%H%M%S)
           TIMESTAMPED_DIR="pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}"
 
-          python3 << 'EOF'
+          cat > update_manifest.py << 'EOF'
 import json
 import os
+import sys
 from datetime import datetime
 
+# Get environment variables
+data_dir = os.environ.get('DATA_DIR')
+channel = os.environ.get('CHANNEL')
+year = os.environ.get('YEAR')
+month = os.environ.get('MONTH')
+day = os.environ.get('DAY')
+timestamp = os.environ.get('TIMESTAMP')
+repo_owner = os.environ.get('REPO_OWNER')
+repo_name = os.environ.get('REPO_NAME')
+
 # Load existing manifest
-with open('existing_manifest.json', 'r') as f:
-    manifest = json.load(f)
+try:
+    with open('existing_manifest.json', 'r') as f:
+        manifest = json.load(f)
+except:
+    manifest = {'channels': {}, 'lastUpdated': None}
 
 # Initialize channel if not exists
-data_dir = '${{ inputs.data_dir }}'
 if data_dir not in manifest['channels']:
     manifest['channels'][data_dir] = {'scans': []}
 
 # Get file list and sizes for this scan
 scan_files = []
-timestamped_dir = 'pages_output/public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}'
+timestamped_dir = f'pages_output/public/data/{data_dir}/{year}/{month}/{day}/{timestamp}'
 
 if os.path.exists(timestamped_dir):
     for root, dirs, files in os.walk(timestamped_dir):
@@ -113,16 +126,16 @@ if os.path.exists(timestamped_dir):
             scan_files.append({
                 'name': file,
                 'path': '/' + rel_path,
-                'url': 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/' + rel_path,
+                'url': f'https://{repo_owner}.github.io/{repo_name}/' + rel_path,
                 'size': size,
                 'type': file.split('.')[-1] if '.' in file else 'unknown'
             })
 
     # Add this scan to manifest
     scan_entry = {
-        'timestamp': '${YEAR}-${MONTH}-${DAY}T${TIMESTAMP[:2]}:${TIMESTAMP[2:4]}:${TIMESTAMP[4:6]}Z',
-        'channel': '${{ inputs.channel }}',
-        'path': 'public/data/${{ inputs.data_dir }}/${YEAR}/${MONTH}/${DAY}/${TIMESTAMP}',
+        'timestamp': f'{year}-{month}-{day}T{timestamp[:2]}:{timestamp[2:4]}:{timestamp[4:6]}Z',
+        'channel': channel,
+        'path': f'public/data/{data_dir}/{year}/{month}/{day}/{timestamp}',
         'files': scan_files,
         'fileCount': len(scan_files)
     }
@@ -144,6 +157,17 @@ with open('pages_output/public/data/manifest.json', 'w') as f:
 
 print('Manifest updated')
 EOF
+
+          # Run the Python script with environment variables
+          DATA_DIR="${{ inputs.data_dir }}" \
+          CHANNEL="${{ inputs.channel }}" \
+          YEAR="${YEAR}" \
+          MONTH="${MONTH}" \
+          DAY="${DAY}" \
+          TIMESTAMP="${TIMESTAMP}" \
+          REPO_OWNER="${{ github.repository_owner }}" \
+          REPO_NAME="${{ github.event.repository.name }}" \
+          python3 update_manifest.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
