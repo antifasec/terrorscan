@@ -245,6 +245,31 @@
   font-weight: 400;
 }
 
+.node-name.compacted {
+  font-family: inherit;
+}
+
+.compact-path {
+  color: #ccc;
+  opacity: 0.8;
+}
+
+/* Style the forward slashes in compact paths to be more subdued */
+.compact-path {
+  /* Split styling for path separators */
+  color: #bbb;
+}
+
+.compact-path::after {
+  content: "";
+}
+
+/* Make compacted folders look more like VSCode */
+.tree-item .compact-path {
+  /* Slightly muted color for the path portion */
+  opacity: 0.85;
+}
+
 .node-detail {
   font-size: 11px;
   color: #888;

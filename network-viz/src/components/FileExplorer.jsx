@@ -178,9 +178,57 @@ function FileExplorer({ onFileSelected }) {
       rootNode.children.push(channelNode)
     })
 
-    setTreeData(rootNode)
+    // Apply compact folder logic
+    const compactTree = applyCompactFolders(rootNode)
+
+    setTreeData(compactTree)
     // Auto-expand root level
     setExpandedNodes(new Set(['root']))
+  }
+
+  const applyCompactFolders = (node) => {
+    // Don't compact files, scans, or nodes without children
+    if (!node.children || node.children.length === 0 || node.type === 'file' || node.type === 'scan') {
+      return node
+    }
+
+    // Don't compact root or channel nodes - they should always be visible
+    if (node.type === 'root' || node.type === 'channel') {
+      // Still recursively process children
+      node.children = node.children.map(child => applyCompactFolders(child))
+      return node
+    }
+
+    // If this node has exactly one child and both are folder-like nodes, compact them
+    if (node.children.length === 1) {
+      const child = node.children[0]
+
+      // Only compact folder-like nodes (year, month, day) - not scans or files
+      if ((node.type === 'year' || node.type === 'month' || node.type === 'day') &&
+          (child.type === 'year' || child.type === 'month' || child.type === 'day')) {
+
+        // Create a compacted node that combines the current node with its single child
+        const compactedNode = {
+          ...child, // Use child as base to preserve deeper properties
+          id: `${node.id}_compact_${child.id}`,
+          name: `${node.name}/${child.name}`,
+          originalName: node.name, // Store original for potential use
+          compactedPath: true,
+          compactedFrom: node.type, // Remember what we compacted from
+          parent: node.parent // Maintain parent relationship
+        }
+
+        // Recursively apply compacting - the compacted node might need further compacting
+        return applyCompactFolders(compactedNode)
+      }
+    }
+
+    // For non-compactable nodes, still recursively process children
+    if (node.children) {
+      node.children = node.children.map(child => applyCompactFolders(child))
+    }
+
+    return node
   }
 
   const toggleNode = (nodeId) => {
@@ -262,7 +310,15 @@ function FileExplorer({ onFileSelected }) {
           {!hasChildren && <span className="expand-spacer"></span>}
 
           <span className="node-icon">{node.icon}</span>
-          <span className="node-name">{node.name}</span>
+          <span className={`node-name ${node.compactedPath ? 'compacted' : ''}`}>
+            {node.compactedPath ? (
+              <>
+                <span className="compact-path">{node.name}</span>
+              </>
+            ) : (
+              node.name
+            )}
+          </span>
 
           {node.scanCount && (
             <span className="node-detail">{node.scanCount} scans</span>
