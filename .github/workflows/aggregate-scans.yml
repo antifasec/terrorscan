@@ -37,10 +37,21 @@ jobs:
         run: |
           echo "Searching for recent scan result artifacts..."
 
-          # Get recent completed workflow runs that might have scan artifacts
-          gh run list --repo ${{ github.repository }} --limit 20 --json databaseId,status,conclusion,createdAt,workflowName \
-            --jq '.[] | select(.status == "completed" and .conclusion == "success") | [.databaseId, .workflowName, .createdAt] | @tsv' \
-            | sort -k3 -r > recent_runs.tsv
+          # Get recent scan workflow runs that completed successfully
+          gh run list --repo ${{ github.repository }} --limit 10 \
+            --workflow="Scan CharlieKirk Channel" --status=success \
+            --json databaseId,workflowName,createdAt | jq -r '.[] | [.databaseId, .workflowName, .createdAt] | @tsv' > recent_runs.tsv
+
+          gh run list --repo ${{ github.repository }} --limit 10 \
+            --workflow="Scan nickjfuentes Channel" --status=success \
+            --json databaseId,workflowName,createdAt | jq -r '.[] | [.databaseId, .workflowName, .createdAt] | @tsv' >> recent_runs.tsv
+
+          gh run list --repo ${{ github.repository }} --limit 10 \
+            --workflow="Scan TPUSA Channel" --status=success \
+            --json databaseId,workflowName,createdAt | jq -r '.[] | [.databaseId, .workflowName, .createdAt] | @tsv' >> recent_runs.tsv
+
+          # Sort by creation time (most recent first)
+          sort -k3 -r recent_runs.tsv > sorted_runs.tsv && mv sorted_runs.tsv recent_runs.tsv
 
           mkdir -p scan_artifacts
           FOUND_ARTIFACTS=0
@@ -48,20 +59,19 @@ jobs:
           while IFS=$'\t' read -r run_id workflow_name created_at; do
             echo "Checking run $run_id ($workflow_name, $created_at) for scan result artifacts..."
 
-            # List all artifacts for this run and look for scan-results-* pattern
-            gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | while read artifact_name; do
-              if [[ "$artifact_name" =~ ^scan-results-.*-[0-9]+$ ]]; then
-                echo "Found scan artifact: $artifact_name in run $run_id"
-
-                # Try to download the artifact
-                if gh run download "$run_id" --repo ${{ github.repository }} --name "$artifact_name" --dir ./scan_artifacts/; then
-                  echo "Successfully downloaded $artifact_name"
-                  ((FOUND_ARTIFACTS++))
-                else
-                  echo "Failed to download $artifact_name from run $run_id"
+            # Try to download all artifacts from scan runs and filter for scan-results
+            if gh run download "$run_id" --repo ${{ github.repository }} --dir "./temp_$run_id/" 2>/dev/null; then
+              # Move scan result artifacts to our collection directory
+              for artifact_file in ./temp_$run_id/scan-results-*/*.tar.gz; do
+                if [ -f "$artifact_file" ]; then
+                  cp "$artifact_file" ./scan_artifacts/
+                  echo "Found and copied scan artifact: $(basename "$artifact_file")"
+                  FOUND_ARTIFACTS=$((FOUND_ARTIFACTS + 1))
                 fi
-              fi
-            done
+              done
+              # Cleanup temp directory
+              rm -rf "./temp_$run_id/"
+            fi
           done < recent_runs.tsv
 
           echo "Downloaded $FOUND_ARTIFACTS scan result artifacts"
