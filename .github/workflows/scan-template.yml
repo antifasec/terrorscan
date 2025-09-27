@@ -132,8 +132,11 @@ jobs:
 
           echo "New scan results added to complete site at ${TIMESTAMPED_DIR}"
 
-          # Download existing manifest if we don't have one from the artifact
-          if [ ! -f "pages_output/public/data/manifest.json" ]; then
+          # Download existing manifest if we don't have one from the artifact (unless resetting)
+          if [ "${{ inputs.reset_manifest }}" = "true" ]; then
+            echo "Reset flag is set - using empty manifest"
+            echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
+          elif [ ! -f "pages_output/public/data/manifest.json" ]; then
             curl -f -s "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/public/data/manifest.json" \
               -o existing_manifest.json || {
               echo '{"channels": {}, "lastUpdated": null}' > existing_manifest.json
