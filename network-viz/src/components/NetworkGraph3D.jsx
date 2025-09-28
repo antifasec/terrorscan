@@ -61,7 +61,15 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     }
   }, [firstPersonTarget, setFirstPersonTarget])
 
-  // Mouse event handlers
+  // Touch tracking refs
+  const touchState = useRef({
+    isTouch: false,
+    lastTouch: { x: 0, y: 0 },
+    touchCount: 0,
+    lastTouchDistance: 0
+  })
+
+  // Mouse and touch event handlers
   useEffect(() => {
     const handleMouseDown = (event) => {
       event.preventDefault()
@@ -71,6 +79,40 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
       } else if (event.button === 2) { // Right click
         isMouseDown.current.right = true
         lastMousePos.current = { x: event.clientX, y: event.clientY }
+      }
+    }
+
+    const handleTouchStart = (event) => {
+      event.preventDefault()
+      touchState.current.isTouch = true
+      touchState.current.touchCount = event.touches.length
+
+      if (event.touches.length === 1) {
+        // Single touch - equivalent to left mouse button
+        isMouseDown.current.left = true
+        touchState.current.lastTouch = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY
+        }
+        lastMousePos.current = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY
+        }
+      } else if (event.touches.length === 2) {
+        // Two finger touch - equivalent to right mouse button (panning)
+        isMouseDown.current.left = false
+        isMouseDown.current.right = true
+        const touch1 = event.touches[0]
+        const touch2 = event.touches[1]
+        const centerX = (touch1.clientX + touch2.clientX) / 2
+        const centerY = (touch1.clientY + touch2.clientY) / 2
+        touchState.current.lastTouch = { x: centerX, y: centerY }
+        lastMousePos.current = { x: centerX, y: centerY }
+
+        // Store initial distance for pinch-to-zoom
+        const dx = touch2.clientX - touch1.clientX
+        const dy = touch2.clientY - touch1.clientY
+        touchState.current.lastTouchDistance = Math.sqrt(dx * dx + dy * dy)
       }
     }
 
@@ -123,9 +165,117 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
       lastMousePos.current = { x: event.clientX, y: event.clientY }
     }
 
+    const handleTouchMove = (event) => {
+      event.preventDefault()
+
+      if (event.touches.length === 1 && isMouseDown.current.left) {
+        // Single touch move - rotation
+        const touch = event.touches[0]
+        const deltaX = touch.clientX - touchState.current.lastTouch.x
+        const deltaY = touch.clientY - touchState.current.lastTouch.y
+
+        const rotateSpeed = 0.005
+
+        if (currentMode.current === 'camera') {
+          // Camera orbit mode - orbit around selected node
+          targetCameraSpherical.current.theta -= deltaX * rotateSpeed
+          targetCameraSpherical.current.phi += deltaY * rotateSpeed
+        } else if (currentMode.current === 'firstperson') {
+          // First person mode - rotate look direction
+          const rotationY = new THREE.Matrix4().makeRotationY(deltaX * rotateSpeed)
+          const rotationX = new THREE.Matrix4().makeRotationX(-deltaY * rotateSpeed)
+
+          firstPersonLookDirection.current.applyMatrix4(rotationY)
+          firstPersonLookDirection.current.applyMatrix4(rotationX)
+          firstPersonLookDirection.current.normalize()
+        } else {
+          // Mesh rotation mode - rotate entire mesh
+          meshRotation.current.y += deltaX * rotateSpeed
+          meshRotation.current.x += deltaY * rotateSpeed
+        }
+
+        touchState.current.lastTouch = { x: touch.clientX, y: touch.clientY }
+        lastMousePos.current = { x: touch.clientX, y: touch.clientY }
+      } else if (event.touches.length === 2) {
+        // Two finger touch - panning and pinch-to-zoom
+        const touch1 = event.touches[0]
+        const touch2 = event.touches[1]
+        const centerX = (touch1.clientX + touch2.clientX) / 2
+        const centerY = (touch1.clientY + touch2.clientY) / 2
+
+        // Handle pinch-to-zoom
+        const dx = touch2.clientX - touch1.clientX
+        const dy = touch2.clientY - touch1.clientY
+        const currentDistance = Math.sqrt(dx * dx + dy * dy)
+        const distanceDelta = currentDistance - touchState.current.lastTouchDistance
+
+        if (Math.abs(distanceDelta) > 2) { // Threshold to prevent jitter
+          const zoomSpeed = 0.5
+          const zoomDelta = -distanceDelta * zoomSpeed // Negative for natural pinch behavior
+
+          if (currentMode.current === 'camera') {
+            targetCameraSpherical.current.radius = Math.max(1, targetCameraSpherical.current.radius + zoomDelta * 0.5)
+          } else {
+            const newZ = Math.max(1, camera.position.z + zoomDelta)
+            camera.position.setZ(newZ)
+          }
+
+          touchState.current.lastTouchDistance = currentDistance
+        }
+
+        // Handle two-finger panning
+        if (isMouseDown.current.right) {
+          const deltaX = centerX - touchState.current.lastTouch.x
+          const deltaY = centerY - touchState.current.lastTouch.y
+
+          if (currentMode.current === 'camera') {
+            // Camera orbit mode - pan by moving the orbit center
+            const panSpeed = cameraSpherical.current.radius * 0.001
+            const right = new THREE.Vector3(1, 0, 0)
+            const up = new THREE.Vector3(0, 1, 0)
+            panOffset.current.add(right.multiplyScalar(-deltaX * panSpeed))
+            panOffset.current.add(up.multiplyScalar(deltaY * panSpeed))
+          } else {
+            // Mesh rotation mode - pan by moving the mesh
+            const panSpeed = camera.position.z * 0.001
+            meshPosition.current.x += deltaX * panSpeed
+            meshPosition.current.y -= deltaY * panSpeed
+            userHasPanned.current = true
+          }
+        }
+
+        touchState.current.lastTouch = { x: centerX, y: centerY }
+        lastMousePos.current = { x: centerX, y: centerY }
+      }
+    }
+
     const handleMouseUp = () => {
       isMouseDown.current.left = false
       isMouseDown.current.right = false
+      touchState.current.isTouch = false
+    }
+
+    const handleTouchEnd = (event) => {
+      event.preventDefault()
+
+      if (event.touches.length === 0) {
+        // No more touches - release all
+        isMouseDown.current.left = false
+        isMouseDown.current.right = false
+        touchState.current.isTouch = false
+        touchState.current.touchCount = 0
+      } else if (event.touches.length === 1) {
+        // Down to one touch - switch to rotation mode
+        isMouseDown.current.left = true
+        isMouseDown.current.right = false
+        const touch = event.touches[0]
+        touchState.current.lastTouch = { x: touch.clientX, y: touch.clientY }
+        lastMousePos.current = { x: touch.clientX, y: touch.clientY }
+        touchState.current.touchCount = 1
+      } else {
+        // Multiple touches remain - update state
+        touchState.current.touchCount = event.touches.length
+      }
     }
 
     const handleContextMenu = (event) => {
@@ -153,12 +303,22 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     gl.domElement.addEventListener('wheel', handleWheel)
     gl.domElement.addEventListener('contextmenu', handleContextMenu)
 
+    // Touch event listeners
+    gl.domElement.addEventListener('touchstart', handleTouchStart, { passive: false })
+    gl.domElement.addEventListener('touchmove', handleTouchMove, { passive: false })
+    gl.domElement.addEventListener('touchend', handleTouchEnd, { passive: false })
+
     return () => {
       gl.domElement.removeEventListener('mousedown', handleMouseDown)
       gl.domElement.removeEventListener('mousemove', handleMouseMove)
       gl.domElement.removeEventListener('mouseup', handleMouseUp)
       gl.domElement.removeEventListener('wheel', handleWheel)
       gl.domElement.removeEventListener('contextmenu', handleContextMenu)
+
+      // Remove touch event listeners
+      gl.domElement.removeEventListener('touchstart', handleTouchStart)
+      gl.domElement.removeEventListener('touchmove', handleTouchMove)
+      gl.domElement.removeEventListener('touchend', handleTouchEnd)
     }
   }, [gl, camera])
 
@@ -1200,10 +1360,16 @@ function ForceGraph3D({ data, onReset, fileName }) {
 
         <div className="control-group">
           <small style={{ color: '#888' }}>
+            <strong>Desktop:</strong><br/>
             Click nodes to select<br/>
             Drag to rotate<br/>
             Scroll to zoom<br/>
-            Right-click + drag to pan
+            Right-click + drag to pan<br/>
+            <br/>
+            <strong>Mobile:</strong><br/>
+            Touch to rotate<br/>
+            Pinch to zoom<br/>
+            Two-finger drag to pan
           </small>
         </div>
           </>
