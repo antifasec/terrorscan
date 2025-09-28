@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import GraphPage from './pages/GraphPage'
 import './App.css'
@@ -7,7 +7,7 @@ function AppContent() {
   const location = useLocation()
 
   // Determine if we're in home mode for styling
-  const isHomeMode = location.pathname === '/' || location.pathname === '/terrorscan' || location.pathname === '/terrorscan/'
+  const isHomeMode = location.pathname === '/'
 
   return (
     <div className={`app ${isHomeMode ? 'home-mode' : ''}`}>
@@ -23,7 +23,7 @@ function AppContent() {
 
 function App() {
   return (
-    <Router basename="/terrorscan">
+    <Router>
       <AppContent />
     </Router>
   )
