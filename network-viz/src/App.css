@@ -624,3 +624,222 @@
   border-radius: 50%;
   flex-shrink: 0;
 }
+
+/* Router Navigation Styles */
+.browse-section {
+  width: 100%;
+}
+
+.browse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.browse-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.browse-all-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.2), rgba(100, 108, 255, 0.4));
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 8px;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.browse-all-btn:hover {
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.4), rgba(100, 108, 255, 0.6));
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+}
+
+/* Enhanced Landing Page Integration */
+.upload-browse-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(100, 108, 255, 0.3), transparent);
+}
+
+.section-divider span {
+  padding: 0 1rem;
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Unified card styling */
+.unified-section {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.6), rgba(45, 45, 55, 0.4));
+  border: 1px solid rgba(100, 108, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.unified-section:hover {
+  border-color: rgba(100, 108, 255, 0.4);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(45, 45, 55, 0.6));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(100, 108, 255, 0.1);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.section-subtitle {
+  color: #aaa;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Browse Page Styles */
+.browse-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0a0f1c 0%, #1a1f2e 100%);
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  background: linear-gradient(135deg, #646cff, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.back-button {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.browse-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0f1c 0%, #1a1f2e 100%);
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+/* Responsive improvements */
+@media (min-width: 768px) {
+  .upload-browse-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  .upload-browse-container > * {
+    flex: 1;
+  }
+
+  .section-divider {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin: 0 1rem;
+    height: 300px;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    width: 1px;
+    height: 1rem;
+    flex: 1;
+    background: linear-gradient(180deg, transparent, rgba(100, 108, 255, 0.3), transparent);
+  }
+
+  .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 2.5rem;
+  }
+}
