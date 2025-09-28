@@ -148,7 +148,7 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
             subtype: file.type,
             icon: getFileIcon(file.type, isNetworkFile),
             size: file.size,
-            url: file.url,
+            url: file.path || file.url,
             path: [channelName, year, month, day, scan.timestamp, file.name],
             parent: scanNode,
             fileData: file,
@@ -252,7 +252,8 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
         // Check if it's a renderable network file
         if (node.name.includes('network') || node.name.includes('3d')) {
           try {
-            const response = await fetch(node.url)
+            const fetchUrl = node.url.startsWith('/') ? `/terrorscan${node.url}` : node.url
+            const response = await fetch(fetchUrl)
             const data = await response.json()
             // Create URL path from file path for navigation
             const urlPath = node.path.join('/')
@@ -265,7 +266,8 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
         } else {
           // Preview other JSON files
           try {
-            const response = await fetch(node.url)
+            const fetchUrl = node.url.startsWith('/') ? `/terrorscan${node.url}` : node.url
+            const response = await fetch(fetchUrl)
             const data = await response.json()
             setPreviewData({ name: node.name, data })
           } catch (err) {

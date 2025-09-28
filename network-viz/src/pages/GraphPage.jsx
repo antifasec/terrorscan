@@ -31,7 +31,8 @@ function GraphPage() {
     setLoading(true)
     try {
       // Reconstruct the file URL from the path with /terrorscan base
-      const fileUrl = `/terrorscan/public/data/${filePath}`
+      // If filePath already includes path info, use it directly, otherwise construct it
+      const fileUrl = filePath.startsWith('/') ? `/terrorscan${filePath}` : `/terrorscan/public/data/${filePath}`
 
       const response = await fetch(fileUrl)
       if (!response.ok) {
