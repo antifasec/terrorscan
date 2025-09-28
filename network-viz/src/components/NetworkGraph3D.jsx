@@ -4,6 +4,118 @@ import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force-3d'
 
+function DatasetBackground({ nodes, datasetId, datasetName, datasetColor }) {
+  const meshRef = useRef()
+  const [boundingCircle, setBoundingCircle] = useState({ center: { x: 0, y: 0, z: 0 }, radius: 10 })
+
+  // Calculate bounding circle for dataset nodes
+  useFrame(() => {
+    const datasetNodes = nodes.filter(node => node._datasetId === datasetId)
+    if (datasetNodes.length === 0) return
+
+    // Calculate center of mass
+    let centerX = 0, centerY = 0, centerZ = 0
+    datasetNodes.forEach(node => {
+      centerX += node.x || 0
+      centerY += node.y || 0
+      centerZ += node.z || 0
+    })
+    centerX /= datasetNodes.length
+    centerY /= datasetNodes.length
+    centerZ /= datasetNodes.length
+
+    // Calculate radius (distance to furthest node + padding)
+    let maxDistance = 0
+    datasetNodes.forEach(node => {
+      const distance = Math.sqrt(
+        Math.pow((node.x || 0) - centerX, 2) +
+        Math.pow((node.y || 0) - centerY, 2) +
+        Math.pow((node.z || 0) - centerZ, 2)
+      )
+      maxDistance = Math.max(maxDistance, distance)
+    })
+
+    const newRadius = Math.max(5, maxDistance + 3) // Minimum radius + padding
+    const newCenter = { x: centerX, y: centerY, z: centerZ }
+
+    // Update position and scale
+    if (meshRef.current) {
+      meshRef.current.position.set(centerX, centerY, centerZ)
+      meshRef.current.scale.setScalar(newRadius)
+    }
+
+    setBoundingCircle({ center: newCenter, radius: newRadius })
+  })
+
+  if (nodes.filter(node => node._datasetId === datasetId).length === 0) {
+    return null
+  }
+
+  return (
+    <group>
+      {/* Main circular background */}
+      <mesh ref={meshRef} renderOrder={-1}>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshBasicMaterial
+          color={datasetColor}
+          transparent
+          opacity={0.08}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Outer ring */}
+      <mesh position={[boundingCircle.center.x, boundingCircle.center.y, boundingCircle.center.z]} renderOrder={-1}>
+        <ringGeometry args={[boundingCircle.radius * 0.95, boundingCircle.radius, 64]} />
+        <meshBasicMaterial
+          color={datasetColor}
+          transparent
+          opacity={0.2}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Dataset label */}
+      {boundingCircle.radius > 8 && (
+        <Html
+          position={[
+            boundingCircle.center.x,
+            boundingCircle.center.y + boundingCircle.radius * 0.7,
+            boundingCircle.center.z
+          ]}
+          center
+          transform={false}
+          occlude={false}
+          style={{
+            pointerEvents: 'none',
+            zIndex: 10
+          }}
+        >
+          <div style={{
+            color: datasetColor,
+            fontSize: '12px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            opacity: 0.8,
+            background: 'rgba(0, 0, 0, 0.3)',
+            padding: '2px 8px',
+            borderRadius: '12px',
+            border: `1px solid ${datasetColor}30`
+          }}>
+            {datasetName}
+          </div>
+        </Html>
+      )}
+    </group>
+  )
+}
+
 const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }, ref) => {
   const { gl, camera } = useThree()
   const isInitialized = useRef(false)
@@ -643,7 +755,12 @@ function Node({ node, onClick, selected, isConnected, selectedNode }) {
     if (hovered) return '#4ecdc4'
     if (selectedNode && isConnected) return '#ffff00' // Bright yellow for connected nodes
 
-    // Cyberpunk neon color scheme by depth
+    // Use dataset color if available
+    if (node._datasetColor) {
+      return node._datasetColor
+    }
+
+    // Fallback to cyberpunk neon color scheme by depth
     const depth = node.depth || 0
     const depthColors = [
       '#9d4edd', // Depth 0: Neon purple
@@ -889,7 +1006,7 @@ function Link({ link, nodes, selectedNode, allLinks, currentMode }) {
   )
 }
 
-function ForceGraph3D({ data, onReset, fileName }) {
+function ForceGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [simulationAlpha, setSimulationAlpha] = useState(0)
   const [showControls, setShowControls] = useState(false)
@@ -903,6 +1020,14 @@ function ForceGraph3D({ data, onReset, fileName }) {
     centerStrength: 0.02
   })
 
+  // Multi-dataset management
+  const [availableDatasets, setAvailableDatasets] = useState([])
+  const [activeDatasets, setActiveDatasets] = useState(selectedDatasets)
+  const [combinedData, setCombinedData] = useState({ nodes: [], links: [] })
+  const [showDatasetSelector, setShowDatasetSelector] = useState(false)
+  const [manifest, setManifest] = useState(null)
+  const [hasAutoSelected, setHasAutoSelected] = useState(false)
+
   const simulationRef = useRef(null)
   const nodesRef = useRef([])
   const linksRef = useRef([])
@@ -912,6 +1037,165 @@ function ForceGraph3D({ data, onReset, fileName }) {
   // Drag tracking refs
   const mouseDownPos = useRef({ x: 0, y: 0 })
   const isDragging = useRef(false)
+
+  // Sync selected datasets from parent
+  useEffect(() => {
+    setActiveDatasets(selectedDatasets)
+  }, [selectedDatasets])
+
+  // Fetch manifest and available 3D datasets
+  useEffect(() => {
+    const fetchManifest = async () => {
+      try {
+        const response = await fetch('/terrorscan/public/data/manifest.json')
+        if (!response.ok) return
+
+        const manifestData = await response.json()
+        setManifest(manifestData)
+
+        // Extract all 3D JSON files from the manifest
+        const datasets = []
+        const channelLatestScans = new Map() // Track latest scan per channel
+
+        Object.keys(manifestData.channels || {}).forEach(channelName => {
+          const channel = manifestData.channels[channelName]
+
+          channel.scans?.forEach(scan => {
+            scan.files?.forEach(file => {
+              if (file.type === 'json' && (file.name.includes('network_3d') || file.name.includes('3d'))) {
+                const dataset = {
+                  id: `${channelName}_${scan.timestamp}_${file.name}`,
+                  name: `${channelName} - ${new Date(scan.timestamp).toLocaleDateString()}`,
+                  filename: file.name,
+                  url: file.path ? `/terrorscan${file.path}` : file.url,
+                  channel: channelName,
+                  timestamp: scan.timestamp
+                }
+                datasets.push(dataset)
+
+                // Track the latest scan for each channel
+                if (!channelLatestScans.has(channelName) ||
+                    new Date(scan.timestamp) > new Date(channelLatestScans.get(channelName).timestamp)) {
+                  channelLatestScans.set(channelName, dataset)
+                }
+              }
+            })
+          })
+        })
+
+        // Sort datasets by timestamp (newest first)
+        datasets.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        setAvailableDatasets(datasets)
+
+        // Auto-select most recent scan per channel if no URL params are set
+        if (!hasAutoSelected && selectedDatasets.size === 0) {
+          const autoSelectedDatasets = Array.from(channelLatestScans.values()).map(d => d.id)
+          const autoSelectedSet = new Set(autoSelectedDatasets)
+
+          setActiveDatasets(autoSelectedSet)
+          onDatasetSelectionChange(autoSelectedSet)
+          setHasAutoSelected(true)
+        }
+      } catch (err) {
+        console.error('Error fetching manifest:', err)
+      }
+    }
+
+    fetchManifest()
+  }, [selectedDatasets.size, hasAutoSelected, onDatasetSelectionChange])
+
+  // Load and combine datasets
+  const loadDataset = async (datasetId) => {
+    const dataset = availableDatasets.find(d => d.id === datasetId)
+    if (!dataset) return null
+
+    try {
+      const response = await fetch(dataset.url)
+      if (!response.ok) throw new Error(`Failed to fetch ${dataset.name}`)
+
+      const data = await response.json()
+      return { ...data, _datasetId: datasetId, _datasetName: dataset.name }
+    } catch (err) {
+      console.error(`Error loading dataset ${dataset.name}:`, err)
+      return null
+    }
+  }
+
+  // Handle dataset toggle
+  const toggleDataset = async (datasetId) => {
+    const newActiveDatasets = new Set(activeDatasets)
+
+    if (newActiveDatasets.has(datasetId)) {
+      newActiveDatasets.delete(datasetId)
+    } else {
+      newActiveDatasets.add(datasetId)
+    }
+
+    setActiveDatasets(newActiveDatasets)
+    onDatasetSelectionChange(newActiveDatasets)
+  }
+
+  // Combine data from active datasets
+  useEffect(() => {
+    const combineDatasets = async () => {
+      if (activeDatasets.size === 0) {
+        setCombinedData({ nodes: [], links: [] })
+        return
+      }
+
+      const loadPromises = Array.from(activeDatasets).map(loadDataset)
+      const loadedDatasets = await Promise.all(loadPromises)
+      const validDatasets = loadedDatasets.filter(d => d && d.nodes && d.links)
+
+      if (validDatasets.length === 0) {
+        setCombinedData({ nodes: [], links: [] })
+        return
+      }
+
+      // Combine all datasets
+      let combinedNodes = []
+      let combinedLinks = []
+      const nodeIdMap = new Map() // To prevent duplicate nodes
+
+      validDatasets.forEach((dataset, datasetIndex) => {
+        // Add dataset color/prefix to distinguish nodes from different datasets
+        const datasetPrefix = `ds${datasetIndex}_`
+        const datasetColor = ['#9d4edd', '#ff0080', '#00ff41', '#00ffff', '#ffff00'][datasetIndex % 5]
+
+        dataset.nodes.forEach(node => {
+          const prefixedId = `${datasetPrefix}${node.id}`
+          if (!nodeIdMap.has(prefixedId)) {
+            nodeIdMap.set(prefixedId, {
+              ...node,
+              id: prefixedId,
+              originalId: node.id,
+              _datasetId: dataset._datasetId,
+              _datasetName: dataset._datasetName,
+              _datasetColor: datasetColor
+            })
+          }
+        })
+
+        dataset.links.forEach(link => {
+          const sourceId = `${datasetPrefix}${link.source.id || link.source}`
+          const targetId = `${datasetPrefix}${link.target.id || link.target}`
+
+          combinedLinks.push({
+            ...link,
+            source: sourceId,
+            target: targetId,
+            _datasetId: dataset._datasetId,
+            _datasetName: dataset._datasetName
+          })
+        })
+      })
+
+      combinedNodes = Array.from(nodeIdMap.values())
+      setCombinedData({ nodes: combinedNodes, links: combinedLinks })
+    }
+
+    combineDatasets()
+  }, [activeDatasets, availableDatasets])
 
   // Handle background click and ESC key to deselect
   useEffect(() => {
@@ -971,11 +1255,19 @@ function ForceGraph3D({ data, onReset, fileName }) {
   }, [selectedNode])
 
   const { nodes, links } = useMemo(() => {
-    if (!data || !data.nodes || !data.links) return { nodes: [], links: [] }
+    if (!combinedData || !combinedData.nodes || !combinedData.links) return { nodes: [], links: [] }
 
-    // Only initialize nodes once with positions, preserve existing positions on updates
-    if (nodesRef.current.length === 0) {
-      const nodes = data.nodes.map(node => ({
+    // Get current node IDs for comparison
+    const newNodeIds = new Set(combinedData.nodes.map(n => n.id))
+    const existingNodeIds = new Set(nodesRef.current.map(n => n.id))
+
+    // Check if we have significant changes (nodes removed or first load)
+    const hasRemovedNodes = nodesRef.current.some(node => !newNodeIds.has(node.id))
+    const isFirstLoad = nodesRef.current.length === 0
+
+    if (isFirstLoad) {
+      // First load - initialize all nodes with random positions
+      const nodes = combinedData.nodes.map(node => ({
         ...node,
         x: (Math.random() - 0.5) * 50,
         y: (Math.random() - 0.5) * 50,
@@ -988,14 +1280,48 @@ function ForceGraph3D({ data, onReset, fileName }) {
         fz: null
       }))
       nodesRef.current = nodes
+    } else if (hasRemovedNodes) {
+      // Nodes were removed - filter out removed nodes and add new ones
+      const preservedNodes = nodesRef.current.filter(node => newNodeIds.has(node.id))
+      const newNodes = combinedData.nodes
+        .filter(node => !existingNodeIds.has(node.id))
+        .map(node => ({
+          ...node,
+          x: (Math.random() - 0.5) * 50,
+          y: (Math.random() - 0.5) * 50,
+          z: (Math.random() - 0.5) * 50,
+          vx: 0,
+          vy: 0,
+          vz: 0,
+          fx: null,
+          fy: null,
+          fz: null
+        }))
+
+      // Update preserved nodes with new data
+      const updatedNodes = preservedNodes.map(existingNode => {
+        const newNodeData = combinedData.nodes.find(n => n.id === existingNode.id)
+        return newNodeData ? {
+          ...existingNode, // Keep existing position and velocity
+          ...newNodeData, // Update other properties
+          x: existingNode.x, // Preserve position
+          y: existingNode.y,
+          z: existingNode.z,
+          vx: existingNode.vx, // Preserve velocity
+          vy: existingNode.vy,
+          vz: existingNode.vz
+        } : existingNode
+      })
+
+      nodesRef.current = [...updatedNodes, ...newNodes]
     } else {
-      // Update existing nodes with new data but preserve positions
-      nodesRef.current = nodesRef.current.map(existingNode => {
-        const newNodeData = data.nodes.find(n => n.id === existingNode.id)
-        if (newNodeData) {
+      // Only updates or additions - preserve positions
+      const updatedNodes = combinedData.nodes.map(newNode => {
+        const existingNode = nodesRef.current.find(n => n.id === newNode.id)
+        if (existingNode) {
           return {
             ...existingNode, // Keep existing position and velocity
-            ...newNodeData, // Update other properties
+            ...newNode, // Update other properties
             x: existingNode.x, // Preserve position
             y: existingNode.y,
             z: existingNode.z,
@@ -1003,16 +1329,30 @@ function ForceGraph3D({ data, onReset, fileName }) {
             vy: existingNode.vy,
             vz: existingNode.vz
           }
+        } else {
+          // New node - give it a random position
+          return {
+            ...newNode,
+            x: (Math.random() - 0.5) * 50,
+            y: (Math.random() - 0.5) * 50,
+            z: (Math.random() - 0.5) * 50,
+            vx: 0,
+            vy: 0,
+            vz: 0,
+            fx: null,
+            fy: null,
+            fz: null
+          }
         }
-        return existingNode
       })
+      nodesRef.current = updatedNodes
     }
 
-    const links = data.links.map(link => ({ ...link }))
+    const links = combinedData.links.map(link => ({ ...link }))
     linksRef.current = links
 
     return { nodes: nodesRef.current, links }
-  }, [data])
+  }, [combinedData])
 
   // Debounced effect for updating simulation forces with restart
   useEffect(() => {
@@ -1043,9 +1383,15 @@ function ForceGraph3D({ data, onReset, fileName }) {
     return () => clearTimeout(timeoutId)
   }, [forceParams])
 
-  // Initialize simulation only once
+  // Initialize simulation - recreate when nodes/links change significantly
   useEffect(() => {
-    if (!nodes.length || !links.length) return
+    if (!nodes.length) {
+      if (simulationRef.current) {
+        simulationRef.current.stop()
+        simulationRef.current = null
+      }
+      return
+    }
 
     // Stop previous simulation
     if (simulationRef.current) {
@@ -1100,12 +1446,54 @@ function ForceGraph3D({ data, onReset, fileName }) {
     }
   }, [])
 
-  if (!data || !data.nodes || !data.links) {
-    return <div>No data to display</div>
-  }
+  // Always show the interface - data will be loaded based on dataset selection
 
   return (
     <div className="graph-container">
+      {/* Dataset Selector Dropdown */}
+      <div className="dataset-selector-overlay">
+        <div className="dataset-selector">
+          <button
+            className="dataset-toggle-btn"
+            onClick={() => setShowDatasetSelector(!showDatasetSelector)}
+          >
+            📊 Datasets ({activeDatasets.size}) ▼
+          </button>
+
+          {showDatasetSelector && (
+            <div className="dataset-dropdown">
+              <div className="dataset-header">
+                <span>Select datasets to combine:</span>
+                <button
+                  className="close-dropdown"
+                  onClick={() => setShowDatasetSelector(false)}
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="dataset-list">
+                {availableDatasets.map(dataset => (
+                  <label key={dataset.id} className="dataset-item">
+                    <input
+                      type="checkbox"
+                      checked={activeDatasets.has(dataset.id)}
+                      onChange={() => toggleDataset(dataset.id)}
+                    />
+                    <span className="dataset-name">{dataset.name}</span>
+                    <small className="dataset-filename">{dataset.filename}</small>
+                  </label>
+                ))}
+              </div>
+
+              {availableDatasets.length === 0 && (
+                <div className="dataset-empty">No 3D datasets available</div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
       <Canvas camera={{ position: [0, 0, 20], fov: 50, far: 10000 }}>
         <ambientLight intensity={0.1} />
         <pointLight position={[10, 10, 10]} intensity={0.3} />
@@ -1121,6 +1509,31 @@ function ForceGraph3D({ data, onReset, fileName }) {
         />
 
         <group ref={meshGroupRef}>
+          {/* Dataset backgrounds */}
+          {(() => {
+            const datasetsInView = new Map()
+            nodes.forEach(node => {
+              if (node._datasetId && node._datasetName && node._datasetColor) {
+                datasetsInView.set(node._datasetId, {
+                  id: node._datasetId,
+                  name: node._datasetName,
+                  color: node._datasetColor
+                })
+              }
+            })
+
+            return Array.from(datasetsInView.values()).map(dataset => (
+              <DatasetBackground
+                key={dataset.id}
+                nodes={nodes}
+                datasetId={dataset.id}
+                datasetName={dataset.name}
+                datasetColor={dataset.color}
+              />
+            ))
+          })()}
+
+          {/* Nodes */}
           {nodes.map((node) => {
           // Check if this node is connected to the selected node
           const isConnected = selectedNode ? links.some(link => {
@@ -1156,16 +1569,6 @@ function ForceGraph3D({ data, onReset, fileName }) {
 
       </Canvas>
 
-      {/* Back to browser button - top left of screen */}
-      <div className="back-nav-overlay">
-        <button
-          className="back-nav-btn"
-          onClick={onReset}
-          title="Back to File Browser"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Cyberpunk legend overlay - bottom left of screen */}
       <div className="screen-legend-overlay">
@@ -1195,17 +1598,14 @@ function ForceGraph3D({ data, onReset, fileName }) {
 
       {/* Network stats overlay - bottom right of screen */}
       <div className="screen-stats-overlay">
-        <div className="stat-line">Nodes: {data.nodes.length}</div>
-        <div className="stat-line">Links: {data.links.length}</div>
+        <div className="stat-line">Nodes: {combinedData.nodes?.length || 0}</div>
+        <div className="stat-line">Links: {combinedData.links?.length || 0}</div>
+        <div className="stat-line">Active datasets: {activeDatasets.size}</div>
         <div className="stat-line">
           Simulation: {simulationAlpha > 0.01 ? 'Running' : 'Stable'} ({simulationAlpha.toFixed(3)})
         </div>
       </div>
 
-      {/* Filename overlay - bottom center of screen */}
-      <div className="screen-filename-overlay">
-        {fileName}
-      </div>
 
       {/* Floating node details card - outside canvas, in top left */}
       {selectedNode && (
@@ -1239,8 +1639,17 @@ function ForceGraph3D({ data, onReset, fileName }) {
             <div className="card-content">
               <div className="detail-row">
                 <span className="label">ID:</span>
-                <span className="value">{selectedNode.id}</span>
+                <span className="value">{selectedNode.originalId || selectedNode.id}</span>
               </div>
+
+              {selectedNode._datasetName && (
+                <div className="detail-row">
+                  <span className="label">📊 Dataset:</span>
+                  <span className="value" style={{ color: selectedNode._datasetColor }}>
+                    {selectedNode._datasetName}
+                  </span>
+                </div>
+              )}
 
               {selectedNode.depth !== undefined && (
                 <div className="detail-row">
@@ -1407,17 +1816,8 @@ function ForceGraph3D({ data, onReset, fileName }) {
   )
 }
 
-function NetworkGraph3D({ data, onReset, fileName }) {
-  if (!data) {
-    return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <h2>No data available</h2>
-        <p>Please select a file to visualize.</p>
-      </div>
-    )
-  }
-
-  return <ForceGraph3D data={data} onReset={onReset} fileName={fileName} />
+function NetworkGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
+  return <ForceGraph3D selectedDatasets={selectedDatasets} onDatasetSelectionChange={onDatasetSelectionChange} />
 }
 
 export default NetworkGraph3D

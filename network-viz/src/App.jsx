@@ -1,29 +1,49 @@
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import GraphPage from './pages/GraphPage'
+import { BrowserRouter as Router, useSearchParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import NetworkGraph3D from './components/NetworkGraph3D'
 import './App.css'
 
 function AppContent() {
-  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [selectedDatasets, setSelectedDatasets] = useState(new Set())
 
-  // Determine if we're in home mode for styling
-  const isHomeMode = location.pathname === '/'
+  // Parse datasets from URL query params on load
+  useEffect(() => {
+    const datasetsParam = searchParams.get('datasets')
+    if (datasetsParam) {
+      const datasetIds = datasetsParam.split(',').filter(id => id.trim())
+      setSelectedDatasets(new Set(datasetIds))
+    }
+  }, [searchParams])
+
+  // Update URL when selected datasets change
+  const updateURL = (newDatasets) => {
+    if (newDatasets.size > 0) {
+      setSearchParams({ datasets: Array.from(newDatasets).join(',') })
+    } else {
+      setSearchParams({})
+    }
+  }
+
+  // Handle dataset selection changes from the NetworkGraph3D component
+  const handleDatasetSelectionChange = (newDatasets) => {
+    setSelectedDatasets(newDatasets)
+    updateURL(newDatasets)
+  }
 
   return (
-    <div className={`app ${isHomeMode ? 'home-mode' : ''}`}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/graph" element={<GraphPage />} />
-        <Route path="/graph/*" element={<GraphPage />} />
-        <Route path="*" element={<HomePage />} />
-      </Routes>
+    <div className="app">
+      <NetworkGraph3D
+        selectedDatasets={selectedDatasets}
+        onDatasetSelectionChange={handleDatasetSelectionChange}
+      />
     </div>
   )
 }
 
 function App() {
   return (
-    <Router>
+    <Router basename="/terrorscan">
       <AppContent />
     </Router>
   )
