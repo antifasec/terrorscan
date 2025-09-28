@@ -2,7 +2,7 @@ name: Scan CandaceOwens Channel
 
 on:
   schedule:
-    - cron: "0 2 * * 0" # Weekly scan every Sunday at 2 AM UTC
+    - cron: "0 6 * * *" # Daily at 6am
   workflow_dispatch:
     inputs:
       reset_manifest:
@@ -20,7 +20,7 @@ jobs:
   scan:
     uses: ./.github/workflows/scan-template.yml
     with:
-      channel: CandaceOwensReal
-      data_dir: CandaceOwensReal
+      channel: bannonwarroom
+      data_dir: bannonwarroom
       reset_manifest: ${{ inputs.reset_manifest || false }}
     secrets: inherit
