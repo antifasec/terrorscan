@@ -12,7 +12,7 @@ function GraphPage() {
 
   useEffect(() => {
     if (location.state?.graphData) {
-      // Data provided via navigation state
+      // Data provided via navigation state - this is the preferred method
       setGraphData(location.state.graphData)
       setFileName(location.state.fileName || 'Network Data')
     } else {
@@ -33,7 +33,6 @@ function GraphPage() {
       // Reconstruct the file URL from the path with /terrorscan base
       const fileUrl = `/terrorscan/public/data/${filePath}`
 
-      console.log('Loading file from URL:', fileUrl)
       const response = await fetch(fileUrl)
       if (!response.ok) {
         throw new Error(`Failed to fetch file: ${response.status}`)
@@ -57,11 +56,20 @@ function GraphPage() {
     navigate('/')
   }
 
-  if (loading || !graphData) {
+  if (loading) {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
-        <div>{loading ? 'Loading file from URL...' : 'Loading graph data...'}</div>
+        <div>Loading graph data...</div>
+      </div>
+    )
+  }
+
+  if (!graphData) {
+    return (
+      <div className="loading-container">
+        <div>No graph data available</div>
+        <button onClick={() => navigate('/')}>Return to Home</button>
       </div>
     )
   }
