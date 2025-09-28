@@ -51,7 +51,6 @@ def main():
                 scan_files.append({
                     'name': file,
                     'path': '/' + rel_path,
-                    'url': f'https://{repo_owner}.github.io/{repo_name}/' + rel_path,
                     'size': size,
                     'type': file.split('.')[-1] if '.' in file else 'unknown'
                 })
