@@ -7,12 +7,18 @@
   background: #0a0a0a;
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .app.home-mode {
+  position: static;
   height: auto;
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Mobile home view */
@@ -308,6 +314,14 @@
 .graph-container {
   flex: 1;
   position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  touch-action: none; /* Prevent default touch behaviors */
+}
+
+.graph-container canvas {
+  touch-action: none; /* Ensure canvas doesn't trigger scrolling */
 }
 
 .graph-controls {
