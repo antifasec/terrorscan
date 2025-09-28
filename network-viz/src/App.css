@@ -647,85 +647,9 @@
   gap: 0.5rem;
 }
 
-.browse-all-btn {
-  padding: 8px 16px;
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.2), rgba(100, 108, 255, 0.4));
-  border: 1px solid rgba(100, 108, 255, 0.3);
-  border-radius: 8px;
-  color: #ccc;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.browse-all-btn:hover {
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.4), rgba(100, 108, 255, 0.6));
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
-}
-
 /* Simplified Home Layout - No longer needed, upload is integrated */
 
-/* Browse Page Styles */
-.browse-page {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0a0f1c 0%, #1a1f2e 100%);
-}
-
-.page-header {
-  margin-bottom: 2rem;
-}
-
-.page-header h1 {
-  color: #ffffff;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  background: linear-gradient(135deg, #646cff, #8b5cf6);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.page-header p {
-  color: #9ca3af;
-  font-size: 1.1rem;
-  margin: 0;
-}
-
-.back-button {
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #ccc;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  margin-bottom: 1rem;
-}
-
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-.browse-content {
-  flex: 1;
-  overflow: hidden;
-}
+/* Browse page styles removed - no longer needed */
 
 .loading-container {
   display: flex;

@@ -25,18 +25,11 @@ function HomePage() {
     }
   }
 
-  const handleBrowseAll = () => {
-    navigate('/browse')
-  }
-
   return (
     <div className="home-view">
       <div className="main-content">
         <div className="browse-header">
           <h2>📁 Browse Scan Data</h2>
-          <button onClick={handleBrowseAll} className="browse-all-btn">
-            View All →
-          </button>
         </div>
 
         <FileExplorer onFileSelected={handleDataLoaded} showUpload={true} />

@@ -30,9 +30,8 @@ function GraphPage() {
   const loadFileFromPath = async (filePath) => {
     setLoading(true)
     try {
-      // Reconstruct the file URL from the path
-      const baseUrl = import.meta.env.BASE_URL || '/'
-      const fileUrl = `${baseUrl}public/data/${filePath}`
+      // Reconstruct the file URL from the path with /terrorscan base
+      const fileUrl = `/terrorscan/public/data/${filePath}`
 
       console.log('Loading file from URL:', fileUrl)
       const response = await fetch(fileUrl)

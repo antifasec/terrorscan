@@ -22,9 +22,8 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
       setLoading(true)
       setError(null)
 
-      // Try to fetch manifest from the correct base URL
-      const baseUrl = import.meta.env.BASE_URL || '/'
-      const manifestUrl = `${baseUrl}public/data/manifest.json`
+      // Try to fetch manifest from the correct base URL with /terrorscan
+      const manifestUrl = `/terrorscan/public/data/manifest.json`
 
       console.log('Fetching manifest from:', manifestUrl)
       const response = await fetch(manifestUrl)
