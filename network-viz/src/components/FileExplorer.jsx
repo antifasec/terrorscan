@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
+import FileUpload from './FileUpload'
 import './FileExplorer.css'
 
-function FileExplorer({ onFileSelected }) {
+function FileExplorer({ onFileSelected, showUpload = false }) {
   const [manifest, setManifest] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -459,6 +460,15 @@ function FileExplorer({ onFileSelected }) {
       <div className="tree-container">
         <div className="tree-content">
           {renderTreeNode(treeData)}
+
+          {showUpload && (
+            <div className="integrated-upload">
+              <div className="upload-divider">
+                <span>Or upload your own file</span>
+              </div>
+              <FileUpload onDataLoaded={onFileSelected} />
+            </div>
+          )}
         </div>
 
         {previewData && (
