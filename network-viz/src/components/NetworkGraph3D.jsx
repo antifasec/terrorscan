@@ -66,7 +66,9 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     isTouch: false,
     lastTouch: { x: 0, y: 0 },
     touchCount: 0,
-    lastTouchDistance: 0
+    lastTouchDistance: 0,
+    hasMoved: false,
+    startTime: 0
   })
 
   // Mouse and touch event handlers
@@ -83,13 +85,13 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     }
 
     const handleTouchStart = (event) => {
-      event.preventDefault()
       touchState.current.isTouch = true
       touchState.current.touchCount = event.touches.length
+      touchState.current.hasMoved = false
+      touchState.current.startTime = Date.now()
 
       if (event.touches.length === 1) {
-        // Single touch - equivalent to left mouse button
-        isMouseDown.current.left = true
+        // Single touch - don't prevent default immediately to allow node taps
         touchState.current.lastTouch = {
           x: event.touches[0].clientX,
           y: event.touches[0].clientY
@@ -98,8 +100,16 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
           x: event.touches[0].clientX,
           y: event.touches[0].clientY
         }
+
+        // Delay setting mouse state to allow click events to fire first
+        setTimeout(() => {
+          if (touchState.current.isTouch && !touchState.current.hasMoved) {
+            isMouseDown.current.left = true
+          }
+        }, 50)
       } else if (event.touches.length === 2) {
-        // Two finger touch - equivalent to right mouse button (panning)
+        // Two finger touch - prevent default and set up panning
+        event.preventDefault()
         isMouseDown.current.left = false
         isMouseDown.current.right = true
         const touch1 = event.touches[0]
@@ -166,37 +176,51 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     }
 
     const handleTouchMove = (event) => {
-      event.preventDefault()
-
-      if (event.touches.length === 1 && isMouseDown.current.left) {
-        // Single touch move - rotation
+      if (event.touches.length === 1) {
         const touch = event.touches[0]
         const deltaX = touch.clientX - touchState.current.lastTouch.x
         const deltaY = touch.clientY - touchState.current.lastTouch.y
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
 
-        const rotateSpeed = 0.005
+        // Check if this is significant movement (not just finger settling)
+        if (distance > 5) {
+          touchState.current.hasMoved = true
+          // Now prevent default to stop scrolling
+          event.preventDefault()
 
-        if (currentMode.current === 'camera') {
-          // Camera orbit mode - orbit around selected node
-          targetCameraSpherical.current.theta -= deltaX * rotateSpeed
-          targetCameraSpherical.current.phi += deltaY * rotateSpeed
-        } else if (currentMode.current === 'firstperson') {
-          // First person mode - rotate look direction
-          const rotationY = new THREE.Matrix4().makeRotationY(deltaX * rotateSpeed)
-          const rotationX = new THREE.Matrix4().makeRotationX(-deltaY * rotateSpeed)
+          // Set mouse state if not already set
+          if (!isMouseDown.current.left) {
+            isMouseDown.current.left = true
+          }
 
-          firstPersonLookDirection.current.applyMatrix4(rotationY)
-          firstPersonLookDirection.current.applyMatrix4(rotationX)
-          firstPersonLookDirection.current.normalize()
-        } else {
-          // Mesh rotation mode - rotate entire mesh
-          meshRotation.current.y += deltaX * rotateSpeed
-          meshRotation.current.x += deltaY * rotateSpeed
+          if (isMouseDown.current.left) {
+            const rotateSpeed = 0.005
+
+            if (currentMode.current === 'camera') {
+              // Camera orbit mode - orbit around selected node
+              targetCameraSpherical.current.theta -= deltaX * rotateSpeed
+              targetCameraSpherical.current.phi += deltaY * rotateSpeed
+            } else if (currentMode.current === 'firstperson') {
+              // First person mode - rotate look direction
+              const rotationY = new THREE.Matrix4().makeRotationY(deltaX * rotateSpeed)
+              const rotationX = new THREE.Matrix4().makeRotationX(-deltaY * rotateSpeed)
+
+              firstPersonLookDirection.current.applyMatrix4(rotationY)
+              firstPersonLookDirection.current.applyMatrix4(rotationX)
+              firstPersonLookDirection.current.normalize()
+            } else {
+              // Mesh rotation mode - rotate entire mesh
+              meshRotation.current.y += deltaX * rotateSpeed
+              meshRotation.current.x += deltaY * rotateSpeed
+            }
+
+            touchState.current.lastTouch = { x: touch.clientX, y: touch.clientY }
+            lastMousePos.current = { x: touch.clientX, y: touch.clientY }
+          }
         }
-
-        touchState.current.lastTouch = { x: touch.clientX, y: touch.clientY }
-        lastMousePos.current = { x: touch.clientX, y: touch.clientY }
       } else if (event.touches.length === 2) {
+        // Always prevent default for multi-touch
+        event.preventDefault()
         // Two finger touch - panning and pinch-to-zoom
         const touch1 = event.touches[0]
         const touch2 = event.touches[1]
@@ -256,7 +280,10 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     }
 
     const handleTouchEnd = (event) => {
-      event.preventDefault()
+      // Only prevent default if we had movement or multiple touches
+      if (touchState.current.hasMoved || event.touches.length > 0) {
+        event.preventDefault()
+      }
 
       if (event.touches.length === 0) {
         // No more touches - release all
@@ -264,9 +291,10 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
         isMouseDown.current.right = false
         touchState.current.isTouch = false
         touchState.current.touchCount = 0
+        touchState.current.hasMoved = false
       } else if (event.touches.length === 1) {
         // Down to one touch - switch to rotation mode
-        isMouseDown.current.left = true
+        isMouseDown.current.left = touchState.current.hasMoved
         isMouseDown.current.right = false
         const touch = event.touches[0]
         touchState.current.lastTouch = { x: touch.clientX, y: touch.clientY }
@@ -303,8 +331,8 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
     gl.domElement.addEventListener('wheel', handleWheel)
     gl.domElement.addEventListener('contextmenu', handleContextMenu)
 
-    // Touch event listeners
-    gl.domElement.addEventListener('touchstart', handleTouchStart, { passive: false })
+    // Touch event listeners - use passive mode when possible to allow native behavior
+    gl.domElement.addEventListener('touchstart', handleTouchStart, { passive: true })
     gl.domElement.addEventListener('touchmove', handleTouchMove, { passive: false })
     gl.domElement.addEventListener('touchend', handleTouchEnd, { passive: false })
 
