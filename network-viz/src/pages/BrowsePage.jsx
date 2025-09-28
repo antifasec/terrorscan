@@ -4,14 +4,24 @@ import FileExplorer from '../components/FileExplorer'
 function BrowsePage() {
   const navigate = useNavigate()
 
-  const handleFileSelected = (data, name) => {
-    // Navigate to graph view with data
-    navigate('/graph', {
-      state: {
-        graphData: data,
-        fileName: name
-      }
-    })
+  const handleFileSelected = (data, name, filePath) => {
+    // Navigate to graph view with data - include file path in URL if available
+    if (filePath) {
+      navigate(`/graph/${filePath}`, {
+        state: {
+          graphData: data,
+          fileName: name,
+          filePath: filePath
+        }
+      })
+    } else {
+      navigate('/graph', {
+        state: {
+          graphData: data,
+          fileName: name
+        }
+      })
+    }
   }
 
   const handleGoHome = () => {

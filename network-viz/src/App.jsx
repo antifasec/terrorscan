@@ -16,6 +16,7 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/browse" element={<BrowsePage />} />
         <Route path="/graph" element={<GraphPage />} />
+        <Route path="/graph/*" element={<GraphPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </div>

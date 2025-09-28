@@ -255,7 +255,9 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
           try {
             const response = await fetch(node.url)
             const data = await response.json()
-            onFileSelected(data, node.name)
+            // Create URL path from file path for navigation
+            const urlPath = node.path.join('/')
+            onFileSelected(data, node.name, urlPath)
           } catch (err) {
             console.error('Error loading network file:', err)
             // Fallback to direct download
