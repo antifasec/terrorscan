@@ -2,7 +2,7 @@ name: Aggregate Scan Results
 
 on:
   workflow_run:
-    workflows: ["Scan CharlieKirk Channel", "Scan nickjfuentes Channel", "Scan TPUSA Channel"]
+    workflows: ["Scan CharlieKirk Channel", "Scan nickjfuentes Channel", "Scan TPUSA Channel", "Deploy UI Updates"]
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -33,8 +33,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download all recent scan result artifacts
+      - name: Check trigger source and download scan artifacts
         run: |
+          echo "Workflow triggered by: ${{ github.event.workflow_run.name || 'manual dispatch' }}"
+
+          # If triggered by UI deployment, we mainly want to regenerate the site with existing data
+          # but still check for any new scan artifacts to be thorough
+          if [ "${{ github.event.workflow_run.name }}" = "Deploy UI Updates" ]; then
+            echo "Triggered by UI deployment - will preserve data and rebuild site with latest UI"
+            echo "UI_DEPLOYMENT_TRIGGER=true" >> $GITHUB_ENV
+          else
+            echo "Triggered by scan workflow or manual dispatch - normal aggregation process"
+            echo "UI_DEPLOYMENT_TRIGGER=false" >> $GITHUB_ENV
+          fi
+
           echo "Searching for recent scan result artifacts..."
 
           # Get ALL scan workflow runs that completed successfully (increase limits significantly)
@@ -227,16 +239,34 @@ jobs:
 
       - name: Build and include UI
         run: |
+          echo "Building UI for deployment..."
+
+          if [ "$UI_DEPLOYMENT_TRIGGER" = "true" ]; then
+            echo "UI deployment trigger detected - ensuring we have the latest UI code"
+            # Make sure we have the latest code when triggered by UI deployment
+            git fetch origin
+            git reset --hard origin/main
+          fi
+
           # Build the visualization
           cd network-viz
           npm ci
           npm run build
 
-          # Copy UI build to root of pages output
+          # Copy UI build to root of pages output, preserving any existing data
+          echo "Copying UI build while preserving scan data..."
+
+          # Copy all UI files to pages output
           cp -r dist/* ../pages_output/
+
+          # Ensure the data directory structure exists and is preserved
+          if [ ! -d "../pages_output/public" ]; then
+            mkdir -p ../pages_output/public
+          fi
 
           echo "UI built and included in deployment"
           echo "Total files in deployment: $(find ../pages_output -type f | wc -l)"
+          echo "Data files preserved: $(find ../pages_output/public/data -name "*.json" 2>/dev/null | wc -l) JSON files"
 
       - name: Create and upload complete site artifact
         run: |
