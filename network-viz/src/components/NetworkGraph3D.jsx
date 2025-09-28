@@ -968,6 +968,17 @@ function ForceGraph3D({ data, onReset, fileName }) {
 
       </Canvas>
 
+      {/* Back to browser button - top left of screen */}
+      <div className="back-nav-overlay">
+        <button
+          className="back-nav-btn"
+          onClick={onReset}
+          title="Back to File Browser"
+        >
+          ← Back
+        </button>
+      </div>
+
       {/* Cyberpunk legend overlay - bottom left of screen */}
       <div className="screen-legend-overlay">
         <div className="legend-items">

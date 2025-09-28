@@ -626,6 +626,45 @@
   flex-shrink: 0;
 }
 
+/* Back Navigation Button */
+.back-nav-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.back-nav-btn {
+  padding: 10px 16px;
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid rgba(100, 108, 255, 0.4);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.back-nav-btn:hover {
+  background: rgba(100, 108, 255, 0.2);
+  border-color: rgba(100, 108, 255, 0.6);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(100, 108, 255, 0.3);
+}
+
+.back-nav-btn:active {
+  transform: translateY(0);
+}
+
 /* Router Navigation Styles */
 .browse-section {
   width: 100%;
