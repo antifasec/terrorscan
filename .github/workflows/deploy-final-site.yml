@@ -119,8 +119,11 @@ jobs:
             if [[ "$workflow_name" =~ ^Scan.*Channel$ ]]; then
               echo "Checking run $run_id ($workflow_name) for scan artifacts..."
 
-              # Get all scan result artifacts from this run
-              gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("scan-results-")) | .name' | while read -r artifact_name; do
+              # Get all scan result artifacts from this run into a temp file
+              gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("scan-results-")) | .name' > artifacts_list.txt
+
+              # Process each artifact
+              while IFS= read -r artifact_name; do
                 if [ -n "$artifact_name" ]; then
                   echo "Downloading scan artifact: $artifact_name"
 
@@ -162,7 +165,9 @@ jobs:
                     echo "Failed to download $artifact_name"
                   fi
                 fi
-              done
+              done < artifacts_list.txt
+
+              rm -f artifacts_list.txt
             fi
           done < recent_runs.tsv
 
