@@ -73,8 +73,8 @@ jobs:
             if [[ "$workflow_name" == "Build UI Artifact" ]]; then
               echo "Checking run $run_id for UI artifact..."
 
-              if gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | grep -q '^ui-build-'; then
-                UI_ARTIFACT_NAME=$(gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("ui-build-")) | .name' | head -1)
+              if gh api repos/${{ github.repository }}/actions/runs/$run_id/artifacts --jq '.artifacts[].name' | grep -q '^ui-build-'; then
+                UI_ARTIFACT_NAME=$(gh api repos/${{ github.repository }}/actions/runs/$run_id/artifacts --jq '.artifacts[] | select(.name | startswith("ui-build-")) | .name' | head -1)
 
                 if gh run download "$run_id" --repo ${{ github.repository }} --name "$UI_ARTIFACT_NAME" --dir ./ui_download/; then
                   echo "Successfully downloaded UI artifact: $UI_ARTIFACT_NAME"
@@ -120,7 +120,7 @@ jobs:
               echo "Checking run $run_id ($workflow_name) for scan artifacts..."
 
               # Get all scan result artifacts from this run into a temp file
-              gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("scan-results-")) | .name' > artifacts_list.txt
+              gh api repos/${{ github.repository }}/actions/runs/$run_id/artifacts --jq '.artifacts[] | select(.name | startswith("scan-results-")) | .name' > artifacts_list.txt
 
               # Process each artifact
               while IFS= read -r artifact_name; do
