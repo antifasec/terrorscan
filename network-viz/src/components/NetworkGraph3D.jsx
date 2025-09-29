@@ -527,11 +527,21 @@ function ForceGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
         zIndex: 1000
       }}>
         {Object.entries(datasetScreenPositions).map(([datasetId, position]) => {
-          if (!position.visible) return null
+          console.log(`Label render check - ${datasetId}: visible=${position.visible}, position=(${position.x}, ${position.y})`)
+
+          if (!position.visible) {
+            console.log(`  -> Skipping ${datasetId} - not visible`)
+            return null
+          }
 
           const datasetsInView = getDatasetInfo(nodes)
           const dataset = datasetsInView.get(datasetId)
-          if (!dataset) return null
+          console.log(`  -> Dataset info for ${datasetId}:`, dataset)
+
+          if (!dataset) {
+            console.log(`  -> Skipping ${datasetId} - no dataset info found`)
+            return null
+          }
 
           return (
             <div
