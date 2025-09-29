@@ -6,7 +6,7 @@ import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force
 
 function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosition }) {
   const meshRef = useRef()
-  const [setBoundingCircle] = useState({ center: { x: 0, y: 0, z: 0 }, radius: 10 })
+  const [boundingCircle, setBoundingCircle] = useState({ center: { x: 0, y: 0, z: 0 }, radius: 10 })
   const { camera, size } = useThree()
 
   // Calculate bounding circle for dataset nodes
@@ -83,7 +83,7 @@ function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosit
   )
 }
 
-const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }, ref) => {
+const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }) => {
   const { gl, camera } = useThree()
   const isInitialized = useRef(false)
   const isTransitioning = useRef(false)

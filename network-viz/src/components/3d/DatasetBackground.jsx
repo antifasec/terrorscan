@@ -4,7 +4,7 @@ import * as THREE from 'three'
 
 function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosition }) {
   const meshRef = useRef()
-  const [setBoundingCircle] = useState({ center: { x: 0, y: 0, z: 0 }, radius: 10 })
+  const [boundingCircle, setBoundingCircle] = useState({ center: { x: 0, y: 0, z: 0 }, radius: 10 })
   const { camera, size } = useThree()
 
   // Calculate bounding circle for dataset nodes

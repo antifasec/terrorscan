@@ -2,7 +2,7 @@ import { useRef, useEffect, forwardRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }, ref) => {
+const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }) => {
   const { gl, camera } = useThree()
   const isInitialized = useRef(false)
   const isTransitioning = useRef(false)
