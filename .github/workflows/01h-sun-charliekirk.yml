@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   scan:
-    uses: ./.github/workflows/templates/scan-only-template.yml
+    uses: ./.github/workflows/scan-only-template.yml
     with:
       channel: CharlieKirk
       data_dir: charliekirk

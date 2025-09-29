@@ -46,6 +46,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: network-viz/package-lock.json
+
       - name: Collect all artifacts
         run: |
           echo "Collecting artifacts from recent workflow runs..."
@@ -89,8 +96,19 @@ jobs:
           done < recent_runs.tsv
 
           if [ "$UI_FOUND" = false ]; then
-            echo "Warning: No UI build artifact found, creating minimal index.html"
-            echo '<!DOCTYPE html><html><head><title>Terror Scan</title></head><body><h1>Terror Scan Data</h1><p>No UI available</p></body></html>' > site_build/index.html
+            echo "Warning: No UI build artifact found, building UI inline..."
+
+            # Build the UI directly since no artifact was found
+            echo "Building UI from source..."
+            cd network-viz
+            npm ci
+            npm run build
+
+            # Copy built UI to site_build
+            cp -r dist/* ../site_build/
+            cd ..
+
+            echo "UI built inline and copied to site_build/"
           fi
 
           # Download all scan result artifacts
