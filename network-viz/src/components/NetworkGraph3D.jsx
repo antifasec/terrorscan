@@ -173,6 +173,7 @@ function ForceGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
               ...node,
               id: prefixedId,
               originalId: node.id,
+              baseLabel: node.label || node.id,
               _datasetId: dataset._datasetId,
               _datasetName: dataset._datasetName,
               _datasetColor: datasetColor
