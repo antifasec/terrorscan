@@ -179,6 +179,15 @@ jobs:
           echo "Artifact collection complete"
           echo "Site structure:"
           find site_build -type f | head -20
+
+          echo "Data directory structure:"
+          if [ -d "site_build/public/data" ]; then
+            find site_build/public/data -type f | head -20
+            echo "Channel directories found:"
+            ls -la site_build/public/data/ || echo "No channel directories"
+          else
+            echo "No site_build/public/data directory found!"
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -200,10 +209,12 @@ jobs:
               }
 
               data_path = os.path.join(base_path, "public", "data")
+              print(f"Looking for data directory at: {data_path}")
               if not os.path.exists(data_path):
                   print(f"No data directory found at {data_path}")
                   return manifest
 
+              print(f"Data directory exists. Contents: {os.listdir(data_path)}")
               for channel_dir in os.listdir(data_path):
                   channel_path = os.path.join(data_path, channel_dir)
                   if not os.path.isdir(channel_path):
