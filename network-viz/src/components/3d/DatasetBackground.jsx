@@ -35,7 +35,7 @@ function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosit
       maxDistance = Math.max(maxDistance, distance)
     })
 
-    const newRadius = Math.max(8, maxDistance + 5) // Minimum radius + more padding for breathing room
+    const newRadius = Math.max(12, maxDistance + 15) // Minimum radius + more padding for breathing room
     const newCenter = { x: centerX, y: centerY, z: centerZ }
 
     // Update position and scale
