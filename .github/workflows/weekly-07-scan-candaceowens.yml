@@ -1,8 +1,8 @@
-name: Scan nickjfuentes Channel
+name: Scan CandaceOwensReal Channel
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Daily scan @ 0:00
+    - cron: "0 7 * * 0"
   workflow_dispatch:
     inputs:
       reset_manifest:
@@ -20,7 +20,7 @@ jobs:
   scan:
     uses: ./.github/workflows/scan-template.yml
     with:
-      channel: nickjfuentes
-      data_dir: nickjfuentes
+      channel: CandaceOwensReal
+      data_dir: CandaceOwensReal
       reset_manifest: ${{ inputs.reset_manifest || false }}
     secrets: inherit

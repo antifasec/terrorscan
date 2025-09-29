@@ -46,9 +46,15 @@ function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosit
     setBoundingCircle({ center: newCenter, radius: newRadius })
 
     // Calculate screen position for 2D overlay
-    if (onUpdateScreenPosition && datasetNodes.length > 0) {
+    if (onUpdateScreenPosition && datasetNodes.length > 0 && meshRef.current) {
+      // Get world position of the sphere by applying mesh transformations
       const sphereCenter = new THREE.Vector3(centerX, centerY, centerZ)
-      const screenPosition = sphereCenter.clone().project(camera)
+
+      // Apply the parent mesh group transformations to get world position
+      const worldPosition = sphereCenter.clone()
+      meshRef.current.parent?.localToWorld(worldPosition)
+
+      const screenPosition = worldPosition.project(camera)
 
       // Convert to pixel coordinates
       const x = (screenPosition.x * 0.5 + 0.5) * size.width

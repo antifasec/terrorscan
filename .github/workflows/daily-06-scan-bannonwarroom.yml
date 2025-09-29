@@ -1,8 +1,8 @@
-name: Scan CandaceOwens Channel
+name: Scan bannonwarroom Channel
 
 on:
   schedule:
-    - cron: "0 6 * * *" # Daily at 6am
+    - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       reset_manifest:
