@@ -1,0 +1,19 @@
+name: Scan bannonwarroom Channel
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  scan:
+    uses: ./.github/workflows/templates/scan-only-template.yml
+    with:
+      channel: bannonwarroom
+      data_dir: bannonwarroom
+    secrets: inherit

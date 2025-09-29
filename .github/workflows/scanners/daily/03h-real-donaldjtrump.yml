@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
-    inputs:
-      reset_manifest:
-        description: "Reset manifest and start fresh"
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -18,9 +12,8 @@ permissions:
 
 jobs:
   scan:
-    uses: ./.github/workflows/scan-template.yml
+    uses: ./.github/workflows/templates/scan-only-template.yml
     with:
       channel: real_DonaldJTrump
       data_dir: real_DonaldJTrump
-      reset_manifest: ${{ inputs.reset_manifest || false }}
     secrets: inherit

@@ -1,0 +1,19 @@
+name: Scan alialexander Channel
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  scan:
+    uses: ./.github/workflows/templates/scan-only-template.yml
+    with:
+      channel: alialexander
+      data_dir: alialexander
+    secrets: inherit

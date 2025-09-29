@@ -1,0 +1,294 @@
+name: Deploy Final Site
+
+on:
+  workflow_run:
+    workflows:
+      - "Build UI Artifact"
+      - "Scan nickjfuentes Channel"
+      - "Scan TPUSA Channel"
+      - "Scan real_DonaldJTrump Channel"
+      - "Scan PatriotFrontUpdates Channel"
+      - "Scan alialexander Channel"
+      - "Scan bannonwarroom Channel"
+      - "Scan CharlieKirk Channel"
+      - "Scan CandaceOwensReal Channel"
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy-site:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Collect all artifacts
+        run: |
+          echo "Collecting artifacts from recent workflow runs..."
+          mkdir -p site_build/public/data
+
+          # Get recent successful runs from all workflows
+          gh run list --repo ${{ github.repository }} --limit 100 --json databaseId,status,conclusion,createdAt,workflowName \
+            --jq '.[] | select(.status == "completed" and .conclusion == "success") | [.databaseId, .workflowName, .createdAt] | @tsv' \
+            | sort -k3 -r > recent_runs.tsv
+
+          echo "Found $(cat recent_runs.tsv | wc -l) recent successful runs"
+
+          # Download latest UI build artifact
+          UI_FOUND=false
+          echo "Looking for latest UI build artifact..."
+
+          while IFS=$'\t' read -r run_id workflow_name created_at && [ "$UI_FOUND" = false ]; do
+            if [[ "$workflow_name" == "Build UI Artifact" ]]; then
+              echo "Checking run $run_id for UI artifact..."
+
+              if gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[].name' | grep -q '^ui-build-'; then
+                UI_ARTIFACT_NAME=$(gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("ui-build-")) | .name' | head -1)
+
+                if gh run download "$run_id" --repo ${{ github.repository }} --name "$UI_ARTIFACT_NAME" --dir ./ui_download/; then
+                  echo "Successfully downloaded UI artifact: $UI_ARTIFACT_NAME"
+
+                  # Extract UI build
+                  cd ui_download
+                  tar -xzf ui-build-*.tar.gz
+                  cp -r dist/* ../site_build/
+                  cd ..
+
+                  UI_FOUND=true
+                  echo "UI artifact extracted to site_build/"
+                  break
+                else
+                  echo "Failed to download UI artifact from run $run_id"
+                fi
+              fi
+            fi
+          done < recent_runs.tsv
+
+          if [ "$UI_FOUND" = false ]; then
+            echo "Warning: No UI build artifact found, creating minimal index.html"
+            echo '<!DOCTYPE html><html><head><title>Terror Scan</title></head><body><h1>Terror Scan Data</h1><p>No UI available</p></body></html>' > site_build/index.html
+          fi
+
+          # Download all scan result artifacts
+          echo "Looking for scan result artifacts..."
+          SCAN_COUNT=0
+
+          while IFS=$'\t' read -r run_id workflow_name created_at; do
+            if [[ "$workflow_name" =~ ^Scan.*Channel$ ]]; then
+              echo "Checking run $run_id ($workflow_name) for scan artifacts..."
+
+              # Get all scan result artifacts from this run
+              gh run view "$run_id" --repo ${{ github.repository }} --json artifacts --jq '.artifacts[] | select(.name | startswith("scan-results-")) | .name' | while read -r artifact_name; do
+                if [ -n "$artifact_name" ]; then
+                  echo "Downloading scan artifact: $artifact_name"
+
+                  if gh run download "$run_id" --repo ${{ github.repository }} --name "$artifact_name" --dir ./scan_download/; then
+                    echo "Downloaded $artifact_name"
+
+                    # Extract scan results
+                    cd scan_download
+                    if ls scan-results-*.tar.gz 1> /dev/null 2>&1; then
+                      tar -xzf scan-results-*.tar.gz
+
+                      # Read metadata to organize files
+                      if [ -f "results/scan_metadata.json" ]; then
+                        CHANNEL=$(python3 -c "import json; print(json.load(open('results/scan_metadata.json'))['channel'])")
+                        DATA_DIR=$(python3 -c "import json; print(json.load(open('results/scan_metadata.json'))['data_dir'])")
+                        SCAN_DATE=$(python3 -c "import json; print(json.load(open('results/scan_metadata.json'))['scan_date'])")
+                        SCAN_TIME=$(python3 -c "import json; print(json.load(open('results/scan_metadata.json'))['scan_time'])")
+
+                        # Create organized directory structure
+                        YEAR=${SCAN_DATE:0:4}
+                        MONTH=${SCAN_DATE:4:2}
+                        DAY=${SCAN_DATE:6:2}
+
+                        TARGET_DIR="../site_build/public/data/${DATA_DIR}/${YEAR}/${MONTH}/${DAY}/${SCAN_TIME}"
+                        mkdir -p "$TARGET_DIR"
+                        cp -r results/* "$TARGET_DIR/"
+
+                        echo "Organized scan data: $CHANNEL -> $TARGET_DIR"
+                        SCAN_COUNT=$((SCAN_COUNT + 1))
+                      else
+                        echo "Warning: No metadata found for $artifact_name"
+                      fi
+
+                      rm -f scan-results-*.tar.gz
+                      rm -rf results
+                    fi
+                    cd ..
+                  else
+                    echo "Failed to download $artifact_name"
+                  fi
+                fi
+              done
+            fi
+          done < recent_runs.tsv
+
+          echo "Collected $SCAN_COUNT scan result sets"
+
+          # Clean up download directories
+          rm -rf ui_download scan_download
+
+          echo "Artifact collection complete"
+          echo "Site structure:"
+          find site_build -type f | head -20
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Generate manifest.json
+        run: |
+          echo "Generating manifest.json..."
+
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+
+          def scan_data_directory(base_path):
+              manifest = {
+                  "channels": {},
+                  "lastUpdated": datetime.now().isoformat() + "Z",
+                  "totalChannels": 0,
+                  "totalScans": 0
+              }
+
+              data_path = os.path.join(base_path, "public", "data")
+              if not os.path.exists(data_path):
+                  print(f"No data directory found at {data_path}")
+                  return manifest
+
+              for channel_dir in os.listdir(data_path):
+                  channel_path = os.path.join(data_path, channel_dir)
+                  if not os.path.isdir(channel_path):
+                      continue
+
+                  print(f"Processing channel: {channel_dir}")
+                  channel_data = {
+                      "name": channel_dir,
+                      "scans": [],
+                      "totalScans": 0,
+                      "latestScan": None
+                  }
+
+                  # Walk through year/month/day/time structure
+                  for year in os.listdir(channel_path):
+                      year_path = os.path.join(channel_path, year)
+                      if not os.path.isdir(year_path):
+                          continue
+
+                      for month in os.listdir(year_path):
+                          month_path = os.path.join(year_path, month)
+                          if not os.path.isdir(month_path):
+                              continue
+
+                          for day in os.listdir(month_path):
+                              day_path = os.path.join(month_path, day)
+                              if not os.path.isdir(day_path):
+                                  continue
+
+                              for time_dir in os.listdir(day_path):
+                                  time_path = os.path.join(day_path, time_dir)
+                                  if not os.path.isdir(time_path):
+                                      continue
+
+                                  # Check for scan_metadata.json
+                                  metadata_file = os.path.join(time_path, "scan_metadata.json")
+                                  if os.path.exists(metadata_file):
+                                      try:
+                                          with open(metadata_file, 'r') as f:
+                                              metadata = json.load(f)
+
+                                          scan_entry = {
+                                              "date": f"{year}-{month}-{day}",
+                                              "time": time_dir,
+                                              "timestamp": metadata.get("timestamp"),
+                                              "path": f"public/data/{channel_dir}/{year}/{month}/{day}/{time_dir}",
+                                              "runNumber": metadata.get("run_number")
+                                          }
+
+                                          channel_data["scans"].append(scan_entry)
+                                          channel_data["totalScans"] += 1
+
+                                          # Update latest scan
+                                          if (channel_data["latestScan"] is None or
+                                              scan_entry["timestamp"] > channel_data["latestScan"]["timestamp"]):
+                                              channel_data["latestScan"] = scan_entry
+
+                                          print(f"  Found scan: {year}-{month}-{day} {time_dir}")
+
+                                      except json.JSONDecodeError as e:
+                                          print(f"  Error reading metadata: {e}")
+
+                  if channel_data["totalScans"] > 0:
+                      # Sort scans by timestamp (newest first)
+                      channel_data["scans"].sort(key=lambda x: x["timestamp"], reverse=True)
+                      manifest["channels"][channel_dir] = channel_data
+                      manifest["totalChannels"] += 1
+                      manifest["totalScans"] += channel_data["totalScans"]
+
+                      print(f"  Channel {channel_dir}: {channel_data['totalScans']} scans")
+
+              return manifest
+
+          # Generate the manifest
+          manifest = scan_data_directory("site_build")
+
+          # Save manifest.json
+          manifest_path = "site_build/public/data/manifest.json"
+          os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+
+          with open(manifest_path, 'w') as f:
+              json.dump(manifest, f, indent=2)
+
+          print(f"Generated manifest.json with {manifest['totalChannels']} channels and {manifest['totalScans']} total scans")
+          print(f"Saved to: {manifest_path}")
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./site_build"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Create complete site artifact
+        run: |
+          # Create a compressed archive of the complete site for future reference
+          tar -czf complete-site.tar.gz site_build/
+          echo "Complete site archived"
+
+      - name: Upload complete site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: complete-site
+          path: complete-site.tar.gz
+          retention-days: 30

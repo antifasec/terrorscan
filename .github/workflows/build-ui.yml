@@ -1,0 +1,41 @@
+name: Build UI Artifact
+
+on:
+  push:
+    branches: [main]
+    paths: ['network-viz/**']
+  workflow_dispatch:
+
+jobs:
+  build-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: network-viz/package-lock.json
+
+      - name: Build UI
+        run: |
+          cd network-viz
+          npm ci
+          npm run build
+
+      - name: Create UI artifact
+        run: |
+          cd network-viz
+          tar -czf ui-build-${{ github.sha }}.tar.gz dist/
+          echo "UI build artifact created: ui-build-${{ github.sha }}.tar.gz"
+
+      - name: Upload UI build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-build-${{ github.run_number }}
+          path: network-viz/ui-build-${{ github.sha }}.tar.gz
+          retention-days: 30
