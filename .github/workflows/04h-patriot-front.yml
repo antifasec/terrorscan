@@ -16,4 +16,7 @@ jobs:
     with:
       channel: PatriotFrontUpdates
       data_dir: PatriotFrontUpdates
+      depth: 5
+      max_messages: 999
+      max_channels: 999
     secrets: inherit

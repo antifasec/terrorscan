@@ -16,4 +16,7 @@ jobs:
     with:
       channel: real_DonaldJTrump
       data_dir: real_DonaldJTrump
+      depth: 5
+      max_messages: 999
+      max_channels: 999
     secrets: inherit

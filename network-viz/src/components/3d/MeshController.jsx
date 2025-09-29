@@ -2,7 +2,7 @@ import { useRef, useEffect, forwardRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }) => {
+const MeshController = forwardRef(({ nodes, links, selectedNode, firstPersonTarget, setFirstPersonTarget, setCurrentMode, meshRef }) => {
   const { gl, camera } = useThree()
   const isInitialized = useRef(false)
   const isTransitioning = useRef(false)
@@ -40,23 +40,88 @@ const MeshController = forwardRef(({ nodes, selectedNode, firstPersonTarget, set
   // Current mode state
   const currentMode = useRef('mesh') // 'mesh' or 'camera'
 
+  // Utility function to find the most populated adjacent node
+  const findMostPopulatedAdjacentNode = (targetNode, allNodes, allLinks) => {
+    if (!targetNode || !allLinks || !allNodes) return null
+
+    // Find all nodes connected to the target node
+    const adjacentNodeIds = new Set()
+    allLinks.forEach(link => {
+      const sourceId = link.source.id || link.source
+      const targetId = link.target.id || link.target
+
+      if (sourceId === targetNode.id) {
+        adjacentNodeIds.add(targetId)
+      } else if (targetId === targetNode.id) {
+        adjacentNodeIds.add(sourceId)
+      }
+    })
+
+    // Find the most populated adjacent node
+    let mostPopulatedNode = null
+    let maxPopulation = -1
+
+    adjacentNodeIds.forEach(nodeId => {
+      const node = allNodes.find(n => n.id === nodeId)
+      if (node) {
+        // Use various population metrics (participants_count, message_count, messages, etc.)
+        const population = node.participants_count ||
+                          node.participantsCount ||
+                          node.message_count ||
+                          node.messages_count ||
+                          (node.messages && node.messages.length) ||
+                          0
+
+        if (population > maxPopulation) {
+          maxPopulation = population
+          mostPopulatedNode = node
+        }
+      }
+    })
+
+    return mostPopulatedNode
+  }
+
   // Handle first person mode trigger
   useEffect(() => {
     if (firstPersonTarget) {
       const nodePos = new THREE.Vector3(firstPersonTarget.x || 0, firstPersonTarget.y || 0, firstPersonTarget.z || 0)
+
+      // Find the most populated adjacent node to face toward
+      const mostPopulatedAdjacent = findMostPopulatedAdjacentNode(firstPersonTarget, nodes, links)
+
+      let lookDirection
+      if (mostPopulatedAdjacent) {
+        // Calculate direction toward the most populated adjacent node
+        const adjacentPos = new THREE.Vector3(
+          mostPopulatedAdjacent.x || 0,
+          mostPopulatedAdjacent.y || 0,
+          mostPopulatedAdjacent.z || 0
+        )
+        lookDirection = adjacentPos.clone().sub(nodePos).normalize()
+
+        console.log(`First-person view: Looking toward most populated adjacent node "${mostPopulatedAdjacent.baseLabel || mostPopulatedAdjacent.id}"`)
+      } else {
+        // Fallback: look toward network center or default direction
+        lookDirection = new THREE.Vector3(0, 0, -1)
+        console.log('First-person view: No adjacent nodes found, using default direction')
+      }
+
+      // Set the initial first-person look direction
+      firstPersonLookDirection.current.copy(lookDirection)
 
       cameraTransition.current.isTransitioning = true
       cameraTransition.current.progress = 0
       cameraTransition.current.startPosition.copy(camera.position)
       cameraTransition.current.targetPosition.copy(nodePos)
       cameraTransition.current.startLookAt.copy(new THREE.Vector3(0, 0, 0))
-      cameraTransition.current.targetLookAt.copy(nodePos.clone().add(new THREE.Vector3(0, 0, -10)))
+      cameraTransition.current.targetLookAt.copy(nodePos.clone().add(lookDirection.clone().multiplyScalar(20)))
 
       currentMode.current = 'firstperson'
       setCurrentMode('firstperson')
       setFirstPersonTarget(null)
     }
-  }, [camera.position, firstPersonTarget, setCurrentMode, setFirstPersonTarget])
+  }, [camera.position, firstPersonTarget, setCurrentMode, setFirstPersonTarget, nodes, links])
 
   // Touch tracking refs
   const touchState = useRef({

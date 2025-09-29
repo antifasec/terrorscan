@@ -11,6 +11,21 @@ on:
         description: "Directory name for storing data (lowercase)"
         required: true
         type: string
+      depth:
+        description: "Scan depth (-d parameter)"
+        required: false
+        type: number
+        default: 5
+      max_messages:
+        description: "Maximum messages per channel (-m parameter)"
+        required: false
+        type: number
+        default: 999
+      max_channels:
+        description: "Maximum channels to crawl (-mc parameter)"
+        required: false
+        type: number
+        default: 999
 
 jobs:
   scan-channel:
@@ -33,7 +48,7 @@ jobs:
 
       - name: Run terrorscan for ${{ inputs.channel }}
         run: |
-          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d 5 -m 999 -mc 999 -o results
+          python terrorscan.py deep-scan -c ${{ inputs.channel }} -d ${{ inputs.depth }} -m ${{ inputs.max_messages }} -mc ${{ inputs.max_channels }} -o results
         continue-on-error: true
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}

@@ -16,4 +16,7 @@ jobs:
     with:
       channel: seanfeucht
       data_dir: seanfeucht
+      depth: 5
+      max_messages: 999
+      max_channels: 999
     secrets: inherit

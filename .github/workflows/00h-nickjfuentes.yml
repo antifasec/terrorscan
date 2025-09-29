@@ -16,4 +16,7 @@ jobs:
     with:
       channel: nickjfuentes
       data_dir: nickjfuentes
+      depth: 5
+      max_messages: 999
+      max_channels: 999
     secrets: inherit

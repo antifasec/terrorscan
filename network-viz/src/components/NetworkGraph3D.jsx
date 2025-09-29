@@ -465,6 +465,7 @@ function ForceGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
 
         <MeshController
           nodes={nodes}
+          links={links}
           selectedNode={selectedNode}
           firstPersonTarget={firstPersonTarget}
           setFirstPersonTarget={setFirstPersonTarget}

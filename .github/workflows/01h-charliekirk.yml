@@ -1,8 +1,8 @@
-name: Scan CandaceOwensReal Channel
+name: Scan CharlieKirk Channel
 
 on:
   schedule:
-    - cron: "0 7 * * 0"
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 permissions:
@@ -14,6 +14,9 @@ jobs:
   scan:
     uses: ./.github/workflows/scan-only-template.yml
     with:
-      channel: CandaceOwensReal
-      data_dir: CandaceOwensReal
+      channel: CharlieKirk
+      data_dir: charliekirk
+      depth: 5
+      max_messages: 999
+      max_channels: 999
     secrets: inherit
