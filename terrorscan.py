@@ -13,6 +13,7 @@ import logging
 import click
 import networkx as nx
 from telethon import TelegramClient
+from telethon.errors import FloodWaitError, RPCError
 from dotenv import load_dotenv
 import aiofiles
 from tqdm import tqdm
@@ -36,7 +37,8 @@ class TerrorScan:
         self.channel_data: Dict[str, Dict] = {}
         self.crawl_queue: deque = deque()
         self.failed_channels: Set[str] = set()
-        self.rate_limit_delay = 2
+        self.entity_cache: Dict[str, any] = {}  # Cache for resolved entities
+        self.rate_limit_delay = 10
         self.max_depth = 10  # Maximum crawl depth
         self.max_channels = 1000  # Maximum channels to crawl
         self.output_dir = "terrorscan_output"  # Default output directory
@@ -104,7 +106,34 @@ class TerrorScan:
 
         try:
             self.visited_channels.add(channel_username)
-            entity = await self.client.get_entity(channel_username)
+
+            # Check cache first to avoid redundant API calls
+            if channel_username in self.entity_cache:
+                self.logger.info(f"Using cached entity for {channel_username}")
+                entity = self.entity_cache[channel_username]
+            else:
+                # Retry logic with exponential backoff for rate limiting
+                max_retries = 3
+                base_delay = self.rate_limit_delay
+
+                for attempt in range(max_retries):
+                    try:
+                        entity = await self.client.get_entity(channel_username)
+                        # Cache the resolved entity
+                        self.entity_cache[channel_username] = entity
+                        break  # Success, exit retry loop
+                except FloodWaitError as e:
+                    wait_time = e.seconds
+                    self.logger.warning(f"Rate limited for {wait_time}s on {channel_username}, attempt {attempt + 1}")
+                    if attempt == max_retries - 1:  # Last attempt
+                        raise  # Re-raise the error
+                    await asyncio.sleep(min(wait_time, 300))  # Cap at 5 minutes
+                except RPCError as e:
+                    if attempt == max_retries - 1:
+                        raise
+                    delay = base_delay * (2 ** attempt)  # Exponential backoff
+                    self.logger.warning(f"RPC Error on {channel_username}, retrying in {delay}s")
+                    await asyncio.sleep(delay)
 
             channel_info = {
                 "id": entity.id,
