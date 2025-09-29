@@ -70,12 +70,13 @@ function ForceGraph3D({ selectedDatasets, onDatasetSelectionChange }) {
 
           channel.scans?.forEach(scan => {
             scan.files?.forEach(file => {
-              if (file.type === 'json' && (file.name.includes('network_3d') || file.name.includes('3d'))) {
+              if ((file.type === 'json' || file.type === '3d_network' || file.type === 'json_data') &&
+                  (file.name.includes('network_3d') || file.name.includes('3d'))) {
                 const dataset = {
                   id: `${channelName}_${scan.timestamp}_${file.name}`,
                   name: `${channelName} - ${new Date(scan.timestamp).toLocaleDateString()}`,
                   filename: file.name,
-                  url: file.path ? `/terrorscan${file.path}` : file.url,
+                  url: file.path ? `/terrorscan/${file.path}` : (file.url?.startsWith('/') ? `/terrorscan${file.url}` : file.url),
                   channel: channelName,
                   timestamp: scan.timestamp
                 }
