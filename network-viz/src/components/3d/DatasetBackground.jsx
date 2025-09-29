@@ -57,9 +57,18 @@ function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosit
 
       const screenPosition = worldPosition.project(camera)
 
+      // Calculate screen-space radius using camera distance and field of view
+      // This method is more robust across all rotation angles
+      const cameraToSphere = camera.position.distanceTo(worldPosition)
+      const fov = camera.fov * Math.PI / 180 // Convert to radians
+      const screenRadius = (newRadius / cameraToSphere) * (size.height / (2 * Math.tan(fov / 2)))
+
       // Convert to pixel coordinates
-      const x = (screenPosition.x * 0.5 + 0.5) * size.width
-      const y = (screenPosition.y * -0.5 + 0.5) * size.height - 40 // Fixed offset above sphere
+      const centerScreenX = (screenPosition.x * 0.5 + 0.5) * size.width
+      const centerScreenY = (screenPosition.y * -0.5 + 0.5) * size.height
+
+      const x = centerScreenX
+      const y = centerScreenY + screenRadius + 20
 
       // More comprehensive visibility check
       const isVisible = screenPosition.z < 1 &&
@@ -67,7 +76,7 @@ function DatasetBackground({ nodes, datasetId, datasetColor, onUpdateScreenPosit
                        y >= -100 && y <= size.height + 100
 
       // Debug logging
-      console.log(`Dataset ${datasetId}: sphere center (${centerX.toFixed(1)}, ${centerY.toFixed(1)}, ${centerZ.toFixed(1)}), screen pos (${screenPosition.x.toFixed(2)}, ${screenPosition.y.toFixed(2)}, ${screenPosition.z.toFixed(2)}), label pos (${x}, ${y}), visible: ${isVisible}`)
+      console.log(`Dataset ${datasetId}: sphere center (${centerX.toFixed(1)}, ${centerY.toFixed(1)}, ${centerZ.toFixed(1)}), world radius: ${newRadius.toFixed(1)}, camera distance: ${cameraToSphere.toFixed(1)}, screen radius: ${screenRadius.toFixed(1)}, label pos (${x}, ${y}), visible: ${isVisible}`)
 
       onUpdateScreenPosition(datasetId, { x, y, visible: isVisible })
     }
