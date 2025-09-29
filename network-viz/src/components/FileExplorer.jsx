@@ -140,7 +140,8 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
 
         // Add file nodes
         scan.files?.forEach(file => {
-          const isNetworkFile = (file.name.includes('network') || file.name.includes('3d')) && file.type === 'json'
+          const isNetworkFile = (file.name.includes('network') || file.name.includes('3d')) &&
+                                 (file.type === 'json' || file.type === '3d_network' || file.type === 'json_data')
           const fileNode = {
             id: `file_${scan.timestamp}_${file.name}`,
             name: file.name,
@@ -248,7 +249,7 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
 
     if (node.type === 'file') {
       // Handle file clicks based on type
-      if (node.subtype === 'json') {
+      if (node.subtype === 'json' || node.subtype === '3d_network' || node.subtype === 'json_data') {
         // Check if it's a renderable network file
         if (node.name.includes('network') || node.name.includes('3d')) {
           try {
@@ -361,6 +362,13 @@ function FileExplorer({ onFileSelected, showUpload = false }) {
 
     switch (fileType) {
       case 'json': return '📄'
+      case '3d_network': return '📄'
+      case 'json_data': return '📄'
+      case 'channels_data': return '📋'
+      case 'summary_data': return '📊'
+      case 'metadata': return '📋'
+      case 'network_graph': return '🔗'
+      case 'interactive_viz': return '🌐'
       case 'csv': return '📊'
       case 'txt': return '📝'
       case 'md': return '📋'
