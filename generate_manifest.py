@@ -92,10 +92,14 @@ def scan_data_directory(base_path):
                                 scan_files = []
                                 for file_path in time_dir.iterdir():
                                     if file_path.is_file():
+                                        # Create the relative path from the base directory
+                                        relative_path = f"public/data/{channel_name}/{year}/{month}/{day}/{time}/{file_path.name}"
                                         scan_files.append({
                                             "name": file_path.name,
                                             "size": file_path.stat().st_size,
-                                            "type": get_file_type(file_path.name)
+                                            "type": get_file_type(file_path.name),
+                                            "path": relative_path,
+                                            "url": f"/{relative_path}"
                                         })
 
                                 scan_entry = {
