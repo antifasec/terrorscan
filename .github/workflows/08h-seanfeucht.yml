@@ -1,0 +1,19 @@
+name: Scan seanfeucht Channel
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  scan:
+    uses: ./.github/workflows/scan-only-template.yml
+    with:
+      channel: seanfeucht
+      data_dir: seanfeucht
+    secrets: inherit
