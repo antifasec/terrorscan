@@ -1,0 +1,22 @@
+name: Scan Devin_Nunes Channel
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  scan:
+    uses: ./.github/workflows/scan-only-template.yml
+    with:
+      channel: Devin_Nunes
+      data_dir: devin_nunes
+      depth: 5
+      max_messages: 999
+      max_channels: 999
+    secrets: inherit
