@@ -122,18 +122,18 @@ class TerrorScan:
                         # Cache the resolved entity
                         self.entity_cache[channel_username] = entity
                         break  # Success, exit retry loop
-                except FloodWaitError as e:
-                    wait_time = e.seconds
-                    self.logger.warning(f"Rate limited for {wait_time}s on {channel_username}, attempt {attempt + 1}")
-                    if attempt == max_retries - 1:  # Last attempt
-                        raise  # Re-raise the error
-                    await asyncio.sleep(min(wait_time, 300))  # Cap at 5 minutes
-                except RPCError as e:
-                    if attempt == max_retries - 1:
-                        raise
-                    delay = base_delay * (2 ** attempt)  # Exponential backoff
-                    self.logger.warning(f"RPC Error on {channel_username}, retrying in {delay}s")
-                    await asyncio.sleep(delay)
+                    except FloodWaitError as e:
+                        wait_time = e.seconds
+                        self.logger.warning(f"Rate limited for {wait_time}s on {channel_username}, attempt {attempt + 1}")
+                        if attempt == max_retries - 1:  # Last attempt
+                            raise  # Re-raise the error
+                        await asyncio.sleep(min(wait_time, 300))  # Cap at 5 minutes
+                    except RPCError as e:
+                        if attempt == max_retries - 1:
+                            raise
+                        delay = base_delay * (2 ** attempt)  # Exponential backoff
+                        self.logger.warning(f"RPC Error on {channel_username}, retrying in {delay}s")
+                        await asyncio.sleep(delay)
 
             channel_info = {
                 "id": entity.id,
