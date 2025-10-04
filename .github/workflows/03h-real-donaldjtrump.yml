@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/03h-real-donaldjtrump.yml'
+      - '.github/workflows/scan-only-template.yml'
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ jobs:
     with:
       channel: real_DonaldJTrump
       data_dir: real_DonaldJTrump
-      depth: 5
-      max_messages: 999
+      depth: 2
+      max_messages: 99
       max_channels: 999
     secrets: inherit

@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 8 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/08h-seanfeucht.yml'
+      - '.github/workflows/scan-only-template.yml'
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ jobs:
     with:
       channel: seanfeucht
       data_dir: seanfeucht
-      depth: 5
-      max_messages: 999
+      depth: 2
+      max_messages: 99
       max_channels: 999
     secrets: inherit

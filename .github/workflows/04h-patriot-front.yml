@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/04h-patriot-front.yml'
+      - '.github/workflows/scan-only-template.yml'
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ jobs:
     with:
       channel: PatriotFrontUpdates
       data_dir: PatriotFrontUpdates
-      depth: 5
-      max_messages: 999
+      depth: 2
+      max_messages: 99
       max_channels: 999
     secrets: inherit

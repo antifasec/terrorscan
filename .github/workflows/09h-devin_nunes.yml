@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 9 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/09h-devin_nunes.yml'
+      - '.github/workflows/scan-only-template.yml'
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ jobs:
     with:
       channel: Devin_Nunes
       data_dir: devin_nunes
-      depth: 5
-      max_messages: 999
+      depth: 2
+      max_messages: 99
       max_channels: 999
     secrets: inherit
